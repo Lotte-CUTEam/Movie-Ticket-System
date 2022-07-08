@@ -1,11 +1,19 @@
 package dto;
 
+/**
+ * [프로젝트]롯데e커머스_자바전문가과정
+ * [시스템명]영화예매시스템
+ * [팀   명]CUTEam
+ * -----------------------------------------------------------
+ * 수정일자           수정자         수정내용
+ * 2022.07.08       이충현         신규생성
+ * -----------------------------------------------------------
+ */
 public class MemberDto {
     private int id;
     private String pwd;
     private String name;
     private String email;
-
     public int getId() {
         return id;
     }
@@ -18,12 +26,10 @@ public class MemberDto {
         return name;
     }
 
+    
     public String getEmail() {
         return email;
     }
-<<<<<<< Updated upstream
-
-=======
     
     /**
      * MemberDto
@@ -32,7 +38,6 @@ public class MemberDto {
      * @param name
      * @param email
      */
->>>>>>> Stashed changes
     public MemberDto(int id, String pwd, String name, String email) {
         this.id = id;
         this.pwd = pwd;
