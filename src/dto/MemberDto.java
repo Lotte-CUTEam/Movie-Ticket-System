@@ -21,7 +21,18 @@ public class MemberDto {
     public String getEmail() {
         return email;
     }
+<<<<<<< Updated upstream
 
+=======
+    
+    /**
+     * MemberDto
+     * @param id
+     * @param pwd
+     * @param name
+     * @param email
+     */
+>>>>>>> Stashed changes
     public MemberDto(int id, String pwd, String name, String email) {
         this.id = id;
         this.pwd = pwd;
