@@ -5,7 +5,7 @@ DROP TABLE  if exists `MOVIE`;
 
 
 CREATE TABLE `MEMBER` (
-	`member_id`	varchar(50)	NOT NULL  PRIMARY KEY , 
+	`member_id`	varchar(50)	NOT NULL  PRIMARY KEY ,
 	`name`	varchar(50)	NOT NULL,
 	`email`	varchar(200)	NOT NULL,
 	`pwd`	varchar(50)	NOT NULL,
@@ -21,7 +21,9 @@ CREATE TABLE `MOVIE` (
 	`opening_date`	timestamp	NULL,
 	`rating`	varchar(10)	NULL,
 	`runtime`	int	NULL,
-	`image_url`	varchar(500)	NULL
+	`image_url`	varchar(500)	NULL,
+    `genre`		varchar(100)	NULL,
+    `rated`		int				NOT NULL
 );
 
 CREATE TABLE `RESERVATION` (
@@ -37,12 +39,12 @@ CREATE TABLE `RESERVATION` (
 	`created_at`	timestamp	NOT NULL,
 	`deleted_at`	timestamp	NULL,
 	`status`	int	NOT NULL,
-	
+
 	PRIMARY KEY (reservation_id, member_id)
 );
 
 CREATE TABLE `SCREEN` (
-	`screen_id`	bigint	NOT NULL  auto_increment , 
+	`screen_id`	bigint	NOT NULL  auto_increment ,
 	`movie_id`	bigint	NOT NULL,
 	`screen_at`	timestamp	NOT NULL,
 	`cinema`	varchar(100)	NOT NULL,
