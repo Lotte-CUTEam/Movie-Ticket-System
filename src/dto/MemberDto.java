@@ -26,11 +26,11 @@ public class MemberDto {
         return name;
     }
 
-    
+
     public String getEmail() {
         return email;
     }
-    
+
     /**
      * MemberDto
      * @param id
@@ -42,6 +42,22 @@ public class MemberDto {
         this.id = id;
         this.pwd = pwd;
         this.name = name;
+        this.email = email;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEmail(String email) {
         this.email = email;
     }
 }
