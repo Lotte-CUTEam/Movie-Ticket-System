@@ -7,11 +7,13 @@ import java.time.LocalDateTime;
  * [프로젝트]롯데e커머스_자바전문가과정
  * [시스템명]영화예매시스템
  * [팀   명]CUTEam
+ * 
+ * 영화 예매 기능 개발
  * -----------------------------------------------------------
  * 수정일자           수정자         수정내용
- * 2022.07.08       장혜원         신규생성
+ * 2022.07.09       장혜원         신규생성
  * -----------------------------------------------------------
- */
+ */ 
 
 public class ReservationDto {
 
@@ -39,6 +41,10 @@ public class ReservationDto {
 
     private int status; // 관람 등급
 
+    public ReservationDto() {
+        // TODO Auto-generated constructor stub
+    }
+
     public ReservationDto(long reservationId, String memberId, long screenId, long movieId,
             LocalDateTime screenAt, int people_count, String cinema, String title, int runtime,
             LocalDateTime createdAt, LocalDateTime deleteddAt, int status) {
@@ -56,8 +62,8 @@ public class ReservationDto {
         this.status = status;
     }
 
-    
-    
+
+
     public long getReservationId() {
         return reservationId;
     }
@@ -139,8 +145,6 @@ public class ReservationDto {
                 + ", status=" + status + "]";
     }
 
-
-    
 
 
 }
