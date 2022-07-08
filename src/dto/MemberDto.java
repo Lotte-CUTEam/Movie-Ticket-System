@@ -1,17 +1,22 @@
 package dto;
 
 /**
- * [프로젝트]롯데e커머스_자바전문가과정 [시스템명]영화예매시스템 [팀 명]CUTEam
- * ----------------------------------------------------------- 수정일자 수정자 수정내용 2022.07.08 이충현 신규생성
+ * [프로젝트]롯데e커머스_자바전문가과정 
+ * [시스템명]영화예매시스템 
+ * [팀 명]CUTEam
+ * ----------------------------------------------------------- 
+ * 수정일자 수정자 수정내용 2022.07.08 이충현 신규생성
  * -----------------------------------------------------------
  */
 public class MemberDto {
-  private int id;
+  private String id;
   private String pwd;
   private String name;
   private String email;
 
-  public int getId() {
+  private String phoneNumber;
+
+  public String getId() {
     return id;
   }
 
@@ -23,6 +28,10 @@ public class MemberDto {
     return name;
   }
 
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
+
 
   public String getEmail() {
     return email;
@@ -30,20 +39,21 @@ public class MemberDto {
 
   /**
    * MemberDto
-   * 
+   *
    * @param id
    * @param pwd
    * @param name
    * @param email
    */
-  public MemberDto(int id, String pwd, String name, String email) {
+  public MemberDto(String id, String pwd, String name, String email, String phoneNumber) {
     this.id = id;
     this.pwd = pwd;
     this.name = name;
     this.email = email;
+    this.phoneNumber = phoneNumber;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -58,4 +68,9 @@ public class MemberDto {
   public void setEmail(String email) {
     this.email = email;
   }
+
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+
 }
