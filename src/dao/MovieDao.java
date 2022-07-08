@@ -44,12 +44,15 @@ public class MovieDao {
             PreparedStatement psmt = conn.prepareStatement(sql);
             )
         {
+            System.out.println("[MovieDao] getMovies: success db connection. ");
+
             try (
                 ResultSet rs = psmt.executeQuery();
                 )
             {
                 List<MovieDto> list = new ArrayList<>();
                 while (rs.next()) {
+                    System.out.println("[MovieDao] getMovies: success get movie from db. ");
                     MovieDto dto = new MovieDto(rs.getLong(1),
                                                 rs.getString(2),
                                                 rs.getString(3),
@@ -62,6 +65,8 @@ public class MovieDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        System.out.println("[MovieDao] getMovies: fail get movie. ");
 
         return null;
     }
