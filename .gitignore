@@ -73,6 +73,7 @@ local.properties
 
 # IntelliJ
 .idea
+*.iml
 
 # User-specific stuff
 .idea/**/workspace.xml
