@@ -12,8 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * [프로젝트]롯데e커머스_자바전문가과정 [시스템명]영화예매시스템 [팀   명]CUTEam -----------------------------------------------------------
- * 수정일자           수정자         수정내용 2022.07.08       권나연         신규생성
+ * [프로젝트]롯데e커머스_자바전문가과정
+ * [시스템명]영화예매시스템
+ * [팀   명]CUTEam -----------------------------------------------------------
+ * 수정일자           수정자         수정내용
+ * 2022.07.08       권나연         신규생성
  * -----------------------------------------------------------
  */
 
@@ -33,17 +36,17 @@ public class MemberController extends HttpServlet {
             case "list":
                 List<MovieDto> movies = movieDao.getMovies();
                 // TODO [영화 목록] Controller throw Exception
-
                 req.setAttribute("movies", movies);
-
                 forward("/movie/movieList.jsp", req, resp);
-
                 break;
 
             case "detail":
                 break;
 
             case "names":
+                List<MovieDto> movieNames = movieDao.getMovieNames();
+                req.setAttribute("movies", movieNames);
+                // TODO [영화 목록] 영화 이름 리스트 ReservationController 쪽으로 넘기기
                 break;
         }
     }
@@ -59,9 +62,5 @@ public class MemberController extends HttpServlet {
     public void forward(String arg, HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
         RequestDispatcher dispatch = req.getRequestDispatcher(arg);
         dispatch.forward(req, resp);
-    }
-
-    private List<MovieDto> getMovies() {
-        return movieDao.getMovies();
     }
 }
