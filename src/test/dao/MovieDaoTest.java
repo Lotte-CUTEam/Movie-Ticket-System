@@ -36,6 +36,7 @@ public class MovieDaoTest {
 
         // then
         Assertions.assertNotNull(movies);
+        movies.forEach(System.out::println);
     }
 
     @DisplayName("아이디 기반 영화 조회")
@@ -55,5 +56,18 @@ public class MovieDaoTest {
 
         // then
         Assertions.assertEquals(movieDto, findMovieDto);
+    }
+
+    @DisplayName("영화 이름 목록 조회")
+    @Test
+    void getMovieNames() {
+        // given
+
+        // when
+        List<MovieDto> movieNames = movieDao.getMovieNames();
+
+        // then
+        Assertions.assertNotNull(movieNames);
+        movieNames.forEach(System.out::println);
     }
 }
