@@ -4,6 +4,7 @@ import dao.MovieDao;
 import dto.MovieDto;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,6 +26,18 @@ public class MovieDaoTest {
     String pattern = "yyyy-MM-dd HH:mm:ss";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
+    @DisplayName("영화 목록 조회 - 리스트 널 체크")
+    @Test
+    void getMovies() {
+        // given
+
+        // when
+        List<MovieDto> movies = movieDao.getMovies();
+
+        // then
+        Assertions.assertNotNull(movies);
+    }
+
     @DisplayName("아이디 기반 영화 조회")
     @Test
     void getMovie() {
@@ -43,5 +56,4 @@ public class MovieDaoTest {
         // then
         Assertions.assertEquals(movieDto, findMovieDto);
     }
-
 }
