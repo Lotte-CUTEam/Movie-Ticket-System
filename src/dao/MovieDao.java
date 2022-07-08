@@ -66,7 +66,7 @@ public class MovieDao {
             e.printStackTrace();
         }
 
-        System.out.println("[MovieDao] getMovies: fail get movie. ");
+        System.out.println("[MovieDao] getMovies: fail get movies. ");
 
         return null;
     }
@@ -112,6 +112,44 @@ public class MovieDao {
         }
 
         System.out.println("[MovieDao] getMovie: fail get movie. ");
+
+        return null;
+    }
+
+    public List<MovieDto> getMovieNames() {
+
+        String sql = " SELECT movie_id, title "
+                    + " FROM MOVIE ";
+
+        try (
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement psmt = conn.prepareStatement(sql);
+        )
+        {
+            System.out.println("[MovieDao] getMovieNames: success db connection. ");
+
+            try (
+                ResultSet rs = psmt.executeQuery();
+            )
+            {
+                List<MovieDto> list = new ArrayList<>();
+                while (rs.next()) {
+                    System.out.println("[MovieDao] getMovieNames: success get movie from db. ");
+
+                    MovieDto movieDto = new MovieDto(rs.getLong(1),
+                                                    rs.getString(2));
+
+                    list.add(movieDto);
+                }
+
+                return list;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("[MovieDao] getMovieNames: fail get movie names. ");
+
 
         return null;
     }
