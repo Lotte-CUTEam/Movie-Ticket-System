@@ -1,6 +1,7 @@
 package dto;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * [프로젝트]롯데e커머스_자바전문가과정
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 
 public class MovieDto {
 
-    private long movieId; // 아이디 [식별자]
+    private Long movieId; // 아이디 [식별자]
 
     private String title; // 제목
 
@@ -26,20 +27,19 @@ public class MovieDto {
 
     private String rating; // 평점
 
-    private int runtime; // 러닝타임
+    private Integer runtime; // 러닝타임
 
     private String imageUrl; // 포스터 이미지 URL
 
     private String genre; // 장르
 
-    private int rated; // 관람 등급
+    private Integer rated; // 관람 등급
 
     /* [조회] 영화 데이터 from 데이터베이스  */
     /* [전송] 영화 상세정보 */
-
-    public MovieDto(long movieId, String title, String director, String actor,
-        LocalDateTime openingDate, String rating, int runtime, String imageUrl, String genre,
-        int rated) {
+    public MovieDto(Long movieId, String title, String director, String actor,
+        LocalDateTime openingDate, String rating, Integer runtime, String imageUrl,
+        String genre, Integer rated) {
         this.movieId = movieId;
         this.title = title;
         this.director = director;
@@ -53,9 +53,8 @@ public class MovieDto {
     }
 
     /* [저장] 크롤링 데이터 to 데이터베이스 */
-
     public MovieDto(String title, String director, String actor, LocalDateTime openingDate,
-        String rating, int runtime, String imageUrl, String genre, int rated) {
+        String rating, Integer runtime, String imageUrl, String genre, Integer rated) {
         this.title = title;
         this.director = director;
         this.actor = actor;
@@ -68,7 +67,7 @@ public class MovieDto {
     }
 
     /* [전송] 영화 목록 */
-    public MovieDto(long movieId, String title, String rating, String imageUrl, int rated) {
+    public MovieDto(Long movieId, String title, String rating, String imageUrl, Integer rated) {
         this.movieId = movieId;
         this.title = title;
         this.rating = rating;
@@ -90,6 +89,29 @@ public class MovieDto {
             ", genre='" + genre + '\'' +
             ", rated=" + rated +
             '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MovieDto movieDto = (MovieDto) o;
+        return movieId.equals(movieDto.movieId) && title.equals(movieDto.title) && director.equals(
+            movieDto.director) && Objects.equals(actor, movieDto.actor)
+            && Objects.equals(openingDate, movieDto.openingDate) && Objects.equals(
+            rating, movieDto.rating) && Objects.equals(runtime, movieDto.runtime)
+            && Objects.equals(imageUrl, movieDto.imageUrl) && Objects.equals(genre,
+            movieDto.genre) && rated.equals(movieDto.rated);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(movieId, title, director, actor, openingDate, rating, runtime, imageUrl,
+            genre, rated);
     }
 }
 
