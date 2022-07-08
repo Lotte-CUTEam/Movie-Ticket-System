@@ -22,8 +22,8 @@ CREATE TABLE `MOVIE` (
 	`rating`	varchar(10)	NULL,
 	`runtime`	int	NULL,
 	`image_url`	varchar(500)	NULL,
-    `genre`		varchar(100)	NULL,
-    `rated`		int				NOT NULL
+    	`genre`		varchar(100)	NULL,
+    	`rated`		int		NOT NULL
 );
 
 CREATE TABLE `RESERVATION` (
