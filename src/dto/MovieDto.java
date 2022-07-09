@@ -1,6 +1,7 @@
 package dto;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -136,8 +137,16 @@ public class MovieDto {
         return actor;
     }
 
-    public LocalDateTime getOpeningDate() {
-        return openingDate;
+    public String getOpeningDate() {
+
+        /*String pattern = "yyyy-MM-dd";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);*/
+
+        //LocalDateTime.parse(openingDate.toString(), formatter);
+
+        String date = openingDate.toString().split("T")[0];
+
+        return date;
     }
 
     public String getRating() {
