@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * [프로젝트]롯데e커머스_자바전문가과정
@@ -22,20 +24,63 @@ public class MovieDao {
 
     private static MovieDao dao = new MovieDao();
 
-    private MovieDao() { }
+    private MovieDao() {
+        DBConnection.initConnection();
+    }
 
     public static MovieDao getInstance() {
         return dao;
     }
 
 
+<<<<<<< HEAD
     /***
      * 영화 상세정보 조회 메소드
      * @param movieId
      */
+=======
+    // TODO [영화 리스트] 모든 영화 리스트 출력 TOP5, Pagination, Filter
+    public List<MovieDto> getMovies() {
+
+        String sql = " SELECT movie_id, title, rating, image_url, rated "
+                    + " FROM MOVIE ";
+
+        try (
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement psmt = conn.prepareStatement(sql);
+            )
+        {
+            System.out.println("[MovieDao] getMovies: success db connection. ");
+
+            try (
+                ResultSet rs = psmt.executeQuery();
+                )
+            {
+                List<MovieDto> list = new ArrayList<>();
+                while (rs.next()) {
+                    System.out.println("[MovieDao] getMovies: success get movie from db. ");
+                    MovieDto dto = new MovieDto(rs.getLong(1),
+                                                rs.getString(2),
+                                                rs.getString(3),
+                                                rs.getString(4),
+                                                rs.getInt(5));
+                    list.add(dto);
+                }
+                return list;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("[MovieDao] getMovies: fail get movies. ");
+
+        return null;
+    }
+
+>>>>>>> 00a80d014175af29b0a9a2514f008132c13b2532
     public MovieDto getMovie(Long movieId) {
 
-        String sql = " select movie_id, title, director, actor, opening_date, rating, runtime, "
+        String sql = " SELECT movie_id, title, director, actor, opening_date, rating, runtime, "
                     + " image_url, genre, rated "
                     + " FROM MOVIE "
                     + " WHERE movie_id=?";
@@ -78,5 +123,42 @@ public class MovieDao {
         return null;
     }
 
+    public List<MovieDto> getMovieNames() {
+
+        String sql = " SELECT movie_id, title "
+                    + " FROM MOVIE ";
+
+        try (
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement psmt = conn.prepareStatement(sql);
+        )
+        {
+            System.out.println("[MovieDao] getMovieNames: success db connection. ");
+
+            try (
+                ResultSet rs = psmt.executeQuery();
+            )
+            {
+                List<MovieDto> list = new ArrayList<>();
+                while (rs.next()) {
+                    System.out.println("[MovieDao] getMovieNames: success get movie from db. ");
+
+                    MovieDto movieDto = new MovieDto(rs.getLong(1),
+                                                    rs.getString(2));
+
+                    list.add(movieDto);
+                }
+
+                return list;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("[MovieDao] getMovieNames: fail get movie names. ");
+
+
+        return null;
+    }
 
 }

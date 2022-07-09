@@ -75,6 +75,12 @@ public class MovieDto {
         this.rated = rated;
     }
 
+    /* [전송] 영화 이름 목록 */
+    public MovieDto(Long movieId, String title) {
+        this.movieId = movieId;
+        this.title = title;
+    }
+
     @Override
     public String toString() {
         return "MovieDto{" +

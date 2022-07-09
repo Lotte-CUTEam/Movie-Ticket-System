@@ -275,4 +275,5 @@ $RECYCLE.BIN/
 /build/
 .classpath
 .project
+classes
 ./bin/db/DBConnection.class
