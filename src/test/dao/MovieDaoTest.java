@@ -73,5 +73,31 @@ public class MovieDaoTest {
         Assertions.assertNotNull(movieNames);
         movieNames.forEach(System.out::println);
     }
+
+    @DisplayName("영화 평점 TOP5 조회")
+    @Test
+    void getMoviesScreeningRatingTop5() {
+        // given
+
+        // when
+        List<MovieDto> movies = movieDao.getMoviesScreeningRatingTop5();
+
+        // then
+        Assertions.assertNotNull(movies);
+        movies.forEach(System.out::println);
+    }
+
+    @DisplayName("영화 최신작 TOP5 조회")
+    @Test
+    void getMoviesLatestScreeningTop5() {
+        // given
+
+        // when
+        List<MovieDto> movies = movieDao.getMoviesLatestScreeningTop5();
+
+        // then
+        Assertions.assertNotNull(movies);
+        movies.forEach(System.out::println);
+    }
 }
 
