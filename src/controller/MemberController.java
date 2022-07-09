@@ -2,6 +2,7 @@ package controller;
 
 import dao.MemberDao;
 import dto.MemberDto;
+import javax.servlet.annotation.WebServlet;
 import net.sf.json.JSONObject;
 
 import java.io.IOException;
