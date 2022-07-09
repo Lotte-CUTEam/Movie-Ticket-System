@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 @WebServlet("/movie")
-public class MemberController extends HttpServlet {
+public class MovieController extends HttpServlet {
 
     private MovieDao movieDao = MovieDao.getInstance();
 
