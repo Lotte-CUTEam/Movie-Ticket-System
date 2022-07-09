@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/swiper.css">
+    \<link rel="stylesheet" href="assets/css/style_moviedetail.css">
 </head>
 <body>
 
@@ -51,6 +52,108 @@
         </div>
     </div>
 </header>
+
+<div class="detail_top_wrap">
+    <div class="poster_info">
+        <img src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202207/18748_103_1.jpg" alt="토르: 러브 앤 썬더"></div>
+    <div class="tit_info">
+        <span class="ic_grade gr_12">만12세이상관람가 </span>
+        <strong>토르: 러브 앤 썬더</strong>
+    </div>
+    <ul class="detail_info1">
+        <li class="sub_info1" style="cursor: pointer;">
+            <em>관람객 평점</em>
+            <strong class="txt_ic_score ty2">
+                <em>평점</em>
+                <strong>7.9 </strong>
+            </strong>
+        </li>
+        <li class="sub_info2">
+            <em>예매율 1위 </em>
+            <strong>48.5% </strong>
+        </li>
+        <li class="sub_info3">
+            <em>누적관객수</em>
+            <strong>831,866<em>명</em><span class="date_info"> </span>
+            </strong>
+        </li>
+    </ul>
+    <ul class="detail_info2">
+        <li class="sub_info1">
+            <em>장르</em>
+            <strong>
+                <em>액션, 어드벤쳐, 판타지 / 미국</em>
+                <em>2022.07.06 개봉</em>
+                <em class="time_info">119분</em>
+            </strong>
+        </li>
+        <li class="sub_info2">
+            <em>감독</em>
+            <strong class="line_type">
+                <a href="#none">타이카 와이티티</a></strong>
+        </li>
+        <li class="sub_info3">
+            <em>출연</em>
+            <strong class="line_type">
+                <a href="#none">크리스 헴스워스</a>,
+                <a href="#none">나탈리 포트만</a>,
+                <a href="#none">테사 톰슨</a>,
+                <a href="#none">크리스찬 베일</a>,
+                <a href="#none">타이카 와이티티</a>
+            </strong>
+        </li>
+    </ul>
+    <div class="spacial_hall_info">
+        <span>
+            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/e2a94c82115c46f7b326baee6e10266a.png" alt="샤롯데바로가기">
+        </span>
+        <span>
+            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/61fb906fbd9b4ff1b34d6e0bd78dc655.png" alt="수퍼4D 바로가기">
+        </span>
+        <span>
+            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/c9078226c9ad4085b1b629bee2aba138.png" alt="수퍼플렉스 바로가기">
+        </span>
+        <span>
+            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/3ffca854b1844fdc8b54d8d9db45a03f.png" alt="수퍼플렉스 G 바로가기">
+        </span>
+        <span>
+            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/ff43cb260a2647dbb5f3c62b709103c4.png" alt="수퍼S 바로가기">
+        </span>
+        <span>
+            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/5c23288d3a104f7fa4f7d3e725a2c6a8.PNG" alt="씨네컴포트">
+        </span>
+        <span>
+            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/208a5ede362244fb8ab2e5cc3ab07529.PNG" alt="씨네살롱">
+        </span>
+        <span>
+            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/2a366799460a49359bf93250f50852cf.png" alt="컬러리움">
+        </span>
+    </div>
+    <div class="movie_detail_aside_menu">
+        <ul>
+            <li>
+                <button type="button" class="btn_ic_share">
+                    <em>공유하기</em>
+                </button>
+                <div id="layerShare" class="layer_wrap layer_share">
+
+                </div>
+            </li>
+            <li>
+                <button type="button" id="mylikemovie" class="btn_ic_wish">
+                    <strong>좋아요</strong>
+                    <em>2,947</em>
+                </button>
+            </li>
+            <li class="area_reserve">
+                <a href="https://www.lottecinema.co.kr/NLCHS/ticketing?movieCd=18748&amp;movieName=토르%3A 러브 앤 썬더" class="btn_col1 ty7 rnd">예매하기</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
 
 <div align="center">
 
