@@ -50,7 +50,7 @@ div#contents::before{
 <!-- 퀵메뉴 -->
 <div class="quick_wrap" style="position: absolute; z-index: 11; right: 20px; padding-top: 150px; width: 82px; text-align: center; color:#000; display: block; overflow: hidden;">
 	<div class="quick_menu" id="quick_menu" style="padding-top: 15px; background-color: #fff; color: #000; box-shadow: 5px 3px 6px rgba(0,0,0,0.16); border-radius: 5px; overflow: hidden;">
-		<a href="" style="color: black; display: block;"><img src="../images/ticketing_icon.png"/></a>
+		<a href="" style="color: black; display: block;"><img src="images/ticketing_icon.png"/></a>
 		<!-- <div style="width: 100%; background-color: black;"> -->
 		<a href="#" class="qick_top" style="margin-top: 10px; background: #3e3d3d; font-size: 11px; color: #fff; letter-spacing: 5px; padding: 5px 5px 5px 13px; text-decoration: none; display: block; ">TOP</a>
 	</div><!-- </div> -->
@@ -92,7 +92,7 @@ div#contents::before{
 			%>
 			<div class="list-empty"
 				style="border: none; margin-top: 50px; margin-bottom: 50px; padding: 50px;">
-				<img src="../images/nodata_icon.png"/>
+				<img src="images/nodata_icon.png"/>
 				<p>예매 내역이 존재하지 않습니다.</p>
 			</div>
 			<%
