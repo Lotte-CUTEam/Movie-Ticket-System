@@ -1,12 +1,15 @@
+
 package test.dao;
 
 import dao.MovieDao;
 import dto.MovieDto;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 
 /**
  * [프로젝트]롯데e커머스_자바전문가과정
@@ -18,12 +21,26 @@ import org.junit.jupiter.api.Test;
  * -----------------------------------------------------------
  */
 
+
 public class MovieDaoTest {
 
     MovieDao movieDao = MovieDao.getInstance();
 
     String pattern = "yyyy-MM-dd HH:mm:ss";
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+
+    @DisplayName("영화 목록 조회 - 리스트 널 체크")
+    @Test
+    void getMovies() {
+        // given
+
+        // when
+        List<MovieDto> movies = movieDao.getMovies();
+
+        // then
+        Assertions.assertNotNull(movies);
+        movies.forEach(System.out::println);
+    }
 
     @DisplayName("아이디 기반 영화 조회")
     @Test
@@ -44,4 +61,43 @@ public class MovieDaoTest {
         Assertions.assertEquals(movieDto, findMovieDto);
     }
 
+    @DisplayName("영화 이름 목록 조회")
+    @Test
+    void getMovieNames() {
+        // given
+
+        // when
+        List<MovieDto> movieNames = movieDao.getMovieNames();
+
+        // then
+        Assertions.assertNotNull(movieNames);
+        movieNames.forEach(System.out::println);
+    }
+
+    @DisplayName("영화 평점 TOP5 조회")
+    @Test
+    void getMoviesScreeningRatingTop5() {
+        // given
+
+        // when
+        List<MovieDto> movies = movieDao.getMoviesScreeningRatingTop5();
+
+        // then
+        Assertions.assertNotNull(movies);
+        movies.forEach(System.out::println);
+    }
+
+    @DisplayName("영화 최신작 TOP5 조회")
+    @Test
+    void getMoviesLatestScreeningTop5() {
+        // given
+
+        // when
+        List<MovieDto> movies = movieDao.getMoviesLatestScreeningTop5();
+
+        // then
+        Assertions.assertNotNull(movies);
+        movies.forEach(System.out::println);
+    }
 }
+

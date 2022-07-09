@@ -1,16 +1,24 @@
+<%@page import="dto.MovieDto"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.MovieDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%!public String dot3(String msg) { // 글이 길 때 ...으로 줄임
 		String str = "";
-		if (msg.length() >= 8) {
-			str = msg.substring(0, 8);
+		if (msg.length() >= 7) {
+			str = msg.substring(0, 7);
 			str += "...";
 		} else {
 			str = msg.trim();
 		}
 		return str;
 	}%>
+	
+<%
+MovieDao movieDao = MovieDao.getInstance();
+List<MovieDto> movies = movieDao.getMovies();
+%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -52,7 +60,7 @@
 							<li><a href="#">영화관</a></li>
 							<li><a href="#">특별관</a></li>
 							<li><a href="#">마이페이지</a></li>
-							<li><a href="#">로그인</a></li>
+							<li><a href="member/login.jsp">로그인</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -135,471 +143,93 @@
 					<div class="movie_chart">
 						<div class="swiper-container2">
 							<div class="chart_cont1 swiper-wrapper">
+								<%
+								for (int i = 0; i < 8; i++) {
+								%>
 								<div class="swiper-slide">
 									<div class="poster">
 										<figure>
-											<img src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202207/18748_103_1.jpg" alt="토르">
+											<img src="<%=movies.get(i).getImageUrl()%>"
+												alt="<%=movies.get(i).getTitle()%>">
 										</figure>
 										<div class="rank">
-											<strong>1</strong>
+											<strong><%=i + 1%></strong>
 										</div>
 									</div>
 									<div class="infor">
 										<h3>
-											<span class="icon a15 ir_pm">12세 이상 관람</span> <strong><%=dot3("토르-러브 앤 썬더")%></strong>
+											<span class="icon a15 ir_pm">12세 이상 관람</span> <strong><%=dot3(movies.get(i).getTitle())%></strong>
 										</h3>
 										<div class="infor_btn">
 											<a href="#">상세정보</a> <a href="#">예매하기</a>
 										</div>
 									</div>
 								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202006/14702_101_1.jpg" alt="탑건">
-										</figure>
-										<div class="rank">
-											<strong>2</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon a15 ir_pm">12세 이상 관람</span> <strong><%=dot3("탑건:매버릭")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202206/18651_101_1.jpg" alt="헤어질 결심">
-										</figure>
-										<div class="rank">
-											<strong>3</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon a19 ir_pm">15세 이상 관람</span> <strong><%=dot3("헤어질 결심")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202205/18632_101_1.jpg" alt="범죄도시2">
-										</figure>
-										<div class="rank">
-											<strong>4</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon a19 ir_pm">15세 이상 관람</span> <strong><%=dot3("범죄도시2")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202007/15599_101_1.jpg" alt="미니언즈2">
-										</figure>
-										<div class="rank">
-											<strong>5</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon all ir_pm">전체관람가</span> <strong><%=dot3("미니언즈2")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202112/18089_101_1.jpg" alt="빅샤크4">
-										</figure>
-										<div class="rank">
-											<strong>6</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon all ir_pm">전체관람가</span> <strong><%=dot3("빅샤크4: 바다공룡 대모험")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202206/18750_101_1.jpg" alt="마녀2">
-										</figure>
-										<div class="rank">
-											<strong>7</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon a19 ir_pm">15세 이상 관람</span> <strong><%=dot3("마녀(魔女) Part2. The Other One")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202207/18805_101_1.jpg" alt="외계+인">
-										</figure>
-										<div class="rank">
-											<strong>8</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon a15 ir_pm">12세 이상 관람</span> <strong><%=dot3("외계+인 1부")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
+								<%
+								}
+								%>
 							</div>
 						</div>
 						<!-- //무비차트-->
 
 						<div class="swiper-container2">
 							<div class="chart_cont2 swiper-wrapper">
+								<%
+								for (int i = 8; i < 15; i++) {
+								%>
 								<div class="swiper-slide">
 									<div class="poster">
 										<figure>
-											<img src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202207/18748_103_1.jpg" alt="토르">
+											<img src="<%=movies.get(i).getImageUrl()%>"
+												alt="<%=movies.get(i).getTitle()%>">
 										</figure>
 										<div class="rank">
-											<strong>1</strong>
+											<strong><%=i - 7%></strong>
 										</div>
 									</div>
 									<div class="infor">
 										<h3>
-											<span class="icon a15 ir_pm">12세 이상 관람</span> <strong><%=dot3("토르-러브 앤 썬더")%></strong>
+											<span class="icon a15 ir_pm">12세 이상 관람</span> <strong><%=dot3(movies.get(i).getTitle())%></strong>
 										</h3>
 										<div class="infor_btn">
 											<a href="#">상세정보</a> <a href="#">예매하기</a>
 										</div>
 									</div>
 								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202006/14702_101_1.jpg" alt="탑건">
-										</figure>
-										<div class="rank">
-											<strong>2</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon a15 ir_pm">12세 이상 관람</span> <strong><%=dot3("탑건:매버릭")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202206/18651_101_1.jpg" alt="헤어질 결심">
-										</figure>
-										<div class="rank">
-											<strong>3</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon a19 ir_pm">15세 이상 관람</span> <strong><%=dot3("헤어질 결심")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202205/18632_101_1.jpg" alt="범죄도시2">
-										</figure>
-										<div class="rank">
-											<strong>4</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon a19 ir_pm">15세 이상 관람</span> <strong><%=dot3("범죄도시2")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202007/15599_101_1.jpg" alt="미니언즈2">
-										</figure>
-										<div class="rank">
-											<strong>5</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon all ir_pm">전체관람가</span> <strong><%=dot3("미니언즈2")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202112/18089_101_1.jpg" alt="빅샤크4">
-										</figure>
-										<div class="rank">
-											<strong>6</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon all ir_pm">전체관람가</span> <strong><%=dot3("빅샤크4: 바다공룡 대모험")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202206/18750_101_1.jpg" alt="마녀2">
-										</figure>
-										<div class="rank">
-											<strong>7</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon a19 ir_pm">15세 이상 관람</span> <strong><%=dot3("마녀(魔女) Part2. The Other One")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202207/18805_101_1.jpg" alt="외계+인">
-										</figure>
-										<div class="rank">
-											<strong>8</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon a15 ir_pm">12세 이상 관람</span> <strong><%=dot3("외계+인 1부")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
+								<%
+								}
+								%>
 							</div>
 						</div>
 						<!-- //최신개봉작-->
 
 						<div class="swiper-container2">
 							<div class="chart_cont3 swiper-wrapper">
+								<%
+								for (int i = 0; i < 8; i++) {
+								%>
 								<div class="swiper-slide">
 									<div class="poster">
 										<figure>
-											<img src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202207/18748_103_1.jpg" alt="토르">
+											<img src="<%=movies.get(i).getImageUrl()%>"
+												alt="<%=movies.get(i).getTitle()%>">
 										</figure>
 										<div class="rank">
-											<strong>1</strong>
+											<strong><%=i + 1%></strong>
 										</div>
 									</div>
 									<div class="infor">
 										<h3>
-											<span class="icon a15 ir_pm">12세 이상 관람</span> <strong><%=dot3("토르-러브 앤 썬더")%></strong>
+											<span class="icon a15 ir_pm">12세 이상 관람</span> <strong><%=dot3(movies.get(i).getTitle())%></strong>
 										</h3>
 										<div class="infor_btn">
 											<a href="#">상세정보</a> <a href="#">예매하기</a>
 										</div>
 									</div>
 								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202006/14702_101_1.jpg" alt="탑건">
-										</figure>
-										<div class="rank">
-											<strong>2</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon a15 ir_pm">12세 이상 관람</span> <strong><%=dot3("탑건:매버릭")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202206/18651_101_1.jpg" alt="헤어질 결심">
-										</figure>
-										<div class="rank">
-											<strong>3</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon a19 ir_pm">15세 이상 관람</span> <strong><%=dot3("헤어질 결심")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202205/18632_101_1.jpg" alt="범죄도시2">
-										</figure>
-										<div class="rank">
-											<strong>4</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon a19 ir_pm">15세 이상 관람</span> <strong><%=dot3("범죄도시2")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202007/15599_101_1.jpg" alt="미니언즈2">
-										</figure>
-										<div class="rank">
-											<strong>5</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon all ir_pm">전체관람가</span> <strong><%=dot3("미니언즈2")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202112/18089_101_1.jpg" alt="빅샤크4">
-										</figure>
-										<div class="rank">
-											<strong>6</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon all ir_pm">전체관람가</span> <strong><%=dot3("빅샤크4: 바다공룡 대모험")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202206/18750_101_1.jpg" alt="마녀2">
-										</figure>
-										<div class="rank">
-											<strong>7</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon a19 ir_pm">15세 이상 관람</span> <strong><%=dot3("마녀(魔女) Part2. The Other One")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
-								<div class="swiper-slide">
-									<div class="poster">
-										<figure>
-											<img
-												src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202207/18805_101_1.jpg" alt="외계+인">
-										</figure>
-										<div class="rank">
-											<strong>8</strong>
-										</div>
-									</div>
-									<div class="infor">
-										<h3>
-											<span class="icon a15 ir_pm">12세 이상 관람</span> <strong><%=dot3("외계+인 1부")%></strong>
-										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
-									</div>
-								</div>
+								<%
+								}
+								%>
 							</div>
 						</div>
 						<!-- //상영예정작-->

@@ -75,6 +75,12 @@ public class MovieDto {
         this.rated = rated;
     }
 
+    /* [전송] 영화 이름 목록 */
+    public MovieDto(Long movieId, String title) {
+        this.movieId = movieId;
+        this.title = title;
+    }
+
     @Override
     public String toString() {
         return "MovieDto{" +
@@ -112,6 +118,46 @@ public class MovieDto {
     public int hashCode() {
         return Objects.hash(movieId, title, director, actor, openingDate, rating, runtime, imageUrl,
             genre, rated);
+    }
+
+    public Long getMovieId() {
+        return movieId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public String getActor() {
+        return actor;
+    }
+
+    public LocalDateTime getOpeningDate() {
+        return openingDate;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public Integer getRuntime() {
+        return runtime;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public Integer getRated() {
+        return rated;
     }
 }
 

@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * [프로젝트]롯데e커머스_자바전문가과정
@@ -22,16 +24,56 @@ public class MovieDao {
 
     private static MovieDao dao = new MovieDao();
 
-    private MovieDao() { }
+    private MovieDao() {
+        DBConnection.initConnection();
+    }
 
     public static MovieDao getInstance() {
         return dao;
     }
 
+    /* 전체 영화 리스트 */
+    public List<MovieDto> getMovies() {
 
+        String sql = " SELECT movie_id, title, rating, image_url, rated "
+                    + " FROM MOVIE ";
+
+        try (
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement psmt = conn.prepareStatement(sql);
+            )
+        {
+            System.out.println("[MovieDao] getMovies: success db connection. ");
+
+            try (
+                ResultSet rs = psmt.executeQuery();
+                )
+            {
+                List<MovieDto> list = new ArrayList<>();
+                while (rs.next()) {
+                    System.out.println("[MovieDao] getMovies: success get movie from db. ");
+                    MovieDto dto = new MovieDto(rs.getLong(1),
+                                                rs.getString(2),
+                                                rs.getString(3),
+                                                rs.getString(4),
+                                                rs.getInt(5));
+                    list.add(dto);
+                }
+                return list;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("[MovieDao] getMovies: fail get movies. ");
+
+        return null;
+    }
+
+    /* 영화 */
     public MovieDto getMovie(Long movieId) {
 
-        String sql = " select movie_id, title, director, actor, opening_date, rating, runtime, "
+        String sql = " SELECT movie_id, title, director, actor, opening_date, rating, runtime, "
                     + " image_url, genre, rated "
                     + " FROM MOVIE "
                     + " WHERE movie_id=?";
@@ -74,5 +116,128 @@ public class MovieDao {
         return null;
     }
 
+    /* 영화 이름 리스트 */
+    public List<MovieDto> getMovieNames() {
 
+        String sql = " SELECT movie_id, title "
+                    + " FROM MOVIE ";
+
+        try (
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement psmt = conn.prepareStatement(sql);
+        )
+        {
+            System.out.println("[MovieDao] getMovieNames: success db connection. ");
+
+            try (
+                ResultSet rs = psmt.executeQuery();
+            )
+            {
+                List<MovieDto> list = new ArrayList<>();
+                while (rs.next()) {
+                    MovieDto movieDto = new MovieDto(rs.getLong(1),
+                                                    rs.getString(2));
+
+                    list.add(movieDto);
+                }
+
+                System.out.println("[MovieDao] getMovieNames: success get movie from db. ");
+
+                return list;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("[MovieDao] getMovieNames: fail get movie names. ");
+
+
+        return null;
+    }
+
+    /* 영화 평점 TOP5 리스트  */
+    public List<MovieDto> getMoviesScreeningRatingTop5() {
+
+        String sql = " SELECT movie_id, title, rating, image_url, rated "
+                    + "FROM ("
+                    + "         SELECT *, RANK() OVER (ORDER BY rating DESC) "
+                    + "         FROM MOVIE "
+                    + "      ) rating_rank "
+                    + "LIMIT 5";
+
+        try (
+                Connection conn = DBConnection.getConnection();
+                PreparedStatement psmt = conn.prepareStatement(sql);
+            )
+        {
+            System.out.println("[MovieDao] getMoviesScreeningRatingTop5: success db connection. ");
+
+            try (ResultSet rs = psmt.executeQuery()) {
+                List<MovieDto> list = new ArrayList<>();
+
+                while (rs.next()) {
+                    MovieDto dto = new MovieDto(rs.getLong(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5));
+
+                    list.add(dto);
+                }
+                System.out.println("[MovieDao] getMoviesScreeningRatingTop5: success get movies.");
+
+                return list;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("[MovieDao] getMoviesScreeningRatingTop5: fail get movies.");
+
+        return null;
+    }
+
+    /* 영화 최신작 TOP5 리스트 */
+    public List<MovieDto> getMoviesLatestScreeningTop5() {
+
+        String sql = " SELECT movie_id, title, rating, image_url, rated "
+                    + " FROM ("
+                    + "         SELECT *, RANK() OVER (ORDER BY opening_date DESC) "
+                    + "         FROM MOVIE"
+                    + "     ) opening_date_rank "
+                    + " LIMIT 5 ";
+
+        try (
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement psmt = conn.prepareStatement(sql);
+        )
+        {
+            System.out.println("[MovieDao] getMoviesLatestScreeningTop5: success db connection. ");
+
+            try (ResultSet rs = psmt.executeQuery()) {
+                List<MovieDto> list = new ArrayList<>();
+
+                while (rs.next()) {
+                    MovieDto dto = new MovieDto(rs.getLong(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5));
+
+                    list.add(dto);
+                }
+                System.out.println("[MovieDao] getMoviesLatestScreeningTop5: success get movies.");
+
+                return list;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("[MovieDao] getMoviesLatestScreeningTop5: fail get movies.");
+
+        return null;
+    }
 }

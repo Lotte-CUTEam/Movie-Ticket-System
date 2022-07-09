@@ -275,3 +275,7 @@ $RECYCLE.BIN/
 /build/
 .classpath
 .project
+classes
+
+# src/config/properties
+**/*.properties
