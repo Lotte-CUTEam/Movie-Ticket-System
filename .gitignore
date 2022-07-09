@@ -276,4 +276,6 @@ $RECYCLE.BIN/
 .classpath
 .project
 classes
+
+src/db/DBConnection.java
 ./bin/db/DBConnection.class
