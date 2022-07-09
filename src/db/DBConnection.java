@@ -4,6 +4,8 @@ package db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
+import util.PropertyParser;
 
 public class DBConnection {
 	
@@ -17,10 +19,12 @@ public class DBConnection {
 	}
 	
 	public static Connection getConnection() {
-		String url = "jdbc:mysql://localhost:3306/mydb";
-		String user = "root";
-		String password = "1234";
-		
+		Properties prop = PropertyParser.getInstance().readProperties("../config/db.properties");
+
+		String url = prop.getProperty("db.url");
+		String user = prop.getProperty("db.username");
+		String password = prop.getProperty("db.password");
+
 		Connection conn = null;
 
 		try {

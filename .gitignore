@@ -276,4 +276,6 @@ $RECYCLE.BIN/
 .classpath
 .project
 classes
-./bin/db/DBConnection.class
+
+# src/config/properties
+**/*.properties
