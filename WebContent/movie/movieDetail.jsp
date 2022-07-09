@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/swiper.css">
-    \<link rel="stylesheet" href="assets/css/style_moviedetail.css">
+    <link rel="stylesheet" href="assets/css/style_moviedetail.css">
 </head>
 <body>
 
@@ -55,42 +55,49 @@
 
 <div class="detail_top_wrap">
     <div class="poster_info">
-        <img src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202207/18748_103_1.jpg" alt="토르: 러브 앤 썬더"></div>
+        <img src="<%= dto.getImageUrl()%>" name="movieImage">
+        <%--<img src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202207/18748_103_1.jpg" alt="토르: 러브 앤 썬더"></div>--%>
     <div class="tit_info">
-        <span class="ic_grade gr_12">만12세이상관람가 </span>
-        <strong>토르: 러브 앤 썬더</strong>
+        <span class="ic_grade gr_12">만<%= dto.getRated()%>이상관람가 </span>
+        <strong><%= dto.getTitle()%></strong>
     </div>
     <ul class="detail_info1">
         <li class="sub_info1" style="cursor: pointer;">
             <em>관람객 평점</em>
             <strong class="txt_ic_score ty2">
                 <em>평점</em>
-                <strong>7.9 </strong>
+                <strong><%= dto.getRating()%> </strong>
             </strong>
         </li>
-        <li class="sub_info2">
-            <em>예매율 1위 </em>
-            <strong>48.5% </strong>
-        </li>
-        <li class="sub_info3">
+        <%--<li class="sub_info3">
             <em>누적관객수</em>
             <strong>831,866<em>명</em><span class="date_info"> </span>
             </strong>
-        </li>
+        </li>--%>
     </ul>
     <ul class="detail_info2">
         <li class="sub_info1">
             <em>장르</em>
             <strong>
-                <em>액션, 어드벤쳐, 판타지 / 미국</em>
-                <em>2022.07.06 개봉</em>
-                <em class="time_info">119분</em>
+                <em><%= dto.getGenre()%>></em>
+                <em><%= dto.getOpeningDate()%>>개봉</em>
+                <em class="time_info"><%= dto.getRuntime()%>분</em>
             </strong>
         </li>
         <li class="sub_info2">
             <em>감독</em>
             <strong class="line_type">
-                <a href="#none">타이카 와이티티</a></strong>
+                <a href="#none">
+                    <%
+                        String[] arr = dto.getDirector().split(",");
+
+                        for(String n : arr) {
+                            %>
+                            <%= n%>
+                            <%
+                        }
+                    %>
+                </a></strong>
         </li>
         <li class="sub_info3">
             <em>출연</em>
