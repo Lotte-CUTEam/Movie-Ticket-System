@@ -17,14 +17,13 @@ public class DBConnection {
 	}
 	
 	public static Connection getConnection() {
-		String url = "jdbc:mysql://localhost:3306/moviedb";
+		String url = "jdbc:mysql://localhost:3306/mydb";
 		String user = "root";
-		String password = "znzlcodud123";
+		String password = "1234";
 		
 		Connection conn = null;
 
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(url, user, password);
 			System.out.println("MySQL connection Success");
 		} catch (SQLException e) {
