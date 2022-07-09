@@ -29,6 +29,10 @@ public class MovieDao {
     }
 
 
+    /***
+     * 영화 상세정보 조회 메소드
+     * @param movieId
+     */
     public MovieDto getMovie(Long movieId) {
 
         String sql = " select movie_id, title, director, actor, opening_date, rating, runtime, "
