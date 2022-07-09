@@ -28,8 +28,10 @@ public class DBConnection {
 			System.out.println("MySQL connection Success");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
 		}
-		
+
 		return conn;
 
 	}

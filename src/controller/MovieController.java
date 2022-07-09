@@ -1,3 +1,5 @@
+
+
 package controller;
 
 import dao.MovieDao;
@@ -13,10 +15,15 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * [프로젝트]롯데e커머스_자바전문가과정
+ *
  * [시스템명]영화예매시스템
+ *
  * [팀   명]CUTEam -----------------------------------------------------------
+ *
  * 수정일자           수정자         수정내용
+ *
  * 2022.07.08       권나연         신규생성
+ *
  * -----------------------------------------------------------
  */
 
@@ -64,3 +71,4 @@ public class MovieController extends HttpServlet {
         dispatch.forward(req, resp);
     }
 }
+
