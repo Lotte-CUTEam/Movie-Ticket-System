@@ -33,12 +33,6 @@ public class MovieDao {
     }
 
 
-<<<<<<< HEAD
-    /***
-     * 영화 상세정보 조회 메소드
-     * @param movieId
-     */
-=======
     // TODO [영화 리스트] 모든 영화 리스트 출력 TOP5, Pagination, Filter
     public List<MovieDto> getMovies() {
 
@@ -77,7 +71,6 @@ public class MovieDao {
         return null;
     }
 
->>>>>>> 00a80d014175af29b0a9a2514f008132c13b2532
     public MovieDto getMovie(Long movieId) {
 
         String sql = " SELECT movie_id, title, director, actor, opening_date, rating, runtime, "

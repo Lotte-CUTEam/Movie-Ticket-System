@@ -1,3 +1,4 @@
+
 package test.dao;
 
 import dao.MovieDao;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+
 /**
  * [프로젝트]롯데e커머스_자바전문가과정
  * [시스템명]영화예매시스템
@@ -18,6 +20,7 @@ import org.junit.jupiter.api.Test;
  * 2022.07.08       권나연         신규생성
  * -----------------------------------------------------------
  */
+
 
 public class MovieDaoTest {
 
@@ -71,3 +74,4 @@ public class MovieDaoTest {
         movieNames.forEach(System.out::println);
     }
 }
+
