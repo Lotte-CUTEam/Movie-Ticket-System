@@ -16,9 +16,12 @@ import javax.servlet.http.HttpServletResponse;
  * [시스템명]영화예매시스템 
  * [팀 명]CUTEam
  * ----------------------------------------------------------- 
- * 수정일자 수정자 수정내용 2022.07.08 이충현 신규생성
+ * 수정일자      수정자      수정내용 
+ * 2022.07.08   이충현       신규생성
+ * 2022.07.09   정은우       @webservlet 추가
  * -----------------------------------------------------------
  */
+@WebServlet("/member")
 public class MemberController extends HttpServlet {
 
 
