@@ -41,13 +41,17 @@ public class MovieController extends HttpServlet {
 
         switch (param) {
             case "list":
-                List<MovieDto> movies = movieDao.getMovies();
                 // TODO [영화 목록] Controller throw Exception
-                req.setAttribute("movies", movies);
-                forward("/movie/movieList.jsp", req, resp);
-                break;
+                List<MovieDto> ratingTop5 = movieDao.getMoviesScreeningRatingTop5();
+                List<MovieDto> latestTop5 = movieDao.getMoviesLatestScreeningTop5();
+                List<MovieDto> movies = movieDao.getMovies();
 
-            case "detail":
+                req.setAttribute("rating-top5", ratingTop5);
+                req.setAttribute("latest-top5", latestTop5);
+                req.setAttribute("movies", movies);
+
+                forward("/movie/movieList.jsp", req, resp);
+
                 break;
 
             case "names":

@@ -22,9 +22,9 @@
 <title>롯데시네마 구현하기</title>
 
 <!-- css -->
-<link rel="stylesheet" href="assets/css/reset.css">
-<link rel="stylesheet" href="assets/css/style_movieList.css">
-<link rel="stylesheet" href="assets/css/swiper.css">
+<link rel="stylesheet" href="/assets/css/reset.css">
+<link rel="stylesheet" href="/assets/css/style_movieList.css">
+<link rel="stylesheet" href="/assets/css/swiper.css">
 
 <!-- 웹 폰트 -->
 <link
@@ -39,7 +39,7 @@
 			<div class="row">
 				<div class="header clearfix">
 					<h1>
-						<a href="#"> <em><img src="assets/img/cute-logo.png" alt="LOTTE"></em>
+						<a href="#"> <em><img src="/assets/img/cute-logo.png" alt="LOTTE"></em>
 						</a>
 					</h1>
 					<nav id="mNav">
