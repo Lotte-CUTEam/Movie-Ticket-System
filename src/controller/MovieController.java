@@ -41,14 +41,44 @@ public class MovieController extends HttpServlet {
 
         switch (param) {
             case "list":
+                String searchCategory = req.getParameter("searchCategory");
+                String search = req.getParameter("search");
+                String spageNo = req.getParameter("pageNo");
+                String filter = req.getParameter("filter");
+                int pageNo = 0;
+
+                if (searchCategory == null) {
+                    searchCategory = "";
+                }
+                if (search == null) {
+                    search = "";
+                }
+                if (spageNo != null && !spageNo.equals("")) {
+                    pageNo = Integer.parseInt(spageNo);
+                }
+                if (filter == null) {
+                    filter = "";
+                }
+
                 // TODO [영화 목록] Controller throw Exception
                 List<MovieDto> ratingTop5 = movieDao.getMoviesScreeningRatingTop5();
                 List<MovieDto> latestTop5 = movieDao.getMoviesLatestScreeningTop5();
-                List<MovieDto> movies = movieDao.getMovies();
+                List<MovieDto> movies = movieDao.getMovies(searchCategory, search, pageNo, filter);
 
                 req.setAttribute("rating-top5", ratingTop5);
                 req.setAttribute("latest-top5", latestTop5);
                 req.setAttribute("movies", movies);
+
+                Integer movieCnt = movieDao.getMovieCount();
+                // TODO: NULL 체크
+
+
+                int pageCnt = movieCnt / MovieDao.PAGE_CONTENT_COUNT;
+                if ((pageCnt%MovieDao.PAGE_CONTENT_COUNT) > 0) {
+                    pageCnt = pageCnt + 1;
+                }
+                req.setAttribute("pageCnt", pageCnt);
+                req.setAttribute("pageNo", pageNo);
 
                 forward("/movie/movieList.jsp", req, resp);
 

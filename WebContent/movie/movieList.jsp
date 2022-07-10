@@ -6,6 +6,22 @@
     List<MovieDto> ratingTop5 = (List<MovieDto>) request.getAttribute("rating-top5");
     List<MovieDto> latestTop5 = (List<MovieDto>) request.getAttribute("latest-top5");
     List<MovieDto> movies = (List<MovieDto>) request.getAttribute("movies");
+
+    String searchCategory = (String) request.getAttribute("searchCategory");
+    String search = (String) request.getAttribute("search");
+    int pageCnt = (Integer) request.getAttribute("pageCnt");
+    int pageNo = (Integer) request.getAttribute("pageNo");
+    String filter = (String) request.getAttribute("filter");
+
+    if (searchCategory == null) {
+        searchCategory = "";
+    }
+    if (search == null) {
+        search = "";
+    }
+    if (filter == null) {
+        filter = "";
+    }
 %>
 <%!public String dot3(String msg) { // 글이 길 때 ...으로 줄임
     String str = "";
@@ -134,9 +150,7 @@
 </section>
 <!-- //banner -->
 
-<section>
-    hello ?
-</section>
+
 <section id="movie">
     <div class="container">
         <div class="row">
@@ -150,6 +164,44 @@
                     </ul>
                 </div>
 
+                <div class="movie_page">
+                    <!-- FIXME 페이징 필터 -->
+                    <%
+                        for (int i=0; i<pageCnt; i++) {
+                            if (pageNo == i) {
+                    %>
+                                <span style="background: red">
+                                    <%=i + 1%>
+                                </span>
+                    <%
+                            }
+                            else {
+                    %>
+                                <a href="#" title="<%=i + 1%> 페이지" onclick="goPage(<%=i%>)">
+                                    [<%=i + 1%>]
+                                </a>
+                    <%
+                            }
+                        }
+                    %>
+                </div>
+
+                <div class="movie_filter">
+                    <span title="rating" onclick="goFilter('rating')">평점순</span> &nbsp;&nbsp;
+                    <span title="opening_date" onclick="goFilter('opening_date')">최신 개봉순</span> &nbsp;&nbsp;
+                </div>
+
+                <div class="movie_search">
+                    <select id="searchCategory">
+                        <option>검색</option>
+                        <option value="title">제목</option>
+                        <option value="director">감독</option>
+                        <option value="actor">배우</option>
+                    </select>
+
+                    <input type="text" id="search" value="<%=search %>">
+                    <button type="button" onclick="searchMovie()">검색</button>
+                </div>
 
                 <div class="movie_chart">
                     <!-- 영화 평점 TOP5 -->
@@ -221,6 +273,7 @@
 
                     <!-- 모든 영화 -->
                     <div class="chart_cont3">
+
                         <%
                             for (int i=0; i<movies.size(); i++) {
                                 MovieDto movie = movies.get(i);
@@ -232,7 +285,7 @@
                                 </figure>
                                 <div class="rank">
                                     <strong>
-                                        <%=i + 1%>
+                                        <%=movie.getRated()%> <!-- 관람 등급 -->
                                     </strong>
                                 </div>
                             </div>
@@ -333,7 +386,6 @@
   });
 
   // 4번째 영화 오른쪽 마진 0 설정
-
   for (let i=0; i<movCont.length; i++) {
     let movDiv = movCont.eq(i).children(".movie_div");
     for (let j=0; j<movDiv.length; j++) {
@@ -343,6 +395,31 @@
     }
   }
 
+  // 초기 검색 카테고리 설정
+  let search = "<%=search %>";
+  if(search != ""){
+    let obj = $("#searchCategory");
+    obj.value = "<%=searchCategory %>";
+    obj.setAttribute("selected", "selected");
+  }
+
+  function goPage(pageNo) {
+    // FIXME 페이징, 필터
+    location.href = "/movie?param=list&pageNo=" + pageNo + "&filter=" + "<%=filter%>";
+  }
+
+  function goFilter(filter) {
+    location.href = "/movie?param=list&pageNo=0" + "&filter=" + filter;
+  }
+
+  function searchMovie() {
+    let sc = $('#searchCategory');
+    let ss = $('#search');
+    let searchCategory = $('#searchCategory').value;
+    let search = $('#search').value;
+
+    location.href = "/movie?param=list&searchCategory=" + searchCategory + "&search=" + search;
+  }
 </script>
 </body>
 </html>
