@@ -51,28 +51,30 @@ public class MypageController extends HttpServlet {
         String param = req.getParameter("param");
 
         if (param.equals("mypage")) {
+            resp.sendRedirect(req.getContextPath() + "/mypage/myPageBf.jsp");
+
+        } else if (param.equals("showMypage")) {
+            System.out.println("controller - showMypage");
             // parameter
             // get memberId
             String memberId = req.getParameter("memberId");
             if (memberId == null || memberId.equals("")) {
-                resp.sendRedirect("index.jsp");
+                resp.sendRedirect("mypage/message.jsp?param=mypage&msg=url");
                 return;
-                //memberId = "hyewon"; //TODO
             }
-
             ReservationDao resvDao = ReservationDao.getInstance();
             List<ReservationDto> resvList = resvDao.getReservations(memberId);
             req.setAttribute("resvList", resvList);
 
             forward("mypage/myPage.jsp", req, resp);
         } else if (param.equals("detail")) {
+            System.out.println("controller - detail");
             // parameter
             // get memberId
             String memberId = req.getParameter("memberId");
             if (memberId == null || memberId.equals("")) {
-                resp.sendRedirect("index.jsp"); //TODO 에러페이지
+                resp.sendRedirect("mypage/message.jsp?param=mypage&msg=url");
                 return;
-                //memberId = "hyewon"; //TODO
             }
             // get resvId
             String sSeq = req.getParameter("resvId");
@@ -86,15 +88,16 @@ public class MypageController extends HttpServlet {
 
             req.setAttribute("resvDto", resvDto);
 
-            forward("mypage/reservationDetail.jsp", req, resp);
+            forward(req.getContextPath() + "/mypage/reservationDetail.jsp", req, resp);
         } else if (param.equals("deleteResv")) {
+            System.out.println("controller - deleteResv");
             // parameter
             // get memberId
             String memberId = req.getParameter("memberId");
             if (memberId == null || memberId.equals("")) {
-                resp.sendRedirect("index.jsp"); //TODO 에러페이지
+                resp.sendRedirect(req.getContextPath()
+                        + "/mypage/message.jsp?param=mypage&msg=url");
                 return;
-                //memberId = "hyewon"; //TODO
             }
             // get resvId
             String sSeq = req.getParameter("resvId");
@@ -106,9 +109,10 @@ public class MypageController extends HttpServlet {
             ReservationDao resvDao = ReservationDao.getInstance();
             int ret = resvDao.deleteReservation(memberId, resvId);
 
-            resp.sendRedirect(req.getContextPath() + "/mypage?param=mypage&memberId=" + memberId);
+            resp.sendRedirect("mypage?param=showMypage&memberId=" + memberId);
         } else {
-            resp.sendRedirect(req.getContextPath() + "/index.jsp");
+            System.out.println("controller - 로그인 실패!");
+            resp.sendRedirect("mypage/message.jsp?param=mypage&msg=url");
         }
 
     }
