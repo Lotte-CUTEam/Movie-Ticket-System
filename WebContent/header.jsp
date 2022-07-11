@@ -12,8 +12,6 @@
 
 if (id == null)
     id = "";
-else
-    System.out.println("***id 확인: " + id + "***");
 %>
 
 
@@ -22,8 +20,8 @@ else
 		<div class="row">
 			<div class="header clearfix">
 				<h1>
-					<a href="main"> <em><img src="assets/img/cute-logo.png"
-							alt="LOTTE"></em>
+					<a href="main" class="h_m"> <em><img src="assets/img/cute-logo.png"
+							alt="LOTTE" class="logo"></em>
 					</a>
 				</h1>
 				<nav id="mNav">
@@ -32,19 +30,19 @@ else
 				</nav>
 				<nav class="nav">
 					<ul class="clearfix">
-						<li><a href="movies">영화</a></li>
-						<li><a href="#">영화관</a></li>
-						<li><a href="#">특별관</a></li>
+						<li><a href="movies" class="h_m">영화</a></li>
+						<li><a href="#" class="h_m">영화관</a></li>
+						<li><a href="#" class="h_m">특별관</a></li>
 						<%
 							if (id != "") {
 							%>
-						<li><a href="mypage?param=mypage">마이페이지</a></li>
-						<li><a href="member?param=logout">로그아웃</a></li>
+						<li><a href="mypage?param=mypage" class="h_m">마이페이지</a></li>
+						<li><a href="member?param=logout" class="h_m">로그아웃</a></li>
 						<%
 							} else {
 							%>
-						<li><a href="member?param=regi">회원가입</a></li>
-						<li><a href="member?param=login">로그인</a></li>
+						<li><a href="member?param=regi" class="h_m">회원가입</a></li>
+						<li><a href="member?param=login" class="h_m">로그인</a></li>
 						<%
 							}
 							%>
