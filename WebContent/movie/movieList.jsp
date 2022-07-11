@@ -351,7 +351,6 @@
   }
 
   function makeMovieTop5Div(idx, movie) {
-    // FIXME 영화 상세페이지 URL
     return `         <div class="movie_div">
                                     <div class="poster">
                                         <figure>
@@ -374,13 +373,12 @@
   }
 
   function makeMoviesDiv(idx, movie) {
-    // FIXME 영화 상세페이지 URL
     return `         <div class="movie_div">
                                     <div class="poster">
                                         <figure>
                                             <img src="` + movie.imageUrl + `" alt="` + movie.title + `">
                                         </figure>
-                                        <div class="rank">
+                                        <div class="rated">
                                             <strong>` + (movie.rated) + `</strong>
                                         </div>
                                     </div>
