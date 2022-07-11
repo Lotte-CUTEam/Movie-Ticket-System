@@ -114,7 +114,9 @@
 
 		</div>
 		<footer class="my-3 text-center text-small">
+		<div onclick="location.href='<%=request.getContextPath() %>/main'">
 			<img class="footer_img" src="./resources/CUTEam.png">
+		</div>
 		</footer>
 	</main>
 

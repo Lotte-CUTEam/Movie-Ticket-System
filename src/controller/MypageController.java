@@ -51,15 +51,19 @@ public class MypageController extends HttpServlet {
         String param = req.getParameter("param");
 
         if (param.equals("mypage")) {
-            resp.sendRedirect(req.getContextPath() + "/mypage/myPageBf.jsp");
-        } else if (param.equals("showMypage")) {
             // parameter
             // get memberId
             String memberId = req.getParameter("memberId");
             if (memberId == null || memberId.equals("")) {
-                resp.sendRedirect("mypage/message.jsp?param=mypage&msg=url");
+<<<<<<< Updated upstream
+                resp.sendRedirect("index.jsp");
+=======
+                resp.sendRedirect("util/message.jsp?param=mypage&msg=url");
+>>>>>>> Stashed changes
                 return;
+                //memberId = "hyewon"; //TODO
             }
+
             ReservationDao resvDao = ReservationDao.getInstance();
             List<ReservationDto> resvList = resvDao.getReservations(memberId);
             req.setAttribute("resvList", resvList);
@@ -70,8 +74,13 @@ public class MypageController extends HttpServlet {
             // get memberId
             String memberId = req.getParameter("memberId");
             if (memberId == null || memberId.equals("")) {
-                resp.sendRedirect("mypage/message.jsp?param=mypage&msg=url");
+<<<<<<< Updated upstream
+                resp.sendRedirect("index.jsp"); //TODO 에러페이지
+=======
+                resp.sendRedirect("util/message.jsp?param=mypage&msg=url");
+>>>>>>> Stashed changes
                 return;
+                //memberId = "hyewon"; //TODO
             }
             // get resvId
             String sSeq = req.getParameter("resvId");
@@ -91,9 +100,14 @@ public class MypageController extends HttpServlet {
             // get memberId
             String memberId = req.getParameter("memberId");
             if (memberId == null || memberId.equals("")) {
+<<<<<<< Updated upstream
+                resp.sendRedirect("index.jsp"); //TODO 에러페이지
+=======
                 resp.sendRedirect(req.getContextPath()
-                        + "/mypage/message.jsp?param=mypage&msg=url");
+                        + "/util/message.jsp?param=mypage&msg=url");
+>>>>>>> Stashed changes
                 return;
+                //memberId = "hyewon"; //TODO
             }
             // get resvId
             String sSeq = req.getParameter("resvId");
@@ -105,13 +119,13 @@ public class MypageController extends HttpServlet {
             ReservationDao resvDao = ReservationDao.getInstance();
             int ret = resvDao.deleteReservation(memberId, resvId);
 
-            if (ret > 0) {
-                resp.sendRedirect("mypage?param=showMypage&memberId=" + memberId);
-            } else {
-                resp.sendRedirect("mypage/message.jsp?param=mypage&msg=deletefail");
-            }
+            resp.sendRedirect(req.getContextPath() + "/mypage?param=mypage&memberId=" + memberId);
         } else {
-            resp.sendRedirect("mypage/message.jsp?param=mypage&msg=url");
+<<<<<<< Updated upstream
+            resp.sendRedirect(req.getContextPath() + "/index.jsp");
+=======
+            resp.sendRedirect("util/message.jsp?param=mypage&msg=url");
+>>>>>>> Stashed changes
         }
 
     }

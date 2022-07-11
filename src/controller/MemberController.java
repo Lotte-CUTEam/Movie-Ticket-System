@@ -89,7 +89,7 @@ public class MemberController extends HttpServlet {
                 msg = "NO";
             }
 
-            resp.sendRedirect("member/message.jsp?param=regi&msg=" + msg);
+            resp.sendRedirect("util/message.jsp?param=regi&msg=" + msg);
         } else if (param.equals("loginAf")) {
 
             String id = req.getParameter("id");
@@ -101,10 +101,10 @@ public class MemberController extends HttpServlet {
             if (dto != null) {
                 req.getSession().setAttribute("login", dto);
 
-                resp.sendRedirect("member/message.jsp?param=login&msg=OK");
+                resp.sendRedirect("util/message.jsp?param=login&msg=OK");
             } else {
 
-                resp.sendRedirect("member/message.jsp?param=login&msg=NO");
+                resp.sendRedirect("util/message.jsp?param=login&msg=NO");
             }
         } else if (param.equals("logout")) {
             resp.sendRedirect("member/logout.jsp");
