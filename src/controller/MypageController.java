@@ -51,6 +51,8 @@ public class MypageController extends HttpServlet {
         String param = req.getParameter("param");
 
         if (param.equals("mypage")) {
+            resp.sendRedirect(req.getContextPath() + "/mypage/myPageBf.jsp");
+        } else if (param.equals("showMypage")) {
             // parameter
             // get memberId
             String memberId = req.getParameter("memberId");
@@ -89,6 +91,7 @@ public class MypageController extends HttpServlet {
             req.setAttribute("resvDto", resvDto);
 
             forward("mypage/reservationDetail.jsp", req, resp);
+
         } else if (param.equals("deleteResv")) {
             // parameter
             // get memberId
@@ -103,14 +106,19 @@ public class MypageController extends HttpServlet {
             // get resvId
             String sSeq = req.getParameter("resvId");
             int resvId = 0;
+            
             if (sSeq != null && !sSeq.equals("")) {
                 resvId = Integer.parseInt(sSeq);
             }
 
             ReservationDao resvDao = ReservationDao.getInstance();
             int ret = resvDao.deleteReservation(memberId, resvId);
-
-            resp.sendRedirect(req.getContextPath() + "/mypage?param=mypage&memberId=" + memberId);
+            if (ret > 0) {
+                resp.sendRedirect("mypage?param=showMypage&memberId=" + memberId);
+            } else {
+                resp.sendRedirect("mypage/message.jsp?param=mypage&msg=deletefail");
+            }
+            
         } else {
 
             resp.sendRedirect("util/message.jsp?param=mypage&msg=url");

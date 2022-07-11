@@ -65,6 +65,13 @@
             location.href = "<%=request.getContextPath()%>/member?param=login";
         </script>
         <%
+    }else if (msg.equals("deletefail")) {
+        %>
+        <script type="text/javascript">
+            alert("예약 취소에 실패했습니다. 다시 시도해주세요.");
+            location.href = "<%=request.getContextPath()%>/mypage?param=mypage";
+        </script>
+        <%
     }
 }
 %>
