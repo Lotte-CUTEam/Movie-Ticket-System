@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * 수정일자           수정자         수정내용
  * 2022.07.09       장혜원         신규생성
  * -----------------------------------------------------------
- */ 
+ */
 
 public class ReservationDto {
 
@@ -37,7 +37,7 @@ public class ReservationDto {
 
     private LocalDateTime createdAt; // 예매 생성 시간
 
-    private LocalDateTime deleteddAt; // 예매 취소시간
+    private LocalDateTime deletedAt; // 예매 취소 시간
 
     private int status; // 관람 등급
 
@@ -58,7 +58,7 @@ public class ReservationDto {
         this.title = title;
         this.runtime = runtime;
         this.createdAt = createdAt;
-        this.deleteddAt = deleteddAt;
+        this.deletedAt = deleteddAt;
         this.status = status;
     }
 
@@ -125,7 +125,7 @@ public class ReservationDto {
 
 
     public LocalDateTime getDeleteddAt() {
-        return deleteddAt;
+        return deletedAt;
     }
 
 
@@ -141,7 +141,7 @@ public class ReservationDto {
         return "ReservationDto [reservationId=" + reservationId + ", memberId=" + memberId
                 + ", screenId=" + screenId + ", movieId=" + movieId + ", screenAt=" + screenAt
                 + ", people_count=" + people_count + ", cinema=" + cinema + ", title=" + title
-                + ", runtime=" + runtime + ", createdAt=" + createdAt + ", deleteddAt=" + deleteddAt
+                + ", runtime=" + runtime + ", createdAt=" + createdAt + ", deletedAt=" + deletedAt
                 + ", status=" + status + "]";
     }
 
