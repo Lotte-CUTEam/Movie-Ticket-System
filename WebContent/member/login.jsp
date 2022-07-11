@@ -36,7 +36,7 @@
 			<div class="login">
 				<h1 id="login">로그인</h1>
 				<div>
-					<form action="<%=request.getContextPath()%>/member" method="post">
+					<form action="<%=request.getContextPath()%>/member?param=loginAf" method="post">
 						<input type="hidden" name="param" value="loginAf">
 						<!-- login form -->
 						<div class="loginForm">
