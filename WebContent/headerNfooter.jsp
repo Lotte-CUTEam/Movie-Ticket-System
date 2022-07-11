@@ -2,7 +2,13 @@
 	pageEncoding="UTF-8"%>
 	
 <%
-String id = request.getParameter("id");
+	String id = null;
+    Object obj = session.getAttribute("login");
+    MemberDto mem = null;
+    if (obj != null) {
+        mem = (MemberDto) obj;
+        id = mem.getId();
+    }
 
 if (id == null)
     id = "";
@@ -37,17 +43,7 @@ else
 			<div class="row">
 				<div class="header clearfix">
 					<h1>
-						<%
-						if (id != "") {
-						%>
-						<a href="main?id=<%=id%>"> <em><img src="assets/img/cute-logo.png" alt="LOTTE"></em> </a>
-						<%
-						} else {
-						%>
 						<a href="main"> <em><img src="assets/img/cute-logo.png" alt="LOTTE"></em> </a>
-						<%
-						}
-						%>
 					</h1>
 					<nav id="mNav">
 						<h2 class="ir_so">전체메뉴</h2>
@@ -61,8 +57,8 @@ else
 							<%
 							if (id != "") {
 							%>
-							<li><a href="mypage?id=<%=id%>">마이페이지</a></li>
-							<li><a href="main">로그아웃</a></li>
+							<li><a href="mypage?param=mypage">마이페이지</a></li>
+							<li><a href="member?param=logout">로그아웃</a></li>
 							<%
 							} else {
 							%>
