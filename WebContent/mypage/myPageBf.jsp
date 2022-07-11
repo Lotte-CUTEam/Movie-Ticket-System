@@ -14,7 +14,6 @@
 MemberDto mem = (MemberDto) session.getAttribute("login");
 
 if (mem == null || mem.getId() == null || mem.getId().equals("")) {
-    System.out.println("myPageBf.jsp - 로그인 실패!");
 %>
 <script type="text/javascript">
 	alert('로그인 해주세요');
@@ -22,7 +21,6 @@ if (mem == null || mem.getId() == null || mem.getId().equals("")) {
 </script>
 <%
 } else {
-    System.out.println("myPageBf.jsp - 로그인 완료!");
 %>
 <script type="text/javascript">
 	location.href = "<%=request.getContextPath()%>/mypage?param=showMypage&memberId=<%=mem.getId()%>";

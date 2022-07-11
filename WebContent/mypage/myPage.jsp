@@ -30,7 +30,6 @@ if (mem == null) {
 %>
 <script type="text/javascript">
 	alert('로그인 해주세요');
-	console.log('로그인 해주세요');
 	location.href = "<%=request.getContextPath()%>/member?param=login";
 </script>
 <%
@@ -45,7 +44,6 @@ if (mem == null) {
 %>
 <script type="text/javascript">
 	alert('잘못된 접근입니다. 다시 시도해주세요 mem.getId():'+<%=mem.getId()%>+'memberId'+memberId);
-	console.log('잘못된 접근입니다. 다시 시도해주세요');
 	location.href = "<%=request.getContextPath()%>";
 </script>
 <%
