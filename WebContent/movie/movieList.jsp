@@ -369,7 +369,7 @@
                                             <strong>` + dot3(movie.title) + `</strong>
                                         </h3>
                                         <div class="infor_btn">
-                                            <a href="#">상세정보</a> <a href="#">예매하기</a>
+                                            <a href="<%= request.getContextPath()%>/movieDetail?param=detail&id=` + movie.movieId + `">상세정보</a> <a href="#">예매하기</a>
                                         </div>
                                     </div>
                                 </div>`;
@@ -392,7 +392,7 @@
                                             <strong>` + dot3(movie.title) + `</strong>
                                         </h3>
                                         <div class="infor_btn">
-                                            <a href="#">상세정보</a> <a href="#">예매하기</a>
+                                            <a href="<%= request.getContextPath()%>/movieDetail?param=detail&id=` + movie.movieId + `">상세정보</a> <a href="#">예매하기</a>
                                         </div>
                                     </div>
                                 </div>`;
