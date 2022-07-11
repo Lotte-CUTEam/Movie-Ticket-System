@@ -15,8 +15,27 @@
 
 <%@ page import="dto.MovieDto" %>
 <%@ page import="dto.MemberDto" %>
+<%@ page import="dao.MovieDao" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%
+    String id = null;
+    Object obj = session.getAttribute("login");
+    MemberDto mem = null;
+    if (obj != null) {
+        mem = (MemberDto) obj;
+        id = mem.getId();
+    }
+
+    if (id == null)
+        id = "";
+    else
+        System.out.println("***id 확인: " + id + "***");
+
+    MovieDao movieDao = MovieDao.getInstance();
+    List<MovieDto> movies = movieDao.getMovies();
+%>
 
 <%
     MovieDto dto = (MovieDto) request.getAttribute("movie");
@@ -47,8 +66,7 @@
         <div class="row">
             <div class="header clearfix">
                 <h1>
-                    <a href="#"> <em><img src="assets/img/cute-logo.png" alt="LOTTE"></em>
-                    </a>
+                    <a href="main"> <em><img src="assets/img/cute-logo.png" alt="LOTTE"></em> </a>
                 </h1>
                 <nav id="mNav">
                     <h2 class="ir_so">전체메뉴</h2>
@@ -56,17 +74,29 @@
                 </nav>
                 <nav class="nav">
                     <ul class="clearfix">
-                        <li><a href="#">영화</a></li>
+                        <li><a href="movie?param=list">영화</a></li>
                         <li><a href="#">영화관</a></li>
                         <li><a href="#">특별관</a></li>
-                        <li><a href="#">마이페이지</a></li>
-                        <li><a href="#">로그인</a></li>
+                        <%
+                            if (id != "") {
+                        %>
+                        <li><a href="mypage?param=mypage">마이페이지</a></li>
+                        <li><a href="member?param=logout">로그아웃</a></li>
+                        <%
+                        } else {
+                        %>
+                        <li><a href="member?param=regi">회원가입</a></li>
+                        <li><a href="member?param=login">로그인</a></li>
+                        <%
+                            }
+                        %>
                     </ul>
                 </nav>
             </div>
         </div>
     </div>
 </header>
+<!-- //header -->
 
 <div align="center" class="poster_info">
 
@@ -163,15 +193,16 @@
     function reserve(id) {
 
       <%
-        Object obj = session.getAttribute("login");
+        Object loginObj = session.getAttribute("login");
 
-        if(obj ==null) {
+        if(loginObj ==null) {
         %>
             alert('로그인 해 주십시오');
-            location.href = "login.jsp";
+            location.href = "<%=request.getContextPath() %>/member?param=login";
         <%
         } else {
             %>
+            // location.href = "/screen?param=screenChoice&movie_id=" + id;
             location.href = "/reservation?param=reservation&movie_id=" + id;
             <%
         }
@@ -180,7 +211,7 @@
     }
 </script>
 
-<footer id="footer" style="margin-top:100px">
+<footer id="footer">
     <div id="footer_sns">
         <div class="container">
             <div class="footer_sns">
