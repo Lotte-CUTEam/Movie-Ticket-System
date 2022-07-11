@@ -21,15 +21,22 @@ if (param.equals("mypage")) {
     if (msg.equals("url")) {
         %>
         <script type="text/javascript">
-            alert("잘못된 접근입니다");
+            alert("잘못된 접근입니다.");
             location.href = "<%=request.getContextPath()%>";
         </script>
         <%
     } else if (msg.equals("login")) {
         %>
         <script type="text/javascript">
-            alert("로그인 해주세요");
+            alert("로그인 해주세요.");
             location.href = "<%=request.getContextPath()%>/member?param=login";
+        </script>
+        <%
+    } else if (msg.equals("deletefail")) {
+        %>
+        <script type="text/javascript">
+            alert("예약 취소에 실패했습니다. 다시 시도해주세요.");
+            location.href = "<%=request.getContextPath()%>/mypage?param=mypage";
         </script>
         <%
     }

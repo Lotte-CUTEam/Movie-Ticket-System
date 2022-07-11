@@ -150,7 +150,7 @@ div#contents::before {
 							        cancelStr = resvDto.getDeleteddAt()+"취소완료";
 							    }
 							    else if(resvDto.getScreenAt().isAfter(
-							                    LocalDateTime.now().minusMinutes(20))
+							                    LocalDateTime.now().plusMinutes(20))
 							            ){
 							        cancelStr = "취소가능";
 							    }

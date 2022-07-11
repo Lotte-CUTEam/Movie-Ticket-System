@@ -105,7 +105,11 @@ public class MypageController extends HttpServlet {
             ReservationDao resvDao = ReservationDao.getInstance();
             int ret = resvDao.deleteReservation(memberId, resvId);
 
-            resp.sendRedirect("mypage?param=showMypage&memberId=" + memberId);
+            if (ret > 0) {
+                resp.sendRedirect("mypage?param=showMypage&memberId=" + memberId);
+            } else {
+                resp.sendRedirect("mypage/message.jsp?param=mypage&msg=deletefail");
+            }
         } else {
             resp.sendRedirect("mypage/message.jsp?param=mypage&msg=url");
         }
