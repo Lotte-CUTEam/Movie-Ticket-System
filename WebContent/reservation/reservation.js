@@ -64,9 +64,8 @@ const setCinema = () => {
 	});
 };
 */
+  
 
-
-#select_movie > li:nth-child(2)
 const setMovie = () => {
 	$.ajax({
 		type:"get",

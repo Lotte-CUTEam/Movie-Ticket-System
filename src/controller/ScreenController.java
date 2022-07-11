@@ -59,7 +59,7 @@ public class ScreenController extends HttpServlet {
             String cinema = req.getParameter("cinema");
             int movieId = Integer.parseInt(req.getParameter("movieid"));
             String inputDate = req.getParameter("inputdate");
-            
+
             List<MovieScreenDto> movieScreenList = screenDao.getMovieScreenList("서울-월드타워", 0, null);
             sendMovieScreenList(movieScreenList, resp);
         }
