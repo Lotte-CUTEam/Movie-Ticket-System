@@ -1,3 +1,4 @@
+<%@page import="dto.MemberDto"%>
 <%@page import="dto.MovieDto"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.MovieDao"%>
@@ -5,17 +6,30 @@
 	pageEncoding="UTF-8"%>
 
 <%!public String dot3(String msg) { // 글이 길 때 ...으로 줄임
-		String str = "";
-		if (msg.length() >= 7) {
-			str = msg.substring(0, 7);
-			str += "...";
-		} else {
-			str = msg.trim();
-		}
-		return str;
-	}%>
-	
+        String str = "";
+        if (msg.length() >= 7) {
+            str = msg.substring(0, 7);
+            str += "...";
+        } else {
+            str = msg.trim();
+        }
+        return str;
+    }%>
+
 <%
+	String id = null;
+    Object obj = session.getAttribute("login");
+    MemberDto mem = null;
+    if (obj != null) {
+        mem = (MemberDto) obj;
+        id = mem.getId();
+    }
+
+if (id == null)
+    id = "";
+else
+    System.out.println("***id 확인: " + id + "***");
+
 MovieDao movieDao = MovieDao.getInstance();
 List<MovieDto> movies = movieDao.getMovies();
 %>
@@ -47,8 +61,7 @@ List<MovieDto> movies = movieDao.getMovies();
 			<div class="row">
 				<div class="header clearfix">
 					<h1>
-						<a href="#"> <em><img src="assets/img/cute-logo.png" alt="LOTTE"></em>
-						</a>
+						<a href="main"> <em><img src="assets/img/cute-logo.png" alt="LOTTE"></em> </a>
 					</h1>
 					<nav id="mNav">
 						<h2 class="ir_so">전체메뉴</h2>
@@ -56,11 +69,22 @@ List<MovieDto> movies = movieDao.getMovies();
 					</nav>
 					<nav class="nav">
 						<ul class="clearfix">
-							<li><a href="#">영화</a></li>
+							<li><a href="movie?param=list">영화</a></li>
 							<li><a href="#">영화관</a></li>
 							<li><a href="#">특별관</a></li>
-							<li><a href="#">마이페이지</a></li>
-							<li><a href="member/login.jsp">로그인</a></li>
+							<%
+							if (id != "") {
+							%>
+							<li><a href="mypage?param=mypage">마이페이지</a></li>
+							<li><a href="member?param=logout">로그아웃</a></li>
+							<%
+							} else {
+							%>
+							<li><a href="member?param=regi">회원가입</a></li>
+							<li><a href="member?param=login">로그인</a></li>
+							<%
+							}
+							%>
 						</ul>
 					</nav>
 				</div>
@@ -144,7 +168,7 @@ List<MovieDto> movies = movieDao.getMovies();
 						<div class="swiper-container2">
 							<div class="chart_cont1 swiper-wrapper">
 								<%
-								for (int i = 0; i < 8; i++) {
+								for (int i = 0; i < 7; i++) {
 								%>
 								<div class="swiper-slide">
 									<div class="poster">
@@ -160,9 +184,6 @@ List<MovieDto> movies = movieDao.getMovies();
 										<h3>
 											<span class="icon a15 ir_pm">12세 이상 관람</span> <strong><%=dot3(movies.get(i).getTitle())%></strong>
 										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
 									</div>
 								</div>
 								<%
@@ -175,7 +196,7 @@ List<MovieDto> movies = movieDao.getMovies();
 						<div class="swiper-container2">
 							<div class="chart_cont2 swiper-wrapper">
 								<%
-								for (int i = 8; i < 15; i++) {
+								for (int i = 7; i < 12; i++) {
 								%>
 								<div class="swiper-slide">
 									<div class="poster">
@@ -184,16 +205,13 @@ List<MovieDto> movies = movieDao.getMovies();
 												alt="<%=movies.get(i).getTitle()%>">
 										</figure>
 										<div class="rank">
-											<strong><%=i - 7%></strong>
+											<strong><%=i - 6%></strong>
 										</div>
 									</div>
 									<div class="infor">
 										<h3>
 											<span class="icon a15 ir_pm">12세 이상 관람</span> <strong><%=dot3(movies.get(i).getTitle())%></strong>
 										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
 									</div>
 								</div>
 								<%
@@ -206,7 +224,7 @@ List<MovieDto> movies = movieDao.getMovies();
 						<div class="swiper-container2">
 							<div class="chart_cont3 swiper-wrapper">
 								<%
-								for (int i = 0; i < 8; i++) {
+								for (int i = 12; i < movies.size(); i++) {
 								%>
 								<div class="swiper-slide">
 									<div class="poster">
@@ -215,16 +233,13 @@ List<MovieDto> movies = movieDao.getMovies();
 												alt="<%=movies.get(i).getTitle()%>">
 										</figure>
 										<div class="rank">
-											<strong><%=i + 1%></strong>
+											<strong><%=i - 11%></strong>
 										</div>
 									</div>
 									<div class="infor">
 										<h3>
 											<span class="icon a15 ir_pm">12세 이상 관람</span> <strong><%=dot3(movies.get(i).getTitle())%></strong>
 										</h3>
-										<div class="infor_btn">
-											<a href="#">상세정보</a> <a href="#">예매하기</a>
-										</div>
 									</div>
 								</div>
 								<%
@@ -296,7 +311,7 @@ List<MovieDto> movies = movieDao.getMovies();
 				prevEl : '.swiper-button-prev',
 			},
 			autoplay : {
-				delay : 5000,
+				delay : 4000,
 			},
 		});
 
@@ -312,7 +327,8 @@ List<MovieDto> movies = movieDao.getMovies();
 				onlyInViewport : false,
 			},
 			autoplay : {
-				delay : 6000,
+				delay : 2000,
+				disableOnInteraction: false,
 			},
 			breakpoints : {
 				600 : {
@@ -327,7 +343,9 @@ List<MovieDto> movies = movieDao.getMovies();
 					slidesPerView : 3,
 					spaceBetween : 24
 				}
-			}
+			},
+			 observer: true,	// 추가
+			 observeParents: true,	// 추가
 		});
 
 		//영화차트 탭 메뉴

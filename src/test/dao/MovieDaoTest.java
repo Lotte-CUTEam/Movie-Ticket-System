@@ -35,7 +35,7 @@ public class MovieDaoTest {
         // given
 
         // when
-        List<MovieDto> movies = movieDao.getMovies();
+        List<MovieDto> movies = movieDao.getMovies("title", "", 1, "rating");
 
         // then
         Assertions.assertNotNull(movies);
