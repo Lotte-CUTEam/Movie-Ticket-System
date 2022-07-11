@@ -1,3 +1,6 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import="dao.ScreenDao"%>
+<%@page import="dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
@@ -34,8 +37,29 @@
 
 }
 
+.tmp_btm_area {
+  position: fixed; /* 이 부분을 고정 */
+  bottom: 0; /* 하단에 여백 없이 */
+  width: 100%; /* 가로 사이즈를 브라우저에 가득 채움 */
+}
+
 </style>	
 </head>
+
+<!-- 로그인 확인 -->
+
+<%-- <%
+MemberDto mem = (MemberDto) session.getAttribute("login");
+
+if (mem == null) {
+%>
+<script type="text/javascript">
+	alert('로그인 해주세요');
+	location.href = "login.jsp";
+	</script>
+<%
+}
+%> --%>
 
 <body>
 <div id="header_section" class="header">
@@ -143,9 +167,9 @@
                             		for(Location loc : Location.values()) { 
                             			idx++;
                             			if (idx==1) {%>
-		                               		<li class="depth1 active" value="<%=loc%>"><a href="#" onclick="selectLoc(this)"><%=loc.getLocationName()%></a>                         			    
+		                               		<li class="depth1 active" value="<%=loc%>"><a href="#" onclick="selectloc()"><%=loc.getLocationName()%></a>                         			    
                             			<% } else {%>
- 		                               		<li class="depth1" value="<%=loc%>"><a href="#" onclick="selectLoc(this)"><%=loc.getLocationName()%></a>                         			    
+ 		                               		<li class="depth1" value="<%=loc%>"><a href="#" onclick="selectloc()"><%=loc.getLocationName()%></a>                         			    
 											<% }
                             			} %>
                               </ul>
@@ -179,23 +203,49 @@
                         <div class="tab_con">
                            <h5 class="hidden">전체</h5>
                            <div class="cinema_select_wrap cinemaSelect basicCinema">
-                              <ul>
+                              <ul list="#select_cinema">
+<%--                               
+                              <%
+                              ScreenDao dao = ScreenDao.getInstance();
+                              List<String> cinemaList = dao.getCinemaList();
+                              
+                              int i = 0;
+                              for (String cinema : cinemaList) {
+                                  if (i==0) {
+                                      %>
+                                      	<li class="depth1 active">
+                                      		<a href='#' onclick="click_cinema(<%=cinema%>)"><%=cinema%></a>
+                                      	<li>
+                                      <%
+                                  } else {
+                                      %>
+                                    	<li class="depth1">
+                                    		<a href='#' onclick="click_cinema(<%=cinema%>)"><%=cinema%></a>
+                                    	<li>
+                                    <%                                     
+                                  }
+                              	i++;
+                              }
+                              
+                              %>
+                               --%>
+                              
                              <!-- 지역 enum 넣는 부분 -->
                                  <li class="depth1 active">
-                                    <a href="#">가산디지털</a>
+                                    <a href="#" onclick="getCinema()">가산디지털</a>
                                  </li>
                                  <li class="depth1">
-                                    <a href="#">가양</a>
+                                    <a href="#" onclick="getCinema()">가양</a>
                                  </li>
                                  <li class="depth1">
-                                    <a href="#">강동</a>
+                                    <a href="#" onclick="getCinema()">강동</a>
                                  </li>
                                  <li class="depth1">
-                                    <a href="#">건대입구</a>
+                                    <a href="#" onclick="getCinema()">건대입구</a>
                                  </li>                                 
                                  <li class="depth1">
-                                    <a href="#">김포공항</a>
-                                 </li>                                 
+                                    <a href="#" onclick="getCinema()">김포공항</a>
+                                 </li>                   
                                  
                               </ul>
                            </div>
@@ -285,36 +335,42 @@
                      <div class="slide_wrap slide_reserve_date">
                         <ul class="owl-carousel owl-loaded owl-drag">
                                  <!-- 위클리 -->
-                                 <div class="owl-item" style="width: 52.5px; float:left;">
-                                    <li class="item">
+                                 <li class="item">
+ 	                                <div class="owl-item" style="width: 52.5px; float:left;">
+                                    
                                        <span class="date sun disabled">
                                           <label>
                                              <input type="radio" name="radioDate1" data-displayyn="N" data-playdate="2022-07-10" data-isplaydate="Y" data-playweek="일">
                                              <strong>10</strong><em>일</em>
                                           </label>
                                        </span>
-                                    </li>
-                                 </div>
-                                 <div class="owl-item" style="width: 52.5px;float:left;">
-                                    <li class="item" >
+                                    
+                                 	</div>
+                                 </li>
+                                  <li class="item" >
+                                	<div class="owl-item" style="width: 52.5px;float:left;">
+                                   
                                        <span class="date sun disabled">
                                           <label>
                                              <input type="radio" name="radioDate1" data-displayyn="N" data-playdate="2022-07-10" data-isplaydate="Y" data-playweek="일">
                                              <strong>11</strong><em>월</em>
                                           </label>
                                        </span>
-                                    </li>
-                                 </div>
-                                 <div class="owl-item" style="width: 52.5px;float:left;">
-                                    <li class="item" >
+                                    
+                              	   </div>
+                                 </li>
+                                 <li class="item" >
+	                                 <div class="owl-item" style="width: 52.5px;float:left;">
+                                    
                                        <span class="date sun disabled">
                                           <label>
                                              <input type="radio" name="radioDate1" data-displayyn="N" data-playdate="2022-07-10" data-isplaydate="Y" data-playweek="일">
                                              <strong>11</strong><em>월</em>
                                           </label>
                                        </span>
-                                    </li>
-                                 </div>
+                               
+                                 	</div>
+                                 </li>
                                  <div class="owl-item" style="width: 52.5px;float:left;">
                                     <li class="item" >
                                        <span class="date sun disabled">
@@ -374,10 +430,11 @@
                      <div id="time_container" class="mCSB_container" style="position:relative; top:0; left:30px;">
                         
                         <!-- 영화 정보 (1) -->
-                        <div class="group_time_select">
-                           <div class="time_select_tit"><span class="ic_grade gr_12">12</span><strong>탑건: 매버릭</strong>
+                        <div class="group_time_select" id="screen_element">
+                           <div class="time_select_tit" id="movie_name">
+                           		<span class="ic_grade gr_12">12</span><strong>탑건: 매버릭</strong>
                            </div>
-                           <ul class="list_time">
+                           <ul class="list_time" id="screen_list">
                               <li class="temp_left">
                                  <a role="button" href="#none"><dl><dt>상영시간</dt><dd class="time"><strong>12:05</strong></a>
                               </li>
@@ -389,6 +446,8 @@
                         </div>
                      </div>
                   </div>
+                  
+                  
                </div>
             </div>
       </div>
@@ -396,6 +455,17 @@
    </div>
 </div>
 
-<input type="hidden" id="REALPATH"><%=request.getContextPath()%></input>
+<form method="post">
+	<%-- <input type="hidden" id="member_id" name="member_id" value="<%=mem.getId()%>"> --%>
+	<input type="hidden" id="member_id" name="member_id" value="hyewon">
+	<input type="hidden" id="screen_id" name="screen_id" value="">
+	<input type="hidden" id="screen_id" name="cinema" value="">
+	
+	<input type="hidden" id="member_id" name="people_count"  value="">
+	<input type="hidden" id="REALPATH"><%=request.getContextPath()%>
+</form>
+
+
+
 </body>
 </html>
