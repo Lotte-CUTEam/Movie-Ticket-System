@@ -12,8 +12,8 @@ import dao.MovieDao;
 import dao.ScreenDao;
 import dto.MovieDto;
 import dto.MovieScreenDto;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 @WebServlet("/screen")
 public class ScreenController extends HttpServlet {

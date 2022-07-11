@@ -18,6 +18,7 @@
 <link rel="stylesheet"
 	href="<%=contextPath%>/assets/css/style_movieList.css">
 <link rel="stylesheet" href="<%=contextPath%>/assets/css/swiper.css">
+	<link rel="stylesheet" href="<%=contextPath%>/movie/css/movie.css">
 
 <!-- 웹 폰트 -->
 <link
@@ -103,30 +104,37 @@
 				<div class="movie">
 					<div class="movie_title">
 						<ul class="clearfix">
-							<li class="active"><a href="#">평점 TOP5</a></li>
-							<li><a href="#">최신 개봉작</a></li>
-							<li><a href="#">모든 작품</a></li>
+							<li class="active"><a href="#">모든 영화</a></li>
+							<li><a href="#">평점 TOP5</a></li>
+							<li><a href="#">최신 TOP5</a></li>
 						</ul>
 					</div>
 
 					<div id="movies_ctrl">
-						<div class="movie_page"></div>
-
-						<div class="movie_filter">
-							<span title="rating" onclick="goFilter('rating')">평점순</span>
-							&nbsp;&nbsp; <span title="opening_date"
-								onclick="goFilter('opening_date')">최신 개봉순</span> &nbsp;&nbsp;
+						<div class="movie_page">
 						</div>
 
-						<div class="movie_search">
-							<select id="searchCategory">
-								<option>검색</option>
-								<option value="title">제목</option>
-								<option value="director">감독</option>
-								<option value="actor">배우</option>
-							</select> <input type="text" id="search" value="">
-							<button type="button" onclick="searchMovie()">검색</button>
+						<div id="movie_search_filter">
+							<div class="movie_search">
+								<select id="searchCategory">
+									<option>검색</option>
+									<option value="title">제목</option>
+									<option value="director">감독</option>
+									<option value="actor">배우</option>
+								</select>
+
+								<input type="text" id="search" value="">
+								<button type="button" onclick="searchMovie()">검색</button>
+							</div>
+
+							<div class="empty_space"></div>
+
+							<div class="movie_filter">
+								<span title="rating" onclick="goFilter('rating')">평점순</span> &nbsp;&nbsp;
+								<span title="opening_date" onclick="goFilter('opening_date')">최신 개봉순</span> &nbsp;&nbsp;
+							</div>
 						</div>
+
 					</div>
 
 
@@ -143,6 +151,7 @@
 	<%@include file="../footer.jsp"%>
 
 	<script>
+
 
   let curSearchCategory = "";
   let curSearch = "";
@@ -185,20 +194,20 @@
 
   function movieMenuBtnToggle(index) {
 
-    let moviesCtrl = $('#movies_ctrl');
+	  let moviesCtrl = $('#movies_ctrl');
 
-    if (index == 0) {
-      moviesCtrl.hide();
-      getMoviesScreeningRatingTop5();
-    }
-    else if (index == 1) {
-      moviesCtrl.hide();
-      getMoviesLatestScreeningTop5();
-    }
-    else if (index == 2) {
-      moviesCtrl.show();
-      getMovies();
-    }
+	  if (index == 0) {
+		  moviesCtrl.show();
+		  getMovies();
+
+	  } else if (index == 1) {
+		  moviesCtrl.hide();
+		  getMoviesScreeningRatingTop5();
+
+	  } else if (index == 2) {
+		  moviesCtrl.hide();
+		  getMoviesLatestScreeningTop5();
+	  }
   }
 
   movieMenuBtnToggle(0);
@@ -213,21 +222,11 @@
     }
   }
 
-  // 초기 검색 카테고리 설정
-  <%--let search = "<%=search %>";--%>
-  <%--if(search != ""){--%>
-  <%--  let obj = $("#searchCategory");--%>
-  <%--  obj.value = "<%=searchCategory %>";--%>
-  <%--  obj.setAttribute("selected", "selected");--%>
-  <%--}--%>
-
   function goPage(pageNo) {
 
     curPageNo = pageNo;
 
     getMovies();
-
-
   }
 
   function goFilter(filter) {
@@ -304,16 +303,14 @@
 
     let moviePage = $('.movie_page');
 
-    let html = "";
+    let html = "<ul class='clearfix'>";
 
     for (let i=0; i<pageCnt; i++) {
       if (pageNo == i) {
-        html += `<span style="background: red">` + (i + 1) + `</span>`;
+        html += `<li class="active"><a href="#">` + (i + 1) + `</a></li>`;
       }
       else {
-        html += `<a href="#" title="` + (i + 1) + ` 페이지" onclick="goPage(` + i + `)">` +
-                      `[` + (i + 1) + `]` +
-                 `</a>`
+        html += `<li><a href="#" onclick="goPage(`+ i + `)">` + (i + 1) + `</a></li>`;
       }
     }
 
