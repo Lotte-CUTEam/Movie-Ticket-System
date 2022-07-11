@@ -20,14 +20,14 @@ if (user_id != null) {
 
 $("#chk_save_id").click(function() {
 
-	if  ($"#chk_save_id").is(":checked")) {
+	if ($("#chk_save_id").is(":checked")) {
 
-		if  ($("#id").val().trim() == "") {
+		if ($("#id").val().trim() == "") {
 			alert("id를 입력해 주십시오");
 			$("#chk_save_id").prop("checked", false);
 		} else {
 			// cookie를 저장
-			$.cookie("user_id", $("#id").val().trim(), {  expires 7, path: './' });
+			$.cookie("user_id", $("#id").val().trim(), { expires: 7, path: './' });
 		}
 
 	} else {
