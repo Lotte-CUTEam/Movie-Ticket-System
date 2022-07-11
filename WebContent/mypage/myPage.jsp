@@ -24,26 +24,27 @@
 
 <%
 String memberId = (String) request.getAttribute("memberId");
-MemberDto mem = (MemberDto) session.getAttribute("login");
+MemberDto myPageMem = (MemberDto) session.getAttribute("login");
 
-if (mem == null) {
+if (myPageMem == null) {
+    
 %>
 <script type="text/javascript">
 	alert('로그인 해주세요');
 	location.href = "<%=request.getContextPath()%>/member?param=login";
 </script>
 <%
-} else if (mem.getId() == null || mem.getId().equals("") ) {
+} else if (myPageMem.getId() == null || myPageMem.getId().equals("") ) {
 %>
 <script type="text/javascript">
 	alert('잘못된 접근입니다. 다시 로그인해주세요');
 	location.href = "<%=request.getContextPath()%>/member?param=login";
 </script>
 <%
-} else if(mem.getId() != memberId) {
+} else if(myPageMem.getId() != memberId) {
 %>
 <script type="text/javascript">
-	alert('잘못된 접근입니다. 다시 시도해주세요 mem.getId():'+<%=mem.getId()%>+'memberId'+memberId);
+	alert('잘못된 접근입니다. 다시 시도해주세요 mem.getId():'+<%=myPageMem.getId()%>+'memberId'+memberId);
 	location.href = "<%=request.getContextPath()%>";
 </script>
 <%
@@ -70,25 +71,22 @@ div#contents::before {
 }
 </style>
 <title>My Page</title>
+
+<link rel="stylesheet" href="assets/css/reset_hnf.css">
+<link rel="stylesheet" href="assets/css/style_hnf.css">
+<link
+	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&amp;subset=korean"
+	rel="stylesheet">
 </head>
 <body>
 
 	<!-- 공통부분 header -->
-	<div class="main_header"></div>
+	<%@include file = "/header.jsp" %>
 
 	<!-- 퀵메뉴 -->
-	<div class="quick_wrap"
-		style="position: fixed; z-index: 11; right: 20px; width: 82px; text-align: center; color: #000; display: block; overflow: hidden; top :150px;">
-		<div class="quick_menu" id="quick_menu"
-			style="padding-top: 15px; background-color: #fff; color: #000; box-shadow: 5px 3px 6px rgba(0, 0, 0, 0.16); border-radius: 5px; overflow: hidden;">
-			<a href="" style="color: black; display: block;"><img
-				src="<%=request.getContextPath() %>/mypage/images/ticketing_icon.png" /></a> <a href="#" class="qick_top"
-				style="margin-top: 10px; background: #3e3d3d; font-size: 11px; color: #fff; letter-spacing: 5px; padding: 5px 5px 5px 13px; text-decoration: none; display: block;">TOP</a>
-		</div>
-	</div>
+	<%@include file = "/quickbar.jsp" %>
 
 	<div align="center">
-
 		<div id="contents" class="contents_mypage" align="center"
 			style="padding-top: 50px; width: 980px;">
 
@@ -206,8 +204,10 @@ div#contents::before {
 				</div>
 			</div>
 		</div>
+		
 		<!-- 공통부분 footer -->
-		<div class="main_footer"></div>
+		<%@include file = "../footer.jsp" %>
+		
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function() {

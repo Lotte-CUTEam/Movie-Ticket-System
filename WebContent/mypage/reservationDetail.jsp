@@ -21,13 +21,13 @@
 
 <!-- 로그인 확인 -->
 <%
-MemberDto mem = (MemberDto) session.getAttribute("login");
-if (mem == null) {
+MemberDto myPageMem = (MemberDto) session.getAttribute("login");
+if (myPageMem == null) {
 %>
 <script type="text/javascript">
 	alert('로그인 해주세요');
-	location.href = "login.jsp";
-	</script>
+	location.href = "<%=request.getContextPath()%>/member?param=login";
+</script>
 <%
 }
 %>
@@ -37,7 +37,11 @@ if (mem == null) {
 <head>
 <meta charset="UTF-8">
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<link rel="stylesheet" href="assets/css/reset_hnf.css">
+<link rel="stylesheet" href="assets/css/style_hnf.css">
+<link
+	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&amp;subset=korean"
+	rel="stylesheet">
 <style type="text/css">
 /* 배경색 지정 */
 div#contents::before {
@@ -51,12 +55,15 @@ div#contents::before {
 	background-color: #FF7787;
 }
 </style>
+
+
 <title>My Page Detail</title>
+
 </head>
 <body>
 
 	<!-- 공통부분 header -->
-	<div class="main_header"></div>
+	<%@include file = "/header.jsp" %>
 
 	<!-- 퀵메뉴 -->
 	<div class="quick_wrap"
@@ -197,7 +204,7 @@ div#contents::before {
 			</div>
 		</div>
 		<!-- 공통부분 footer -->
-		<div class="main_footer"></div>
+		<%@include file = "../footer.jsp" %>
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function() {

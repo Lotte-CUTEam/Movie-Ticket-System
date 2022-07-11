@@ -15,6 +15,7 @@ import dto.MovieScreenDto;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+
 @WebServlet("/screen")
 public class ScreenController extends HttpServlet {
 
@@ -81,7 +82,7 @@ public class ScreenController extends HttpServlet {
     /**
      * 영화 리스트
      * 
-     * @param movieScreenList
+     * @param movieList
      * @param resp
      * @throws ServletException
      * @throws IOException
