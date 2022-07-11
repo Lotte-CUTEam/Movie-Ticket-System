@@ -145,6 +145,23 @@ public class ReservationDto {
                 + ", status=" + status + "]";
     }
 
+    public String calcEndTime() {
 
+        int hour = screenAt.getHour();
+        int minute = screenAt.getMinute();
+
+        int pHour = runtime / 60;
+        int pMinute = (runtime / 60) % 60;
+
+        hour += pHour;
+        minute += pMinute;
+
+        if(minute >= 60) {
+            hour++;
+            minute %= 60;
+        }
+
+        return hour + ":" + minute;
+    }
 
 }

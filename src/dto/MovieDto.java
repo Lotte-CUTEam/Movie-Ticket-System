@@ -2,6 +2,7 @@ package dto;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -11,6 +12,7 @@ import java.util.Objects;
  * -----------------------------------------------------------
  * 수정일자           수정자         수정내용
  * 2022.07.08       권나연         신규생성
+ * 2022.07.11       안채영         기능추가
  * -----------------------------------------------------------
  */
 
@@ -159,6 +161,10 @@ public class MovieDto implements Serializable {
 
     public Integer getRated() {
         return rated;
+    }
+
+    public String parseOpeningDate() {
+        return openingDate.toString().split("T")[0];
     }
 }
 

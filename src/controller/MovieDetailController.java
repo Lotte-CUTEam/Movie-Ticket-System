@@ -28,17 +28,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/movieDetail")
 public class MovieDetailController extends HttpServlet {
 
-    private MovieDao movieDao = MovieDao.getInstance();
-
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-        throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doProcess(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-        throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doProcess(req, resp);
     }
 
