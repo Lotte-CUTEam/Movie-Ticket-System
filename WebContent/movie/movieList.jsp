@@ -361,10 +361,10 @@
                                         </div>
                                     </div>
                                     <div class="infor">
-                                        <h3>
+                                        <h4 align="center">
                                             <span class="icon a15 ir_pm">` + movie.rated + `세 이상 관람</span>
                                             <strong>` + dot3(movie.title) + `</strong>
-                                        </h3>
+                                        </h4>
                                         <div class="infor_btn">
                                             <a href="<%= request.getContextPath()%>/movieDetail?param=detail&id=` + movie.movieId + `">상세정보</a> <a href="#">예매하기</a>
                                         </div>
@@ -383,10 +383,10 @@
                                         </div>
                                     </div>
                                     <div class="infor">
-                                        <h3>
+                                        <h4 align="center" style="margin-top: -10px; margin-bottom: 10px;">
                                             <span class="icon a15 ir_pm">` + movie.rated + `세 이상 관람</span>
                                             <strong>` + dot3(movie.title) + `</strong>
-                                        </h3>
+                                        </h4>
                                         <div class="infor_btn">
                                             <a href="<%= request.getContextPath()%>/movieDetail?param=detail&id=` + movie.movieId + `">상세정보</a> <a href="#">예매하기</a>
                                         </div>
@@ -396,8 +396,8 @@
 
   function dot3(msg) { // 글이 길 때 ...으로 줄임
     let str = "";
-    if (msg.length >= 8) {
-      str = msg.substring(0, 8);
+    if (msg.length >= 20) {
+      str = msg.substring(0, 20);
       str += "...";
     } else {
       str = msg.trim();
