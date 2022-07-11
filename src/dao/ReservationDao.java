@@ -72,7 +72,8 @@ public class ReservationDao {
 
             while (rs.next()) {
                 int i = 1;
-                reservationDto = new ReservationDto(rs.getLong(i++),
+                reservationDto = new ReservationDto(
+                        rs.getLong(i++),
                         rs.getString(i++),
                         rs.getLong(i++),
                         rs.getLong(i++),
@@ -82,9 +83,9 @@ public class ReservationDao {
                         rs.getString(i++),
                         rs.getInt(i++),
                         rs.getTimestamp(i++).toLocalDateTime(),
-                        rs.getTimestamp(i++) == null ? null
+                        rs.getTimestamp(i) == null ? null
                                 : rs.getTimestamp(i).toLocalDateTime(),
-                        rs.getInt(i++));
+                        rs.getInt(i+1));
 
                 reservationList.add(reservationDto);
                 //System.out.println(reservationDto.toString());
@@ -149,9 +150,9 @@ public class ReservationDao {
                         rs.getString(i++),
                         rs.getInt(i++),
                         rs.getTimestamp(i++).toLocalDateTime(),
-                        rs.getTimestamp(i++) == null ? null
+                        rs.getTimestamp(i) == null ? null
                                 : rs.getTimestamp(i).toLocalDateTime(),
-                        rs.getInt(i++));
+                        rs.getInt(i+1));
 
                 reservationList.add(reservationDto);
             }
@@ -204,9 +205,9 @@ public class ReservationDao {
                         rs.getString(i++),
                         rs.getInt(i++),
                         rs.getTimestamp(i++).toLocalDateTime(),
-                        rs.getTimestamp(i++) == null ? null
+                        rs.getTimestamp(i) == null ? null
                                 : rs.getTimestamp(i).toLocalDateTime(),
-                        rs.getInt(i++));
+                        rs.getInt(i+1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -221,19 +222,19 @@ public class ReservationDao {
     /**
      * 예매 내역 생성
      * 
-     * @param id
+     * @param memberId
      * @param peopleCount
      * @param screenId
      * @return
      */
-    public int makeReservation(String id, int peopleCount, long screenId) {
+    public int makeReservation(String memberId, int peopleCount, long screenId) {
 
         Connection conn = null;
         PreparedStatement psmt = null;
 
         String sql =
                 "insert into RESERVATION ( member_id, screen_id, movie_id, screen_at, people_count, cinema, title, runtime, created_at, deleted_at, status) "
-                    + "select '" + id + "' as member_id, a.screen_id, a.movie_id, a.screen_at, "
+                    + "select '" + memberId + "' as member_id, a.screen_id, a.movie_id, a.screen_at, "
                         + " people_count as people_count, a.cinema, a.title, a.runtime, "
                         + " now() as created_at, null as deleted_at, 0 as status "
                     + "from (select s.screen_id, s.movie_id, s.screen_at, s.cinema, m.title, m.runtime "
@@ -257,13 +258,14 @@ public class ReservationDao {
         return count;
     }
 
-    public int deleteReservation(long reservationId) {
+    public int deleteReservation(String memberId, long reservationId) {
         Connection conn = null;
         PreparedStatement psmt = null;
 
         String sql = "update RESERVATION "
                 + " set deleted_at=now(), status=1 "
                 + " where reservation_id = ? "
+                        + " and member_id = ? "
                         + " and now() < DATE_SUB(screen_at, INTERVAL " + 20 + " MINUTE) ";
         int count = 0;
         try {
@@ -271,6 +273,7 @@ public class ReservationDao {
             conn = DBConnection.getConnection();
             psmt = conn.prepareStatement(sql);
             psmt.setLong(1, reservationId);
+            psmt.setString(2, memberId);
 
             count = psmt.executeUpdate();
 
