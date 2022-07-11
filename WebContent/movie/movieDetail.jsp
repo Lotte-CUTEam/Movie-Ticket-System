@@ -1,29 +1,44 @@
-<%@ page import="dao.MovieDao" %>
-<%@ page import="dto.MovieDto" %><%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2022-07-07
-  Time: 오후 9:40
-  To change this template use File | Settings | File Templates.
+<%--
+
+/**
+[프로젝트]롯데e커머스_자바전문가과정
+[시스템명]영화예매시스템
+[팀   명]CUTEam
+* -----------------------------------------------------------
+수정일자           수정자         수정내용
+2022.07.09       안채영         신규생성
+2022.07.11       안채영         css구현
+* -----------------------------------------------------------
+*/
+
 --%>
+
+<%@ page import="dto.MovieDto" %>
+<%@ page import="dto.MemberDto" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%--
-    로그인 세션 확인 코드 넣기
---%>
 
 <%
     MovieDto dto = (MovieDto) request.getAttribute("movie");
 %>
 <html>
 <head>
-    <title>Title</title>
+    <title>영화 상세 페이지</title>
 
     <!-- css -->
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/swiper.css">
     <link rel="stylesheet" href="assets/css/style_moviedetail.css">
+
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -53,220 +68,119 @@
     </div>
 </header>
 
-<div class="detail_top_wrap">
-    <div class="poster_info">
-        <img src="<%= dto.getImageUrl()%>" name="movieImage">
-        <%--<img src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202207/18748_103_1.jpg" alt="토르: 러브 앤 썬더"></div>--%>
-    <div class="tit_info">
-        <span class="ic_grade gr_12">만<%= dto.getRated()%>이상관람가 </span>
-        <strong><%= dto.getTitle()%></strong>
-    </div>
-    <ul class="detail_info1">
-        <li class="sub_info1" style="cursor: pointer;">
-            <em>관람객 평점</em>
-            <strong class="txt_ic_score ty2">
-                <em>평점</em>
-                <strong><%= dto.getRating()%> </strong>
-            </strong>
-        </li>
-        <%--<li class="sub_info3">
-            <em>누적관객수</em>
-            <strong>831,866<em>명</em><span class="date_info"> </span>
-            </strong>
-        </li>--%>
-    </ul>
-    <ul class="detail_info2">
-        <li class="sub_info1">
-            <em>장르</em>
-            <strong>
-                <em><%= dto.getGenre()%>></em>
-                <em><%= dto.getOpeningDate()%>>개봉</em>
-                <em class="time_info"><%= dto.getRuntime()%>분</em>
-            </strong>
-        </li>
-        <li class="sub_info2">
-            <em>감독</em>
-            <strong class="line_type">
-                <a href="#none">
-                    <%
-                        String[] arr = dto.getDirector().split(",");
+<div align="center" class="poster_info">
 
-                        for(String n : arr) {
-                            %>
-                            <%= n%>
-                            <%
-                        }
-                    %>
-                </a></strong>
-        </li>
-        <li class="sub_info3">
-            <em>출연</em>
-            <strong class="line_type">
-                <a href="#none">크리스 헴스워스</a>,
-                <a href="#none">나탈리 포트만</a>,
-                <a href="#none">테사 톰슨</a>,
-                <a href="#none">크리스찬 베일</a>,
-                <a href="#none">타이카 와이티티</a>
-            </strong>
-        </li>
-    </ul>
-    <div class="spacial_hall_info">
-        <span>
-            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/e2a94c82115c46f7b326baee6e10266a.png" alt="샤롯데바로가기">
-        </span>
-        <span>
-            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/61fb906fbd9b4ff1b34d6e0bd78dc655.png" alt="수퍼4D 바로가기">
-        </span>
-        <span>
-            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/c9078226c9ad4085b1b629bee2aba138.png" alt="수퍼플렉스 바로가기">
-        </span>
-        <span>
-            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/3ffca854b1844fdc8b54d8d9db45a03f.png" alt="수퍼플렉스 G 바로가기">
-        </span>
-        <span>
-            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/ff43cb260a2647dbb5f3c62b709103c4.png" alt="수퍼S 바로가기">
-        </span>
-        <span>
-            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/5c23288d3a104f7fa4f7d3e725a2c6a8.PNG" alt="씨네컴포트">
-        </span>
-        <span>
-            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/208a5ede362244fb8ab2e5cc3ab07529.PNG" alt="씨네살롱">
-        </span>
-        <span>
-            <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/2a366799460a49359bf93250f50852cf.png" alt="컬러리움">
-        </span>
-    </div>
-    <div class="movie_detail_aside_menu">
-        <ul>
-            <li>
-                <button type="button" class="btn_ic_share">
-                    <em>공유하기</em>
-                </button>
-                <div id="layerShare" class="layer_wrap layer_share">
-
-                </div>
-            </li>
-            <li>
-                <button type="button" id="mylikemovie" class="btn_ic_wish">
-                    <strong>좋아요</strong>
-                    <em>2,947</em>
-                </button>
-            </li>
-            <li class="area_reserve">
-                <a href="https://www.lottecinema.co.kr/NLCHS/ticketing?movieCd=18748&amp;movieName=토르%3A 러브 앤 썬더" class="btn_col1 ty7 rnd">예매하기</a>
-            </li>
-        </ul>
-    </div>
-</div>
-
-
-
-
-<div align="center">
-
-
-    <table border="1">
-        <%-- 이미지, 관람등급, 제목, 평점, 장르, 개봉일, 러닝타임, 감독, 주연--%>
-        <col width="50"><col width="50"><col width="50"><col width="50"><col width="50">
-        <col width="50"><col width="50"><col width="50"><col width="50"><col width="50">
-
+    <table class="table">
         <tr>
-            <th>
-                이미지
-            </th>
-            <td>
-                <img src="<%= dto.getImageUrl()%>" name="movieImage">
-            </td>
+            <div style="width: 300px; height: 400px; margin: 50px">
+                <img src="<%= dto.getImageUrl()%>" style="margin-top:30px; box-shadow: 10px 11px 10px 0 black;" width="300px" height="400px">
+            </div>
         </tr>
 
         <tr>
-            <th>
-                관람등급
-            </th>
-            <td>
-                <%= dto.getRated()%>
-            </td>
+            <div class="tit_info align-center">
+                <span::before class="ic_grade gr_<%= dto.getRated()%>">만<%= dto.getRated()%>이상관람가 </span::before>&nbsp;
+                <strong style="font-size: 30px; margin-top: 10px;"><%= dto.getTitle()%></strong>
+            </div>
+            <div style="height:10px;">&nbsp;</div>
+        </tr>
+
+
+        <tr>
+            <div class="detail_info1">
+                <span class="movie-detail-span">관람객 평점</span>
+                <strong class="txt_ic_score ty2">
+                    <strong style="font-size: 25px"><%= dto.getRating()%></strong>점
+                </strong>
+            </div>
+            <div style="height:10px;">&nbsp;</div>
         </tr>
 
         <tr>
-            <th>
-                제목
-            </th>
-            <td>
-                <%= dto.getTitle()%>
-            </td>
+            <div class="sub_info1">
+                <span class="movie-detail-span">장르</span>
+                <strong>
+                    <strong><%= dto.getGenre()%></strong>&nbsp;&nbsp;&nbsp;
+                    <span><strong><%= dto.parseOpeningDate()%></strong>&nbsp;개봉</span>&nbsp;&nbsp;&nbsp;
+                    <span class="time_info"><strong><%= dto.getRuntime()%></strong>분</span>&nbsp;&nbsp;&nbsp;
+                </strong>
+            </div>
+            <div style="height:10px;">&nbsp;</div>
         </tr>
 
         <tr>
-            <th>
-                평점
-            </th>
-            <td>
-                <%= dto.getRating()%>
-            </td>
+            <div class="sub_info2">
+                <span class="movie-detail-span">감독</span>
+                <strong><%= dto.getDirector()%></strong>
+            </div>
+            <div style="height:10px;">&nbsp;</div>
         </tr>
 
         <tr>
-            <th>
-                장르
-            </th>
-            <td>
-                <%= dto.getGenre()%>
-            </td>
+            <div class="sub_info3">
+                <span class="movie-detail-span">출연</span>
+                <strong><%= dto.getActor()%></strong>
+            </div>
+            <div style="height:10px;">&nbsp;</div>
         </tr>
-
-        <tr>
-            <th>
-                개봉일
-            </th>
-            <td>
-                <%= dto.getOpeningDate()%>
-            </td>
-        </tr>
-
-        <tr>
-            <th>
-                러닝타임
-            </th>
-            <td>
-                <%= dto.getRuntime()%>
-            </td>
-        </tr>
-
-        <tr>
-            <th>
-                감독
-            </th>
-            <td>
-                <%= dto.getDirector()%>
-            </td>
-        </tr>
-
-        <tr>
-            <th>
-                주연
-            </th>
-            <td>
-                <%= dto.getActor()%>
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-                <input type="button" name="reservationBtn" value="예매하기" onclick="reserve(<%= dto.getMovieId()%>)">
-            </td>
-        </tr>
-
     </table>
+
+    <div class="detail_top_wrap">
+        <div class="spacial_hall_info">
+                <span>
+                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/e2a94c82115c46f7b326baee6e10266a.png" alt="샤롯데바로가기">
+                </span>
+            <span>
+                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/61fb906fbd9b4ff1b34d6e0bd78dc655.png" alt="수퍼4D 바로가기">
+                </span>
+            <span>
+                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/c9078226c9ad4085b1b629bee2aba138.png" alt="수퍼플렉스 바로가기">
+                </span>
+            <span>
+                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/3ffca854b1844fdc8b54d8d9db45a03f.png" alt="수퍼플렉스 G 바로가기">
+                </span>
+            <span>
+                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/ff43cb260a2647dbb5f3c62b709103c4.png" alt="수퍼S 바로가기">
+                </span>
+            <span>
+                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/5c23288d3a104f7fa4f7d3e725a2c6a8.PNG" alt="씨네컴포트">
+                </span>
+            <span>
+                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/208a5ede362244fb8ab2e5cc3ab07529.PNG" alt="씨네살롱">
+                </span>
+            <span>
+                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/2a366799460a49359bf93250f50852cf.png" alt="컬러리움">
+                </span>
+        </div>
+
+    </div>
+
+    <button type="button" name="reservationBtn" onclick="reserve(<%= dto.getMovieId()%>)" style="padding: 10px; margin-bottom: 50px; border: 1px solid black ">예매하기</button>
 </div>
+
 
 <script type="text/javascript">
     function reserve(id) {
-        location.href = "reservation?id=" + id;
+
+      <%
+        Object obj = session.getAttribute("login");
+
+        if(obj ==null) {
+        %>
+            alert('로그인 해 주십시오');
+            location.href = "login.jsp";
+        <%
+        } else {
+            %>
+            location.href = "/reservation?param=reservation&movie_id=" + id;
+            <%
+        }
+      %>
+
     }
 </script>
 
-<footer id="footer">
+<footer id="footer" style="margin-top:100px">
     <div id="footer_sns">
         <div class="container">
             <div class="footer_sns">
