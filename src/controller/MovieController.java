@@ -1,6 +1,8 @@
 package controller;
 
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -40,7 +42,7 @@ public class MovieController extends HttpServlet {
 
     private final MovieDao movieDao = MovieDao.getInstance();
 
-    private final Gson gson = new Gson();
+    private Gson gson;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -52,9 +54,11 @@ public class MovieController extends HttpServlet {
         System.out.println(
                 String.format("[MovieController] doGet: rIdx = %s, resource = %s", rIdx, resource));
 
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
+        gson = gsonBuilder.setPrettyPrinting().create();
 
         doProcess(resource, req, resp);
-
     }
 
     public void doProcess(String resource, HttpServletRequest req, HttpServletResponse resp)
