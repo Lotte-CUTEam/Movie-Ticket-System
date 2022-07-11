@@ -197,7 +197,6 @@
   });
 
   function movieMenuBtnToggle(index) {
-	  chartCont.empty();
 
 	  let moviesCtrl = $('.movies_ctrl');
 	  if (index == 0) {
@@ -352,6 +351,8 @@
   }
 
   function makeMovieTop5Div(idx, movie) {
+	  chartCont.empty();
+
     return `         <div class="movie_div">
                                     <div class="poster">
                                         <figure>
@@ -374,6 +375,8 @@
   }
 
   function makeMoviesDiv(idx, movie) {
+	  chartCont.empty();
+
     return `         <div class="movie_div">
                                     <div class="poster">
                                         <figure>
