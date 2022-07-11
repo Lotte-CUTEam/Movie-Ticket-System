@@ -1,38 +1,5 @@
-<%@ page import="dto.MovieDto" %>
-<%@ page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%
-    List<MovieDto> ratingTop5 = (List<MovieDto>) request.getAttribute("rating-top5");
-    List<MovieDto> latestTop5 = (List<MovieDto>) request.getAttribute("latest-top5");
-    List<MovieDto> movies = (List<MovieDto>) request.getAttribute("movies");
-
-    String searchCategory = (String) request.getAttribute("searchCategory");
-    String search = (String) request.getAttribute("search");
-    int pageCnt = (Integer) request.getAttribute("pageCnt");
-    int pageNo = (Integer) request.getAttribute("pageNo");
-    String filter = (String) request.getAttribute("filter");
-
-    if (searchCategory == null) {
-        searchCategory = "";
-    }
-    if (search == null) {
-        search = "";
-    }
-    if (filter == null) {
-        filter = "";
-    }
-%>
-<%!public String dot3(String msg) { // 글이 길 때 ...으로 줄임
-    String str = "";
-    if (msg.length() >= 8) {
-        str = msg.substring(0, 8);
-        str += "...";
-    } else {
-        str = msg.trim();
-    }
-    return str;
-}%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -164,145 +131,33 @@
                     </ul>
                 </div>
 
-                <div class="movie_page">
-                    <!-- FIXME 페이징 필터 -->
-                    <%
-                        for (int i=0; i<pageCnt; i++) {
-                            if (pageNo == i) {
-                    %>
-                                <span style="background: red">
-                                    <%=i + 1%>
-                                </span>
-                    <%
-                            }
-                            else {
-                    %>
-                                <a href="#" title="<%=i + 1%> 페이지" onclick="goPage(<%=i%>)">
-                                    [<%=i + 1%>]
-                                </a>
-                    <%
-                            }
-                        }
-                    %>
+                <div id="movies_ctrl">
+                    <div class="movie_page">
+                    </div>
+
+                    <div class="movie_filter">
+                        <span title="rating" onclick="goFilter('rating')">평점순</span> &nbsp;&nbsp;
+                        <span title="opening_date" onclick="goFilter('opening_date')">최신 개봉순</span> &nbsp;&nbsp;
+                    </div>
+
+                                        <div class="movie_search">
+                                            <select id="searchCategory">
+                                                <option>검색</option>
+                                                <option value="title">제목</option>
+                                                <option value="director">감독</option>
+                                                <option value="actor">배우</option>
+                                            </select>
+
+                                            <input type="text" id="search" value="">
+                                            <button type="button" onclick="searchMovie()">검색</button>
+                                        </div>
                 </div>
 
-                <div class="movie_filter">
-                    <span title="rating" onclick="goFilter('rating')">평점순</span> &nbsp;&nbsp;
-                    <span title="opening_date" onclick="goFilter('opening_date')">최신 개봉순</span> &nbsp;&nbsp;
-                </div>
-
-                <div class="movie_search">
-                    <select id="searchCategory">
-                        <option>검색</option>
-                        <option value="title">제목</option>
-                        <option value="director">감독</option>
-                        <option value="actor">배우</option>
-                    </select>
-
-                    <input type="text" id="search" value="<%=search %>">
-                    <button type="button" onclick="searchMovie()">검색</button>
-                </div>
 
                 <div class="movie_chart">
                     <!-- 영화 평점 TOP5 -->
                     <div class="chart_cont1">
-                        <%
-                            for (int i=0; i<ratingTop5.size(); i++) {
-                                MovieDto movie = ratingTop5.get(i);
-                         %>
-                            <div class="movie_div">
-                                <div class="poster">
-                                    <figure>
-                                        <img src="<%=movie.getImageUrl()%>" alt="<%=movie.getTitle()%>>">
-                                    </figure>
-                                    <div class="rank">
-                                        <strong>
-                                            <%=i + 1%>
-                                        </strong>
-                                    </div>
-                                </div>
-                                <div class="infor">
-                                    <h3>
-                                        <span class="icon a15 ir_pm"><%=movie.getRated()%>세 이상 관람</span>
-                                        <strong><%=dot3(movie.getTitle())%>
-                                        </strong>
-                                    </h3>
-                                    <div class="infor_btn">
-                                        <a href="#">상세정보</a> <a href="#">예매하기</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <%
-                                }
-                            %>
 
-                    </div>
-
-                    <!-- 최신 개봉작 TOP5 -->
-                    <div class="chart_cont2">
-                        <%
-                            for (int i=0; i<latestTop5.size(); i++) {
-                                MovieDto movie = latestTop5.get(i);
-                        %>
-                        <div class="movie_div">
-                            <div class="poster">
-                                <figure>
-                                    <img src="<%=movie.getImageUrl()%>" alt="<%=movie.getTitle()%>>">
-                                </figure>
-                                <div class="rank">
-                                    <strong>
-                                        <%=i + 1%>
-                                    </strong>
-                                </div>
-                            </div>
-                            <div class="infor">
-                                <h3>
-                                    <span class="icon a15 ir_pm"><%=movie.getRated()%>세 이상 관람</span>
-                                    <strong><%=dot3(movie.getTitle())%>
-                                    </strong>
-                                </h3>
-                                <div class="infor_btn">
-                                    <a href="#">상세정보</a> <a href="#">예매하기</a>
-                                </div>
-                            </div>
-                        </div>
-                        <%
-                            }
-                        %>
-                    </div>
-
-                    <!-- 모든 영화 -->
-                    <div class="chart_cont3">
-
-                        <%
-                            for (int i=0; i<movies.size(); i++) {
-                                MovieDto movie = movies.get(i);
-                        %>
-                        <div class="movie_div">
-                            <div class="poster">
-                                <figure>
-                                    <img src="<%=movie.getImageUrl()%>" alt="<%=movie.getTitle()%>>">
-                                </figure>
-                                <div class="rank">
-                                    <strong>
-                                        <%=movie.getRated()%> <!-- 관람 등급 -->
-                                    </strong>
-                                </div>
-                            </div>
-                            <div class="infor">
-                                <h3>
-                                    <span class="icon a15 ir_pm"><%=movie.getRated()%>세 이상 관람</span>
-                                    <strong><%=dot3(movie.getTitle())%>
-                                    </strong>
-                                </h3>
-                                <div class="infor_btn">
-                                    <a href="#">상세정보</a> <a href="#">예매하기</a>
-                                </div>
-                            </div>
-                        </div>
-                        <%
-                            }
-                        %>
                     </div>
                 </div>
             </div>
@@ -354,6 +209,12 @@
 
 
 <script>
+
+  let curSearchCategory = "";
+  let curSearch = "";
+  let curFilter = "";
+  let curPageNo = 0;
+
   //배너 이미지 슬라이드
   var swiper = new Swiper('.swiper-container', {
     pagination : {
@@ -368,58 +229,252 @@
     },
   });
 
-
   //영화차트 탭 메뉴
   var movBtn = $(".movie_title > ul > li");
   var movCont = $(".movie_chart > div");
 
   movCont.hide().eq(0).show();
 
+  let chartCont = $('.chart_cont1');
+
   movBtn.click(function(e) {
     e.preventDefault();
+
     var target = $(this);
     var index = target.index();
+
     movBtn.removeClass("active");
     target.addClass("active");
-    movCont.css("display", "none");
-    movCont.eq(index).css("display", "block");
+
+    movieMenuBtnToggle(index);
   });
 
-  // 4번째 영화 오른쪽 마진 0 설정
-  for (let i=0; i<movCont.length; i++) {
-    let movDiv = movCont.eq(i).children(".movie_div");
-    for (let j=0; j<movDiv.length; j++) {
-      if (j%4 == 3) {
-        movDiv.eq(j).css("margin-right", "0px");
+  function movieMenuBtnToggle(index) {
+
+    let moviesCtrl = $('#movies_ctrl');
+
+    if (index == 0) {
+      moviesCtrl.hide();
+      getMoviesScreeningRatingTop5();
+    }
+    else if (index == 1) {
+      moviesCtrl.hide();
+      getMoviesLatestScreeningTop5();
+    }
+    else if (index == 2) {
+      moviesCtrl.show();
+      getMovies();
+    }
+  }
+
+  movieMenuBtnToggle(0);
+
+  // 4번째 영화 오른쪽 마진 0 설정'
+  function setMovieDivMarginTop() {
+    let movDiv = $(".movie_div");
+    for (let i=0; i<movDiv.length; i++) {
+      if (i%4 == 3) {
+        movDiv.eq(i).css("margin-right", "0px");
       }
     }
   }
 
   // 초기 검색 카테고리 설정
-  let search = "<%=search %>";
-  if(search != ""){
-    let obj = $("#searchCategory");
-    obj.value = "<%=searchCategory %>";
-    obj.setAttribute("selected", "selected");
-  }
+  <%--let search = "<%=search %>";--%>
+  <%--if(search != ""){--%>
+  <%--  let obj = $("#searchCategory");--%>
+  <%--  obj.value = "<%=searchCategory %>";--%>
+  <%--  obj.setAttribute("selected", "selected");--%>
+  <%--}--%>
 
   function goPage(pageNo) {
-    // FIXME 페이징, 필터
-    location.href = "/movie?param=list&pageNo=" + pageNo + "&filter=" + "<%=filter%>";
+
+    curPageNo = pageNo;
+
+    getMovies();
+
+
   }
 
   function goFilter(filter) {
-    location.href = "/movie?param=list&pageNo=0" + "&filter=" + filter;
+    curFilter = filter;
+    curPageNo = 0;
+
+    getMovies();
   }
 
   function searchMovie() {
-    let sc = $('#searchCategory');
-    let ss = $('#search');
-    let searchCategory = $('#searchCategory').value;
-    let search = $('#search').value;
+    let vSearchCategory = $('#searchCategory').val();
+    let vSearch = $('#search').val();
 
-    location.href = "/movie?param=list&searchCategory=" + searchCategory + "&search=" + search;
+    curSearchCategory = vSearchCategory;
+    curSearch = vSearch;
+
+    getMovies();
   }
+
+  function getMoviesScreeningRatingTop5() {
+    let chartCont = $('.chart_cont1')
+
+    $.ajax({
+      url: "/movies/rating-top5",
+      type: "GET",
+      success: function (data) {
+        console.log("[index.jsp] getMovies: success get movies data ");
+        console.log(data);
+
+        let html = "";
+        $.each(data, function(idx, movie) {
+          html += makeMovieTop5Div(idx, movie);
+        });
+        chartCont.empty();
+        chartCont.append(html);
+
+        setMovieDivMarginTop();
+      },
+      error: function (request,status,error) {
+        console.log(request, error, status);
+        alert("error");
+      }
+    }) ;
+
+  }
+
+  function getMoviesLatestScreeningTop5() {
+
+    $.ajax({
+      url: "/movies/latest-top5",
+      type: "GET",
+      success: function (data) {
+        console.log("[index.jsp] getMovies: success get movies data ");
+        console.log(data);
+
+        let html = "";
+        $.each(data, function(idx, movie) {
+          html += makeMovieTop5Div(idx, movie);
+        });
+        chartCont.empty();
+        chartCont.append(html);
+
+        setMovieDivMarginTop();
+      },
+      error: function (request,status,error) {
+        console.log(request, error, status);
+        alert("error");
+      }
+    }) ;
+
+  }
+
+  function makeMoviePageIdx(pageCnt, pageNo) {
+
+    let moviePage = $('.movie_page');
+
+    let html = "";
+
+    for (let i=0; i<pageCnt; i++) {
+      if (pageNo == i) {
+        html += `<span style="background: red">` + (i + 1) + `</span>`;
+      }
+      else {
+        html += `<a href="#" title="` + (i + 1) + ` 페이지" onclick="goPage(` + i + `)">` +
+                      `[` + (i + 1) + `]` +
+                 `</a>`
+      }
+    }
+
+    moviePage.empty();
+    moviePage.append(html);
+  }
+
+  function getMovies() {
+    $.ajax({
+      url: "/movies/all?searchCategory=" + curSearchCategory + "&search=" + curSearch + "&pageNo="
+                                        + curPageNo + "&filter=" + curFilter,
+      type: "GET",
+      success: function (data) {
+        console.log("[index.jsp] getMovies: success get movies data ");
+
+        let html = "";
+        $.each(data.movies, function(idx, movie) {
+          html += makeMoviesDiv(idx, movie);
+        });
+        chartCont.empty();
+        chartCont.append(html);
+
+        setMovieDivMarginTop();
+        makeMoviePageIdx(data.pageCnt, data.pageNo);
+
+        curSearchCategory = data.searchCategory;
+        curSearch = data.search;
+      },
+      error: function (request,status,error) {
+        console.log(request, error, status);
+        alert("error");
+      },
+      fail: function (err) {
+        console.log(err);
+      }
+    });
+  }
+
+  function makeMovieTop5Div(idx, movie) {
+    // FIXME 영화 상세페이지 URL
+    return `         <div class="movie_div">
+                                    <div class="poster">
+                                        <figure>
+                                            <img src="` + movie.imageUrl + `" alt="` + movie.title + `">
+                                        </figure>
+                                        <div class="rank">
+                                            <strong>` + (idx + 1) + `</strong>
+                                        </div>
+                                    </div>
+                                    <div class="infor">
+                                        <h3>
+                                            <span class="icon a15 ir_pm">` + movie.rated + `세 이상 관람</span>
+                                            <strong>` + dot3(movie.title) + `</strong>
+                                        </h3>
+                                        <div class="infor_btn">
+                                            <a href="#">상세정보</a> <a href="#">예매하기</a>
+                                        </div>
+                                    </div>
+                                </div>`;
+  }
+
+  function makeMoviesDiv(idx, movie) {
+    // FIXME 영화 상세페이지 URL
+    return `         <div class="movie_div">
+                                    <div class="poster">
+                                        <figure>
+                                            <img src="` + movie.imageUrl + `" alt="` + movie.title + `">
+                                        </figure>
+                                        <div class="rank">
+                                            <strong>` + (movie.rated) + `</strong>
+                                        </div>
+                                    </div>
+                                    <div class="infor">
+                                        <h3>
+                                            <span class="icon a15 ir_pm">` + movie.rated + `세 이상 관람</span>
+                                            <strong>` + dot3(movie.title) + `</strong>
+                                        </h3>
+                                        <div class="infor_btn">
+                                            <a href="#">상세정보</a> <a href="#">예매하기</a>
+                                        </div>
+                                    </div>
+                                </div>`;
+  }
+
+  function dot3(msg) { // 글이 길 때 ...으로 줄임
+    let str = "";
+    if (msg.length >= 8) {
+      str = msg.substring(0, 8);
+      str += "...";
+    } else {
+      str = msg.trim();
+    }
+    return str;
+  }
+
 </script>
 </body>
 </html>
