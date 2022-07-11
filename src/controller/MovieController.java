@@ -2,16 +2,23 @@
 
 package controller;
 
+import com.google.gson.Gson;
 import dao.MovieDao;
+import dto.AllMovieDto;
 import dto.MovieDto;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  * [프로젝트]롯데e커머스_자바전문가과정
@@ -22,25 +29,64 @@ import javax.servlet.http.HttpServletResponse;
  *
  * 수정일자           수정자         수정내용
  *
- * 2022.07.08       권나연         신규생성
+ * 2022.07.11       권나연         신규생성
  *
  * -----------------------------------------------------------
  */
 
-@WebServlet("/movie")
+// rating-top5
+// latest-top5
+// all
+// names
+
+@WebServlet("/movies/*")
 public class MovieController extends HttpServlet {
 
-    private MovieDao movieDao = MovieDao.getInstance();
+    private final MovieDao movieDao = MovieDao.getInstance();
+
+    private final Gson gson = new Gson();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
 
-        String param = req.getParameter("param");
+        int rIdx = req.getRequestURI().lastIndexOf('/');
+        String resource = req.getRequestURI().substring(rIdx + 1);
+        System.out.println(String.format("[MovieController] doGet: rIdx = %s, resource = %s", rIdx, resource));
 
-        switch (param) {
-            case "list":
+
+        doProcess(resource, req, resp);
+
+    }
+
+    public void doProcess(String resource, HttpServletRequest req, HttpServletResponse resp)
+        throws IOException {
+
+        JSONObject obj = new JSONObject();
+
+        switch (resource) {
+            case "rating-top5":
+
+                List<MovieDto> ratingTop5 = movieDao.getMoviesScreeningRatingTop5();
+
+                resp.setContentType("application/json");
+                resp.setCharacterEncoding("UTF-8");
+                resp.getWriter().print(gson.toJson(ratingTop5));
+
+                break;
+
+            case "latest-top5":
+
+                List<MovieDto> latestTop5 = movieDao.getMoviesLatestScreeningTop5();
+
+                resp.setContentType("application/json");
+                resp.setCharacterEncoding("UTF-8");
+                resp.getWriter().print(gson.toJson(latestTop5));
+
+                break;
+
+            case "all":
                 String searchCategory = req.getParameter("searchCategory");
                 String search = req.getParameter("search");
                 String spageNo = req.getParameter("pageNo");
@@ -59,45 +105,40 @@ public class MovieController extends HttpServlet {
                 if (filter == null) {
                     filter = "";
                 }
-
                 // TODO [영화 목록] Controller throw Exception
-                List<MovieDto> ratingTop5 = movieDao.getMoviesScreeningRatingTop5();
-                List<MovieDto> latestTop5 = movieDao.getMoviesLatestScreeningTop5();
+
                 List<MovieDto> movies = movieDao.getMovies(searchCategory, search, pageNo, filter);
 
-                req.setAttribute("rating-top5", ratingTop5);
-                req.setAttribute("latest-top5", latestTop5);
-                req.setAttribute("movies", movies);
-
                 Integer movieCnt = movieDao.getMovieCount();
-                // TODO: NULL 체크
-
-
                 int pageCnt = movieCnt / MovieDao.PAGE_CONTENT_COUNT;
                 if ((pageCnt%MovieDao.PAGE_CONTENT_COUNT) > 0) {
                     pageCnt = pageCnt + 1;
                 }
-                req.setAttribute("pageCnt", pageCnt);
-                req.setAttribute("pageNo", pageNo);
 
-                forward("/movie/movieList.jsp", req, resp);
+                AllMovieDto dto = new AllMovieDto(searchCategory, search, pageCnt, pageNo, movies);
+
+                resp.setContentType("application/json");
+                resp.setCharacterEncoding("UTF-8");
+                resp.getWriter().print(gson.toJson(dto));
 
                 break;
-
+            // 영화 예매
             case "names":
+
+
                 List<MovieDto> movieNames = movieDao.getMovieNames();
-                req.setAttribute("movies", movieNames);
+
                 // TODO [영화 목록] 영화 이름 리스트 ReservationController 쪽으로 넘기기
+
                 break;
         }
-    }
+//
+//        resp.setContentType("application/json");
+//        resp.setCharacterEncoding("UTF-8");
+//        resp.getWriter().print(obj.toString());
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-        throws ServletException, IOException {
-        req.setCharacterEncoding("utf-8");
 
-        String param = req.getParameter("param");
+
     }
 
     public void forward(String arg, HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {

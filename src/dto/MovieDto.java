@@ -1,5 +1,6 @@
 package dto;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ import java.util.Objects;
  * -----------------------------------------------------------
  */
 
-public class MovieDto {
+public class MovieDto implements Serializable {
 
     private Long movieId; // 아이디 [식별자]
 
