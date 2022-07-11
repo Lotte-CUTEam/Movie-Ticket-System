@@ -303,16 +303,17 @@
 
     let moviePage = $('.movie_page');
 
-    let html = "<ul class='clearfix'>";
+    let html = "<ul class=clearfix>";
 
     for (let i=0; i<pageCnt; i++) {
       if (pageNo == i) {
-        html += `<li class="active"><a href="#">` + (i + 1) + `</a></li>`;
+        html += `<li class="active"><a>` + (i + 1) + `</a></li>`;
       }
       else {
-        html += `<li><a href="#" onclick="goPage(`+ i + `)">` + (i + 1) + `</a></li>`;
+        html += `<li><a onclick="goPage(`+ i + `)">` + (i + 1) + `</a></li>`;
       }
     }
+	html += "</ul>";
 
     moviePage.empty();
     moviePage.append(html);
