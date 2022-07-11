@@ -55,7 +55,11 @@ public class MypageController extends HttpServlet {
             // get memberId
             String memberId = req.getParameter("memberId");
             if (memberId == null || memberId.equals("")) {
+<<<<<<< Updated upstream
                 resp.sendRedirect("index.jsp");
+=======
+                resp.sendRedirect("util/message.jsp?param=mypage&msg=url");
+>>>>>>> Stashed changes
                 return;
                 //memberId = "hyewon"; //TODO
             }
@@ -70,7 +74,11 @@ public class MypageController extends HttpServlet {
             // get memberId
             String memberId = req.getParameter("memberId");
             if (memberId == null || memberId.equals("")) {
+<<<<<<< Updated upstream
                 resp.sendRedirect("index.jsp"); //TODO 에러페이지
+=======
+                resp.sendRedirect("util/message.jsp?param=mypage&msg=url");
+>>>>>>> Stashed changes
                 return;
                 //memberId = "hyewon"; //TODO
             }
@@ -92,7 +100,12 @@ public class MypageController extends HttpServlet {
             // get memberId
             String memberId = req.getParameter("memberId");
             if (memberId == null || memberId.equals("")) {
+<<<<<<< Updated upstream
                 resp.sendRedirect("index.jsp"); //TODO 에러페이지
+=======
+                resp.sendRedirect(req.getContextPath()
+                        + "/util/message.jsp?param=mypage&msg=url");
+>>>>>>> Stashed changes
                 return;
                 //memberId = "hyewon"; //TODO
             }
@@ -108,7 +121,11 @@ public class MypageController extends HttpServlet {
 
             resp.sendRedirect(req.getContextPath() + "/mypage?param=mypage&memberId=" + memberId);
         } else {
+<<<<<<< Updated upstream
             resp.sendRedirect(req.getContextPath() + "/index.jsp");
+=======
+            resp.sendRedirect("util/message.jsp?param=mypage&msg=url");
+>>>>>>> Stashed changes
         }
 
     }
