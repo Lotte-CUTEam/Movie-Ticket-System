@@ -24,6 +24,8 @@ public class MovieDao {
 
     private static MovieDao dao = new MovieDao();
 
+    public static final int PAGE_CONTENT_COUNT = 8;
+
     private MovieDao() {
         DBConnection.initConnection();
     }
@@ -33,16 +35,57 @@ public class MovieDao {
     }
 
     /* 전체 영화 리스트 */
-    public List<MovieDto> getMovies() {
+    public List<MovieDto> getMovies(String searchCategory, String search, Integer pageNo, String filter) {
+        System.out.println(String.format("[MovieDao] info: page no = %d, filter = %s", pageNo, filter));
 
         String sql = " SELECT movie_id, title, rating, image_url, rated "
-                    + " FROM MOVIE ";
+                    + " FROM (SELECT ROW_NUMBER() ";
+
+        // 필터 파라미터 적용
+        switch (filter) {
+            case "": // filter == ""
+            case "rating":
+                sql += " OVER(ORDER BY rating DESC) ";
+                break;
+
+            case "opening_date":
+                sql += " OVER(ORDER BY opening_date DESC) ";
+                break;
+        }
+        System.out.println(sql);
+        sql += " AS rnum, movie_id, title, rating, image_url, rated "
+            + "      FROM MOVIE ";
+
+        // 검색 파라미터 적용
+        String sCondition = "";
+        switch (searchCategory) {
+            case "title":
+                sCondition = " WHERE title LIKE '%" + search + "%' ";
+                break;
+
+            case "director":
+                sCondition = " WHERE director LIKE '%" + search + "%' ";
+                break;
+
+            case "actor":
+                sCondition = " WHERE actor LIKE '%" + search + "%' ";
+                break;
+        }
+        sql += sCondition;
+        sql += ") row_num_tb ";
+        sql += " WHERE rnum BETWEEN ? AND ? ";
 
         try (
             Connection conn = DBConnection.getConnection();
             PreparedStatement psmt = conn.prepareStatement(sql);
             )
         {
+            int pageStartNo = 1 + PAGE_CONTENT_COUNT*pageNo;
+            int pageEndNo = PAGE_CONTENT_COUNT + PAGE_CONTENT_COUNT*pageNo;
+
+            psmt.setInt(1, pageStartNo);
+            psmt.setInt(2, pageEndNo);
+
             System.out.println("[MovieDao] getMovies: success db connection. ");
 
             try (
@@ -51,7 +94,6 @@ public class MovieDao {
             {
                 List<MovieDto> list = new ArrayList<>();
                 while (rs.next()) {
-                    System.out.println("[MovieDao] getMovies: success get movie from db. ");
                     MovieDto dto = new MovieDto(rs.getLong(1),
                                                 rs.getString(2),
                                                 rs.getString(3),
@@ -59,6 +101,7 @@ public class MovieDao {
                                                 rs.getInt(5));
                     list.add(dto);
                 }
+                System.out.println("[MovieDao] getMovies: success get movie from db. ");
                 return list;
             }
         } catch (SQLException e) {
@@ -67,6 +110,32 @@ public class MovieDao {
 
         System.out.println("[MovieDao] getMovies: fail get movies. ");
 
+        return null;
+    }
+
+    public Integer getMovieCount() {
+
+        String sql = " SELECT COUNT(*) FROM MOVIE ";
+
+        try (
+                Connection conn = DBConnection.getConnection();
+                PreparedStatement psmt = conn.prepareStatement(sql);
+            )
+        {
+            System.out.println("[MovieDao] getMovieCount: success db connection. ");
+
+            try ( ResultSet rs = psmt.executeQuery(); )
+            {
+                if (rs.next()) {
+                    System.out.println("[MovieDao] getMovieCount: success get movie count from db. ");
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("[MovieDao] getMovieCount: fail get movie count. ");
         return null;
     }
 
