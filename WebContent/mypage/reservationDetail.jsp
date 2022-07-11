@@ -8,6 +8,7 @@
 2022.07.11		정은우		신규생성
 -----------------------------------------------------------
  -->
+<%@page import="dto.MemberDto"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="dto.ReservationDto"%>
@@ -19,7 +20,6 @@
 	//List<ReservationDto> list = null;%>
 
 <!-- 로그인 확인 -->
-<%-- 
 <%
 MemberDto mem = (MemberDto) session.getAttribute("login");
 if (mem == null) {
@@ -31,7 +31,6 @@ if (mem == null) {
 <%
 }
 %>
---%>
 
 <!DOCTYPE html>
 <html>
@@ -123,7 +122,7 @@ div#contents::before {
 							%>
 							<tr>
 								<th>제목</th>
-								<td><%=resvDto.getTitle() %></td>
+								<th align="left"><%=resvDto.getTitle() %></th>
 							</tr>
 							<tr>
 								<th>예매번호</th>

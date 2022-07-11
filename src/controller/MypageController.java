@@ -55,9 +55,9 @@ public class MypageController extends HttpServlet {
             // get memberId
             String memberId = req.getParameter("memberId");
             if (memberId == null || memberId.equals("")) {
-                /*resp.sendRedirect("index.jsp"); //TODO 에러페이지
-                return;*/
-                memberId = "hyewon"; //TODO
+                resp.sendRedirect("index.jsp");
+                return;
+                //memberId = "hyewon"; //TODO
             }
 
             ReservationDao resvDao = ReservationDao.getInstance();
@@ -70,9 +70,9 @@ public class MypageController extends HttpServlet {
             // get memberId
             String memberId = req.getParameter("memberId");
             if (memberId == null || memberId.equals("")) {
-                /*resp.sendRedirect("index.jsp"); //TODO 에러페이지
-                return;*/
-                memberId = "hyewon"; //TODO
+                resp.sendRedirect("index.jsp"); //TODO 에러페이지
+                return;
+                //memberId = "hyewon"; //TODO
             }
             // get resvId
             String sSeq = req.getParameter("resvId");
@@ -89,6 +89,13 @@ public class MypageController extends HttpServlet {
             forward("mypage/reservationDetail.jsp", req, resp);
         } else if (param.equals("deleteResv")) {
             // parameter
+            // get memberId
+            String memberId = req.getParameter("memberId");
+            if (memberId == null || memberId.equals("")) {
+                resp.sendRedirect("index.jsp"); //TODO 에러페이지
+                return;
+                //memberId = "hyewon"; //TODO
+            }
             // get resvId
             String sSeq = req.getParameter("resvId");
             int resvId = 0;
@@ -97,11 +104,11 @@ public class MypageController extends HttpServlet {
             }
 
             ReservationDao resvDao = ReservationDao.getInstance();
-            int ret = resvDao.deleteReservation(resvId);
+            int ret = resvDao.deleteReservation(memberId, resvId);
 
-            forward("mypage/myPage.jsp", req, resp);
+            resp.sendRedirect(req.getContextPath() + "/mypage?param=mypage&memberId=" + memberId);
         } else {
-            resp.sendRedirect("index.jsp"); //TODO 에러페이지
+            resp.sendRedirect(req.getContextPath() + "/index.jsp");
         }
 
     }
