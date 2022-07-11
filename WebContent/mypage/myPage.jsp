@@ -8,6 +8,7 @@
 2022.07.08		정은우		신규생성
 -----------------------------------------------------------
  -->
+<%@page import="dto.MemberDto"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="dto.ReservationDto"%>
@@ -20,19 +21,34 @@
 	//List<ReservationDto> list = null;%>
 
 <!-- 로그인 확인 -->
-<%-- 
+
 <%
+String memberId = (String) request.getAttribute("memberId");
 MemberDto mem = (MemberDto) session.getAttribute("login");
+
 if (mem == null) {
 %>
 <script type="text/javascript">
 	alert('로그인 해주세요');
-	location.href = "login.jsp";
-	</script>
+	location.href = "<%=request.getContextPath()%>/member?param=login";
+</script>
+<%
+} else if (mem.getId() == null || mem.getId().equals("") ) {
+%>
+<script type="text/javascript">
+	alert('잘못된 접근입니다. 다시 로그인해주세요');
+	location.href = "<%=request.getContextPath()%>/member?param=login";
+</script>
+<%
+} else if(mem.getId() != memberId) {
+%>
+<script type="text/javascript">
+	alert('잘못된 접근입니다. 다시 시도해주세요 mem.getId():'+<%=mem.getId()%>+'memberId'+memberId);
+	location.href = "<%=request.getContextPath()%>";
+</script>
 <%
 }
 %>
---%>
 
 <!DOCTYPE html>
 <html>
@@ -80,8 +96,7 @@ div#contents::before {
 			<div class="mypage_myinfo" align="left"
 				style="margin-top: 35px; border: 1px solid #eee; border-radius: 10px; padding: 25px 30px 25px 30px; box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1); background-color: white;">
 				<p>
-					<%-- <%=mem.getName() %> --%>
-					님 반가워요!
+					<%=mem.getName() %>님 반가워요!
 				</p>
 			</div>
 			<br>
@@ -203,8 +218,6 @@ div#contents::before {
 					$('#quick_menu').show();
 				}
 			});
-			
-			
 		});
 	</script>
 </body>
