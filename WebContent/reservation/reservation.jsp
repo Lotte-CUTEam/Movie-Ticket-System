@@ -1,15 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-    
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="enums.Location"%> 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>ÏòàÎß§ÌïòÍ∏¥</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="reservation.js"></script>
 <link rel="stylesheet" href="../assets/css/res_default.css">
 <link rel="stylesheet" href="../assets/css/res_content.css">
-
 <link rel="stylesheet" href="../assets/css/reservation.css">
+
 <link
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&amp;subset=korean"
 	rel="stylesheet">
@@ -18,144 +22,380 @@
 	font-family: 'Noto Sans KR', sans-serif;
 }
 
-li {
-	font-size:13px;
-	font-weight :
+
+.temp_left {
+   float: left;
+   margin-top : 5px;
+   margin-left : 10px;
+   padding : 3px;
+   background-color:azure;
+   border-radius: 1mm;
+   text-align: center;
+
 }
+
 </style>	
 </head>
+
 <body>
 <div id="header_section" class="header">
-	<h1 class="logo">
-		<a href="../main.jsp">LOTTE CINEMA</a>
-	</h1>
+   <h1 class="logo">
+      <a href="../main.jsp">LOTTE CINEMA</a>
+   </h1>
 	<div class="gnb">
 		<ul class="g_menu2">
 			<li>
-				<a href="../member/login.jsp">∑Œ±◊¿Œ</a>
+				<a href="../member/login.jsp">Î°úÍ∑∏Ïù∏</a>
 			</li>
 			<li>
-				<a href="../member/regi.jsp">»∏ø¯∞°¿‘</a>
+				<a href="../member/regi.jsp">ÌöåÏõêÍ∞ÄÏûÖ</a>
 			</li>
 			<li>
-				<a href="#">∏∂¿Ã∆‰¿Ã¡ˆ</a>
+				<a href="#">ÎßàÏù¥ÌéòÏù¥ÏßÄ</a>
 			</li>			
 		</ul>
 	</div>
-	<div id="nav">
-		<ul>
+   <div id="nav">
+      <ul>
 			<li class="">
-				<a href="reservation.jsp">øπ∏≈</a>
+				<a href="reservation.jsp">ÏòàÎß§</a>
 			</li>
 			<li class="">
-				<a href="../movie/movieList.jsp">øµ»≠</a>
+				<a href="../movie/movieList.jsp">ÏòÅÌôî</a>
 			</li>
 			<li class="">
-				<a href="#">øµ»≠∞¸</a>
+				<a href="#">ÏòÅÌôîÍ¥Ä</a>
 			</li>
 			<li class="">
-				<a href="#">Ω√∞£«•</a>
+				<a href="#">ÏãúÍ∞ÑÌëú</a>
 			</li>
-		</ul>
-	</div>
-	
-	<!-- ∏ﬁ¿Œƒ‹≈Ÿ√˜Ω√¿€ -->
-	<div id="contents" class="contents_full contents_reserve">
-		<div class="wrap_reserve">
-			<h2 class="hidden">øπ∏≈«œ±‚</h2>
-			
-			<!-- øπ∏≈ step side bar -->
-			<div class="section_step_tit">
-				<ul>
-					<li class="active step01">
-						<a href = "#reserveStep01">
-							<strong class="tit">
-							<span>01</span>
-							<br>
-							ªÛøµΩ√∞£</strong>
-						</a>
-					</li>
-					<li class="dsabled">
-						<a id="reserveStep02" style="cursor: default;">
-							<strong class="tit">
-							<span>02</span>
-							<br>
-							¿Œø¯ º±≈√</strong>
-						</a>
-					</li>
-					<li class="dsabled">
-						<a id="reserveStep03" style="cursor: default;">
-							<strong class="tit">
-							<span>03</span>
-							<br>
-							øπæ‡</strong>
-						</a>
-					</li>
-					<li class="dsabled">
-						<a id="reserveStep04" style="cursor: default;">
-							<strong class="tit">
-							<span>04</span>
-							<br>
-							øπ∏≈»Æ¿Œ</strong>
-						</a>
-					</li>
-				</ul>
-			</div>
-			
-			<!-- ƒ‹≈Ÿ√˜ --> 
-			<div id="reserveStep01" class="section_step_con step01 active">
-			<h3 class="hidden">ªÛøµΩ√∞£</h3>
-				<div class="article article_cinema">
-					<div class="group_top">
-						<h4 class="tit">∞°ªÍµ¡ˆ≈–</h4>
-						<!-- ø©±‚ø°¥Ÿ∞° øµ»≠∞¸¡§∫∏ hidden value ≥÷∞Ì µ⁄∑Œ∫∏≥ª¿⁄ -->
-					</div>
-					<div class="inner">
-						<ul class="tap_wrap outer">
-						
-							<!-- ¡ˆø™ º±≈√«œ¥¬ ∫Œ∫– -->
-							<li class="active">
-								<button type="button" class="tab_tit" style="width:50%; left:0%;">
-									<span>¿¸√º</span>
-								</button>
-								<div class="tab_con">
-									<h5 class="hidden">¿¸√º</h5>
-									<div class="cinema_select_wrap cinemaSelect basicCinema">
-										<ul>
-										<!-- ¡ˆø™ enum ≥÷¥¬ ∫Œ∫– -->
-											<li class="depth1 active">
-												<a href="#">º≠øÔ</a>
-											</li>
-											<li class="depth1">
-												<a href="#">∞Ê±‚/¿Œ√µ</a>
-											</li>
-											<li class="depth1">
-												<a href="#">∞Ê±‚/¿Œ√µ</a>
-											</li>
-											<li class="depth1">
-												<a href="#">∞Ê±‚/¿Œ√µ</a>
-											</li>											
-											<li class="depth1">
-												<a href="#">∞Ê±‚/¿Œ√µ</a>
-											</li>											
-											
-										</ul>
-									</div>
-								</div>
-							</li>
-							
-							<li class="">
-								<button type="button" class="tab_tit" style="width: 50%; left: 50%;"></button>
-							</li>
-						</ul>
-					
-					</div>
-				</div>
-				
-			</div>
-		</div>
-	
-	</div>
+      </ul>
+   </div>
+ </div> 
+   <!--  -->
+   <div id="contents" class="contents_full contents_reserve">
+      <div class="wrap_reserve">
+         <h2 class="hidden">ÏòàÎß§ÌïòÍ∏∞</h2>
+         
+         <!--      step side bar -->
+         <div class="section_step_tit">
+            <ul>
+               <li class="active step01">
+                  <a href = "#reserveStep01">
+                     <strong class="tit">
+                     <span>01</span>
+                     <br>
+                     ÏÉÅÏòÅÏãúÍ∞Ñ</strong>
+                  </a>
+               </li>
+               <li class="dsabled">
+                  <a id="reserveStep02" style="cursor: default;">
+                     <strong class="tit">
+                     <span>02</span>
+                     <br>
+                     Ïù∏Ïõê ÏÑ†ÌÉù</strong>
+                  </a>
+               </li>
+               <li class="dsabled">
+                  <a id="reserveStep03" style="cursor: default;">
+                     <strong class="tit">
+                     <span>03</span>
+                     <br>
+                     ÏòàÏïΩ</strong>
+                  </a>
+               </li>
+               <li class="dsabled">
+                  <a id="reserveStep04" style="cursor: default;">
+                     <strong class="tit">
+                     <span>04</span>
+                     <br>
+                     ÏòàÎß§ÌôïÏù∏</strong>
+                  </a>
+               </li>
+            </ul>
+         </div>
+         
+        <!-- ÏΩòÌÖêÏ∏† --> 
+         <div id="reserveStep01" class="section_step_con step01 active">
+         <h3 class="hidden">ÏÉÅÏòÅÏãúÍ∞Ñ</h3>
+         
+        
+         <!-- /////////////// Í∑πÏû• ÏÑ†ÌÉù ///////////////  -->
+            <div id="location_article" class="article article_cinema" style="width:170px;">
+               <div class="group_top">
+                  <h4 class="tit" id="h4_location">ÏÑúÏö∏</h4>
+			<!-- Ïó¨Í∏∞ÏóêÎã§Í∞Ä ÏòÅÌôîÍ¥ÄÏ†ïÎ≥¥ hidden value ÎÑ£Í≥† Îí§Î°úÎ≥¥ÎÇ¥Ïûê -->
+               </div>
+               
+				<!-- ÏßÄÏó≠ ÏÑ†ÌÉù -->
+               <div class="inner">
+                  <ul class="tap_wrap outer">
+                  
+                     <!-- ÏßÄÏó≠ ÏÑ†ÌÉùÌïòÎäî Î∂ÄÎ∂Ñ -->
+                     <li class="active" id="location_setting">
+                        
+                        <div class="tab_con">
+                           <h5 class="hidden">Ï†ÑÏ≤¥</h5>
+                           <div class="cinema_select_wrap cinemaSelect basicCinema">
+                              <ul>
+                             <!-- ÏßÄÏó≠ enum ÎÑ£Îäî Î∂ÄÎ∂Ñ -->
+                            	<% 	int idx = 0;
+                            		for(Location loc : Location.values()) { 
+                            			idx++;
+                            			if (idx==1) {%>
+		                               		<li class="depth1 active" value="<%=loc%>"><a href="#" onclick="selectLoc(this)"><%=loc.getLocationName()%></a>                         			    
+                            			<% } else {%>
+ 		                               		<li class="depth1" value="<%=loc%>"><a href="#" onclick="selectLoc(this)"><%=loc.getLocationName()%></a>                         			    
+											<% }
+                            			} %>
+                              </ul>
+                           </div>
+                        </div>
+                     </li>
+                     
+                     <li class="">
+                        <button type="button" class="tab_tit" style="width: 50%; left: 50%;"></button>
+                     </li>
+                  </ul>
+               
+               </div> 
+            </div>
+
+
+				<!-- ÏòÅÌôîÍ¥Ä ÏÑ†ÌÉù -->
+            <div id="location_article" class="article article_cinema" style="width:181px;">
+               <div class="group_top">
+                  <h4 class="tit" id="h4_cinema">Í∞ÄÏÇ∞ÎîîÏßÄÌÑ∏</h4>
+			<!-- Ïó¨Í∏∞ÏóêÎã§Í∞Ä ÏòÅÌôîÍ¥ÄÏ†ïÎ≥¥ hidden value ÎÑ£Í≥† Îí§Î°úÎ≥¥ÎÇ¥Ïûê -->
+               </div>
+               
+
+               <div class="inner">
+                  <ul class="tap_wrap outer">
+                  
+                     <!-- ÏßÄÏó≠ ÏÑ†ÌÉùÌïòÎäî Î∂ÄÎ∂Ñ -->
+                     <li class="active" id="location_setting">
+                        
+                        <div class="tab_con">
+                           <h5 class="hidden">Ï†ÑÏ≤¥</h5>
+                           <div class="cinema_select_wrap cinemaSelect basicCinema">
+                              <ul>
+                             <!-- ÏßÄÏó≠ enum ÎÑ£Îäî Î∂ÄÎ∂Ñ -->
+                                 <li class="depth1 active">
+                                    <a href="#">Í∞ÄÏÇ∞ÎîîÏßÄÌÑ∏</a>
+                                 </li>
+                                 <li class="depth1">
+                                    <a href="#">Í∞ÄÏñë</a>
+                                 </li>
+                                 <li class="depth1">
+                                    <a href="#">Í∞ïÎèô</a>
+                                 </li>
+                                 <li class="depth1">
+                                    <a href="#">Í±¥ÎåÄÏûÖÍµ¨</a>
+                                 </li>                                 
+                                 <li class="depth1">
+                                    <a href="#">ÍπÄÌè¨Í≥µÌï≠</a>
+                                 </li>                                 
+                                 
+                              </ul>
+                           </div>
+                        </div>
+                     </li>
+                     
+                     <li class="">
+                        <button type="button" class="tab_tit" style="width: 50%; left: 50%;"></button>
+                     </li>
+                  </ul>
+               
+               </div> 
+            </div>
+         
+                <div class="article article_movie">
+               <div class="group_top">
+                  <h4 class="tit" id="h4_cinema">movie</h4>
+               </div>
+
+                    <div class="inner">
+                        <div class="list_filter">
+                            <select title="ÏòÅÌôî Ï†ïÎ†¨ Î∞©Î≤ï ÏÑ†ÌÉù" onchange="setMovie()">
+                                <option value="A">ÏòàÎß§Ïàú</option>
+                                <option value="B">Í¥ÄÍ∞ùÏàú</option>
+                                <option value="C">ÌèâÏ†êÏàú</option>
+                                <option value="D">ÏòàÏ†ïÏûë</option>
+                            </select>
+                        </div>
+
+                  <div class="cinema_select_wrap cinemaSelect basicCinema">
+                     <ul id="select_movie">
+                        <li class="depth1 active">
+                           <a href="#">
+                              <div class="bx_tit">
+                                 <span class="ic_grade gr_12">12ÏÑ∏ Í¥ÄÎûåÍ∞Ä</span>
+                                 <strong class="tit">ÌÉëÍ±¥: Îß§Î≤ÑÎ¶≠</strong>
+                              </div>
+                           </a>
+                        </li>
+                        <li class="depth1">
+                           <a href="#">
+                              <div class="bx_tit">
+                                 <span class="ic_grade gr_12">12ÏÑ∏ Í¥ÄÎûåÍ∞Ä</span>
+                                 <strong class="tit">ÌÜ†Î•¥: Îü¨Î∏å Ïï§ Ïç¨Îçî</strong>
+                              </div>
+                           </a>
+                        </li>
+                        <li class="depth1">
+                           <a href="#">
+                              <div class="bx_tit">
+                                 <span class="ic_grade gr_15">15ÏÑ∏ Í¥ÄÎûåÍ∞Ä</span>
+                                 <strong class="tit">Ìó§Ïñ¥Ïßà Í≤∞Ïã¨</strong>
+                              </div>
+                           </a>
+                        </li>
+                        <li class="depth1">
+                           <a href="#">
+                              <div class="bx_tit">
+                                 <span class="ic_grade gr_12">12ÏÑ∏ Í¥ÄÎûåÍ∞Ä</span>
+                                 <strong class="tit">ÌÉëÍ±¥: Îß§Î≤ÑÎ¶≠</strong>
+                              </div>
+                           </a>
+                        </li>                              
+                        <li class="depth1">
+                           <a href="#">
+                              <div class="bx_tit">
+                                 <span class="ic_grade gr_12">12ÏÑ∏ Í¥ÄÎûåÍ∞Ä</span>
+                                 <strong class="tit">ÌÉëÍ±¥: Îß§Î≤ÑÎ¶≠</strong>
+                              </div>
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+
+
+                    </div>
+                    
+
+             </div>
+
+            <div class="article article_time">
+               <div class="group_top" >
+                  <h4 class="tit" id="h4_date">2022-07-11(Ïò§Îäò)</h4>
+               </div>
+               <div class="inner">
+                  <div class="date_select_wrap dateReserveWrap">
+                     <div class="slide_wrap slide_reserve_date">
+                        <ul class="owl-carousel owl-loaded owl-drag">
+                                 <!-- ÏúÑÌÅ¥Î¶¨ -->
+                                 <div class="owl-item" style="width: 52.5px; float:left;">
+                                    <li class="item">
+                                       <span class="date sun disabled">
+                                          <label>
+                                             <input type="radio" name="radioDate1" data-displayyn="N" data-playdate="2022-07-10" data-isplaydate="Y" data-playweek="Ïùº">
+                                             <strong>10</strong><em>Ïùº</em>
+                                          </label>
+                                       </span>
+                                    </li>
+                                 </div>
+                                 <div class="owl-item" style="width: 52.5px;float:left;">
+                                    <li class="item" >
+                                       <span class="date sun disabled">
+                                          <label>
+                                             <input type="radio" name="radioDate1" data-displayyn="N" data-playdate="2022-07-10" data-isplaydate="Y" data-playweek="Ïùº">
+                                             <strong>11</strong><em>Ïõî</em>
+                                          </label>
+                                       </span>
+                                    </li>
+                                 </div>
+                                 <div class="owl-item" style="width: 52.5px;float:left;">
+                                    <li class="item" >
+                                       <span class="date sun disabled">
+                                          <label>
+                                             <input type="radio" name="radioDate1" data-displayyn="N" data-playdate="2022-07-10" data-isplaydate="Y" data-playweek="Ïùº">
+                                             <strong>11</strong><em>Ïõî</em>
+                                          </label>
+                                       </span>
+                                    </li>
+                                 </div>
+                                 <div class="owl-item" style="width: 52.5px;float:left;">
+                                    <li class="item" >
+                                       <span class="date sun disabled">
+                                          <label>
+                                             <input type="radio" name="radioDate1" data-displayyn="N" data-playdate="2022-07-10" data-isplaydate="Y" data-playweek="Ïùº">
+                                             <strong>11</strong><em>Ïõî</em>
+                                          </label>
+                                       </span>
+                                    </li>
+                                 </div>
+                                 <div class="owl-item" style="width: 52.5px;float:left;">
+                                    <li class="item" >
+                                       <span class="date sun disabled">
+                                          <label>
+                                             <input type="radio" name="radioDate1" data-displayyn="N" data-playdate="2022-07-10" data-isplaydate="Y" data-playweek="Ïùº">
+                                             <strong>11</strong><em>Ïõî</em>
+                                          </label>
+                                       </span>
+                                    </li>
+                                 </div>
+                                 <div class="owl-item" style="width: 52.5px;float:left;">
+                                    <li class="item" >
+                                       <span class="date sun disabled">
+                                          <label>
+                                             <input type="radio" name="radioDate1" data-displayyn="N" data-playdate="2022-07-10" data-isplaydate="Y" data-playweek="Ïùº">
+                                             <strong>11</strong><em>Ïõî</em>
+                                          </label>
+                                       </span>
+                                    </li>
+                                 </div>
+                                 <div class="owl-item" style="width: 52.5px;float:left;">
+                                    <li class="item" >
+                                       <span class="date sun disabled">
+                                          <label>
+                                             <input type="radio" name="radioDate1" data-displayyn="N" data-playdate="2022-07-10" data-isplaydate="Y" data-playweek="Ïùº">
+                                             <strong>11</strong><em>Ïõî</em>
+                                          </label>
+                                       </span>
+                                    </li>
+                                 </div>
+                                 <div class="owl-item" style="width: 52.5px;float:left;">
+                                    <li class="item" >
+                                       <span class="date sun disabled">
+                                          <label>
+                                             <input type="radio" name="radioDate1" data-displayyn="N" data-playdate="2022-07-10" data-isplaydate="Y" data-playweek="Ïùº">
+                                             <strong>11</strong><em>Ïõî</em>
+                                          </label>
+                                       </span>
+                                    </li>
+                                 </div>                                 
+
+
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="tab_con ty5">
+                     <div id="time_container" class="mCSB_container" style="position:relative; top:0; left:30px;">
+                        
+                        <!-- ÏòÅÌôî Ï†ïÎ≥¥ (1) -->
+                        <div class="group_time_select">
+                           <div class="time_select_tit"><span class="ic_grade gr_12">12</span><strong>ÌÉëÍ±¥: Îß§Î≤ÑÎ¶≠</strong>
+                           </div>
+                           <ul class="list_time">
+                              <li class="temp_left">
+                                 <a role="button" href="#none"><dl><dt>ÏÉÅÏòÅÏãúÍ∞Ñ</dt><dd class="time"><strong>12:05</strong></a>
+                              </li>
+                              <li class="temp_left">
+                                 <a role="button" href="#none"><dl><dt>ÏÉÅÏòÅÏãúÍ∞Ñ</dt><dd class="time"><strong>12:05</strong></a>
+                              </li>
+                           </ul>
+
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+      </div>
+   
+   </div>
 </div>
+
+<input type="hidden" id="REALPATH"><%=request.getContextPath()%></input>
 </body>
 </html>
