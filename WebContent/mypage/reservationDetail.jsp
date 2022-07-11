@@ -2,21 +2,20 @@
 [프로젝트]롯데e커머스_자바전문가과정
 [시스템명]영화예매시스템
 [팀 명]CUTEam
-[파일명]myPage.jsp
+[파일명]reservationDetail.jsp
 -----------------------------------------------------------
 수정일자			수정자		수정내용
-2022.07.08		정은우		신규생성
+2022.07.11		정은우		신규생성
 -----------------------------------------------------------
  -->
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="dto.ReservationDto"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%//request.setCharacterEncoding("utf-8");
-	List<ReservationDto> list = (List<ReservationDto>) request.getAttribute("resvList");
+	ReservationDto resvDto = (ReservationDto) request.getAttribute("resvDto");
 	//List<ReservationDto> list = null;%>
 
 <!-- 로그인 확인 -->
@@ -53,7 +52,7 @@ div#contents::before {
 	background-color: #FF7787;
 }
 </style>
-<title>My Page</title>
+<title>My Page Detail</title>
 </head>
 <body>
 
@@ -91,7 +90,7 @@ div#contents::before {
 					<col width="500px">
 					<!-- <col width="200"><col width="200"> -->
 					<tr>
-						<th><a href=""><span>결제내역</span></a></th>
+						<th><a href="<%=request.getContextPath() %>/mypage?param=mypage"><span>결제내역</span></a></th>
 						<!-- <th><a><span>My Page</span></a></th> -->
 					</tr>
 				</table>
@@ -99,71 +98,78 @@ div#contents::before {
 
 			<!-- 결재내역 -->
 			<div class="mypage_wrap" align="center">
-				<div class="mypage_data" style="margin-bottom: 50px;">
+				<div class="mypage_data"  style="margin-bottom: 50px;">
 					<%
-					if (list == null || list.size() == 0) {
+					if (resvDto == null) {
 					%>
-					<div class="list-empty"
-						style="border: none; margin-top: 50px; margin-bottom: 50px; padding: 50px;">
-						<img src="<%=request.getContextPath() %>/mypage/images/nodata_icon.png" />
-						<p>예매 내역이 존재하지 않습니다.</p>
-					</div>
+					<script type="text/javascript">
+						alert("잘못된 접근입니다.");
+						location.href="<%=request.getContextPath() %>/mypage?param=mypage";
+					</script>
 					<%
 					} else {
 					%>
-					<table style="align-content:center; font-size: 13px;">
-						<col width="200"><col width="100"><col width="300"><col width="100">
-						<col width="80"><col width="80"><col width="100">
-						<thead>
-							<tr>
-								<th>상영일시</th>
-								<th>영화상태</th>
-								<th>제목</th>
-								<th>금액</th>
-								<th>예매번호</th>
-								<th>취소가능여부</th>
-								<th>상세화면</th>
-							</tr>
-						</thead>
-						<tbody>
+					<table style="align-content:center;">
+						<col width="200"><col width="800">
 							<%
-							for (int i = 0; i < list.size(); i++) {
-							    ReservationDto resvDto = list.get(i);
-							    // 취소여부 확인
 							    String cancelStr = "";
 							    if(resvDto.getStatus() == 1) {
 							        cancelStr = resvDto.getDeleteddAt()+"취소완료";
-							    }
-							    else if(resvDto.getScreenAt().isAfter(
-							                    LocalDateTime.now().minusMinutes(20))
+							    } else if(LocalDateTime.now().isBefore(
+							                resvDto.getScreenAt().minusMinutes(20))
 							            ){
 							        cancelStr = "취소가능";
 							    }
-							    
-							    // 제목 출력
-							    String title = "";
-							    if(resvDto.getTitle().length() > 20) {
-							        title = resvDto.getTitle().substring(0, 20) + "...";
-							    } else {
-							        title = resvDto.getTitle();
-							    }
 							%>
 							<tr>
-								<td align="center"><%=resvDto.getScreenAt().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일(E) HH:SS")) %></td>
-								<td align="center"><%if(resvDto.getStatus() == 1){%>취소<%}%></td>
-								<th align="left" style="font-size: 15px;"><%=title %></th>
-								<td align="right"><%=resvDto.getPeople_count() * 14000 %>원</td>
-								<td align="center"><%=resvDto.getReservationId() %></td>
-								<td align="center"><%= cancelStr%></td>
-								<td align="center">
-									<button id="btn_<%=resvDto.getReservationId()%>" type="button" value="<%=resvDto.getReservationId()%>" 
-									onclick="location.href='<%=request.getContextPath() %>/mypage?param=detail&resvId=<%=resvDto.getReservationId()%>'">상세정보보기</button>
-								</td>
+								<th>제목</th>
+								<td><%=resvDto.getTitle() %></td>
 							</tr>
-							<%
-							}
-							%>
-						</tbody>
+							<tr>
+								<th>예매번호</th>
+								<td><%=resvDto.getReservationId() %></td>
+							</tr>
+							<tr>
+								<th>상영일시</th>
+								<td><%=resvDto.getScreenAt().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일(E) | HH:SS")) %> ~ <%=resvDto.getScreenAt().plusMinutes(resvDto.getRuntime()).format(DateTimeFormatter.ofPattern("HH:SS"))%></td>
+							</tr>
+							<tr>
+								<th>상영관</th>
+								<td><%=resvDto.getCinema()%></td>
+							</tr>
+							<tr style="border-bottom: 1px solid gray;">
+								<th>관람인원</th>
+								<td><%=resvDto.getPeople_count()%></td>
+							</tr>
+						</table>
+						<br>
+						<table style="align-content:left;">
+						<col width="200"><col width="800">
+							<tr>
+								<th style="font-size: 13px;">결제일시</th>
+								<td style="font-size: 13px;"><%=resvDto.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일(E) | HH:SS")) %></td>
+							</tr>
+							<tr>
+								<th style="font-size: 13px;">금액</th>
+								<td style="font-size: 13px;"><%=resvDto.getPeople_count() * 14000 %>원</td>
+							</tr>
+							</table>
+							<tr>
+								<th><%=cancelStr %></th>
+								<%
+									if(cancelStr.equals("취소완료")) {
+									    %>
+									    <td style="color: red;"><%=resvDto.getDeleteddAt() %></td>
+									    <%
+									} else if(cancelStr.equals("취소가능")) {
+									    %>
+									    <td><button type="button" onclick="btnFunc()">취소하기</button></td>
+									    <%
+									} else {
+									    %><td></td><%
+									}
+								%>
+							</tr>
 					</table>
 					<%
 					}
@@ -203,9 +209,15 @@ div#contents::before {
 					$('#quick_menu').show();
 				}
 			});
-			
-			
 		});
+		
+		function btnFunc() {
+			if(confirm("정말 취소하시겠습니까? 취소 후 되돌릴 수 없습니다.")) {
+				location.href="<%=request.getContextPath() %>/mypage?param=deleteResv&resvId=<%=resvDto.getReservationId() %>";
+			} else {
+				return false;
+			}
+		}
 	</script>
 </body>
 </html>

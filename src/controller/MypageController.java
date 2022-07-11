@@ -51,18 +51,13 @@ public class MypageController extends HttpServlet {
         String param = req.getParameter("param");
 
         if (param.equals("mypage")) {
-            // memberId
+            // parameter
+            // get memberId
             String memberId = req.getParameter("memberId");
             if (memberId == null || memberId.equals("")) {
                 /*resp.sendRedirect("index.jsp"); //TODO 에러페이지
                 return;*/
-                memberId = "123";
-            }
-            // page
-            String spage = req.getParameter("pageNumber");
-            int page = 0;
-            if (spage != null && !spage.equals("")) {
-                page = Integer.parseInt(spage);
+                memberId = "hyewon"; //TODO
             }
 
             ReservationDao resvDao = ReservationDao.getInstance();
@@ -70,9 +65,42 @@ public class MypageController extends HttpServlet {
             req.setAttribute("resvList", resvList);
 
             forward("mypage/myPage.jsp", req, resp);
-        } /* else if (param.equals("mypage")) {
-            resp.sendRedirect("mypage/myPage.jsp"); 
-          } */else {
+        } else if (param.equals("detail")) {
+            // parameter
+            // get memberId
+            String memberId = req.getParameter("memberId");
+            if (memberId == null || memberId.equals("")) {
+                /*resp.sendRedirect("index.jsp"); //TODO 에러페이지
+                return;*/
+                memberId = "hyewon"; //TODO
+            }
+            // get resvId
+            String sSeq = req.getParameter("resvId");
+            int resvId = 0;
+            if (sSeq != null && !sSeq.equals("")) {
+                resvId = Integer.parseInt(sSeq);
+            }
+
+            ReservationDao resvDao = ReservationDao.getInstance();
+            ReservationDto resvDto = resvDao.getReservation(resvId);
+
+            req.setAttribute("resvDto", resvDto);
+
+            forward("mypage/reservationDetail.jsp", req, resp);
+        } else if (param.equals("deleteResv")) {
+            // parameter
+            // get resvId
+            String sSeq = req.getParameter("resvId");
+            int resvId = 0;
+            if (sSeq != null && !sSeq.equals("")) {
+                resvId = Integer.parseInt(sSeq);
+            }
+
+            ReservationDao resvDao = ReservationDao.getInstance();
+            int ret = resvDao.deleteReservation(resvId);
+
+            forward("mypage/myPage.jsp", req, resp);
+        } else {
             resp.sendRedirect("index.jsp"); //TODO 에러페이지
         }
 

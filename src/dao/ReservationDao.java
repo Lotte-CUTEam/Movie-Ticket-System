@@ -16,15 +16,15 @@ import dto.ReservationDto;
  * [프로젝트]롯데e커머스_자바전문가과정
  * [시스템명]영화예매시스템
  * [팀   명]CUTEam
- * 
+ * [파일명]ReservationDao.java
  * 예매 내역 생성 조회 삭제
  * -----------------------------------------------------------
  * 수정일자           수정자         수정내용
  * 2022.07.09       장혜원         신규생성
- * 2022.07.09       정은우         가독성좋게 코드 수정, list 불러오기 수정
+ * 2022.07.09       정은우         가독성좋게 코드 수정, list 불러오기 수정, 오류 수정
+ * 2022.07.11       정은우         cancelReservation 함수 생성
  * -----------------------------------------------------------
  */
-
 public class ReservationDao {
 
     private static ReservationDao dao = new ReservationDao();
@@ -50,16 +50,16 @@ public class ReservationDao {
         ResultSet rs = null;
         // 70일 이내 정보만 조회 가능
         int daysAgo = 70;
-        
-        String sql = "select reservation_id, member_id, "
-                    + " screen_id, movie_id, screen_at, people_count, cinema, title, runtime, created_at, deleted_at, status "
-                + " from reservation "
-                + " where member_id = ? "
-                    + " and now() > DATE_SUB(created_at, INTERVAL " + daysAgo + " DAY) "
-                + " order by screen_at ";
-        
 
-        List<ReservationDto> ReservationList = new ArrayList<ReservationDto>();
+        String sql = "select reservation_id, member_id, "
+                            + " screen_id, movie_id, screen_at, people_count, cinema, title, runtime, created_at, deleted_at, status "
+                    + " from RESERVATION "
+                    + " where member_id = ? "
+                            + " and now() > DATE_SUB(created_at, INTERVAL " + daysAgo + " DAY) "
+                    + " order by screen_at ";
+
+
+        List<ReservationDto> reservationList = new ArrayList<ReservationDto>();
 
         ReservationDto reservationDto = null;
 
@@ -86,7 +86,8 @@ public class ReservationDao {
                                 : rs.getTimestamp(i).toLocalDateTime(),
                         rs.getInt(i++));
 
-                ReservationList.add(reservationDto);
+                reservationList.add(reservationDto);
+                //System.out.println(reservationDto.toString());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,7 +95,7 @@ public class ReservationDao {
             DBClose.close(conn, psmt, rs);
         }
 
-        return ReservationList;
+        return reservationList;
     }
 
     /**
@@ -119,12 +120,12 @@ public class ReservationDao {
 
         String sql =
                 "select reservation_id, member_id, screen_id, movie_id, screen_at, people_count, cinema, title, runtime, created_at, deleted_at, status "
-                        + " from reservation "
-                        + " where member_id = ? "
-                            + " and now() > DATE_SUB(created_at, INTERVAL " + daysAgo + " DAY) "
-                            + " and status = " + delStatus + " ";
+                + " from RESERVATION "
+                + " where member_id = ? "
+                    + " and now() > DATE_SUB(created_at, INTERVAL " + daysAgo + " DAY) "
+                    + " and status = " + delStatus + " ";
 
-        List<ReservationDto> ReservationList = new ArrayList<ReservationDto>();
+        List<ReservationDto> reservationList = new ArrayList<ReservationDto>();
         System.out.println(sql);
 
         ReservationDto reservationDto = null;
@@ -152,7 +153,7 @@ public class ReservationDao {
                                 : rs.getTimestamp(i).toLocalDateTime(),
                         rs.getInt(i++));
 
-                ReservationList.add(reservationDto);
+                reservationList.add(reservationDto);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -160,7 +161,7 @@ public class ReservationDao {
             DBClose.close(conn, psmt, rs);
         }
 
-        return ReservationList;
+        return reservationList;
     }
 
 
@@ -171,25 +172,23 @@ public class ReservationDao {
      * @param reservation_id
      * @return
      */
-    public ReservationDto getReservation(String id, long reservation_id) {
+    public ReservationDto getReservation(long reservationId) {
 
         Connection conn = null;
         PreparedStatement psmt = null;
         ResultSet rs = null;
 
-
         String sql =
                 "select reservation_id, member_id, screen_id, movie_id, screen_at, people_count, cinema, title, runtime, created_at, deleted_at, status "
-                    + " from reservation "
-                    + " where member_id = ? and reservation_id = ? ";
+                        + " from RESERVATION "
+                        + " where reservation_id = ? ";
 
         ReservationDto reservationDto = null;
         try {
 
             conn = DBConnection.getConnection();
             psmt = conn.prepareStatement(sql);
-            psmt.setString(1, id);
-            psmt.setLong(2, reservation_id);
+            psmt.setLong(1, reservationId);
 
             rs = psmt.executeQuery();
 
@@ -223,29 +222,55 @@ public class ReservationDao {
      * 예매 내역 생성
      * 
      * @param id
-     * @param people_count
-     * @param screen_id
+     * @param peopleCount
+     * @param screenId
      * @return
      */
-    public int makeReservation(String id, int people_count, long screen_id) {
+    public int makeReservation(String id, int peopleCount, long screenId) {
 
         Connection conn = null;
         PreparedStatement psmt = null;
 
         String sql =
-                "insert into reservation ( member_id, screen_id, movie_id, screen_at, people_count, cinema, title, runtime, created_at, deleted_at, status) "
+                "insert into RESERVATION ( member_id, screen_id, movie_id, screen_at, people_count, cinema, title, runtime, created_at, deleted_at, status) "
                     + "select '" + id + "' as member_id, a.screen_id, a.movie_id, a.screen_at, "
                         + " people_count as people_count, a.cinema, a.title, a.runtime, "
                         + " now() as created_at, null as deleted_at, 0 as status "
                     + "from (select s.screen_id, s.movie_id, s.screen_at, s.cinema, m.title, m.runtime "
-                        + "from screen s, movie m "
-                        + "where s.movie_id = m.movie_id and screen_id = " + screen_id + ") a; ";
+                                + "from SCREEN s, MOVIE m "
+                                + "where s.movie_id = m.movie_id and screen_id = " + screenId + ") a; ";
 
         int count = 0;
         try {
 
             conn = DBConnection.getConnection();
             psmt = conn.prepareStatement(sql);
+
+            count = psmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBClose.close(conn, psmt, null);
+        }
+
+        return count;
+    }
+
+    public int deleteReservation(long reservationId) {
+        Connection conn = null;
+        PreparedStatement psmt = null;
+
+        String sql = "update RESERVATION "
+                + " set deleted_at=now(), status=1 "
+                + " where reservation_id = ? "
+                        + " and now() < DATE_SUB(screen_at, INTERVAL " + 20 + " MINUTE) ";
+        int count = 0;
+        try {
+
+            conn = DBConnection.getConnection();
+            psmt = conn.prepareStatement(sql);
+            psmt.setLong(1, reservationId);
 
             count = psmt.executeUpdate();
 
