@@ -150,7 +150,7 @@ div#contents::before {
 							        cancelStr = resvDto.getDeleteddAt()+"취소완료";
 							    }
 							    else if(resvDto.getScreenAt().isAfter(
-							                    LocalDateTime.now().minusMinutes(20))
+							                    LocalDateTime.now().plusMinutes(20))
 							            ){
 							        cancelStr = "취소가능";
 							    }
@@ -172,7 +172,7 @@ div#contents::before {
 								<td align="center"><%= cancelStr%></td>
 								<td align="center">
 									<button id="btn_<%=resvDto.getReservationId()%>" type="button" value="<%=resvDto.getReservationId()%>" 
-									onclick="location.href='<%=request.getContextPath() %>/mypage?param=detail&resvId=<%=resvDto.getReservationId()%>'">상세정보보기</button>
+									onclick="location.href='<%=request.getContextPath() %>/mypage?param=detail&resvId=<%=resvDto.getReservationId()%>&memberId=<%=mem.getId()%>'">상세정보보기</button>
 								</td>
 							</tr>
 							<%

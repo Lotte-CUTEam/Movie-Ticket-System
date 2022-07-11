@@ -78,8 +78,7 @@ div#contents::before {
 			<div class="mypage_myinfo" align="left"
 				style="margin-top: 35px; border: 1px solid #eee; border-radius: 10px; padding: 25px 30px 25px 30px; box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1); background-color: white;">
 				<p>
-					<%-- <%=mem.getName() %> --%>
-					님 반가워요!
+					<%=mem.getName() %>님 반가워요!
 				</p>
 			</div>
 			<br>
@@ -153,6 +152,7 @@ div#contents::before {
 								<td style="font-size: 13px;"><%=resvDto.getPeople_count() * 14000 %>원</td>
 							</tr>
 							</table>
+							<table>
 							<tr>
 								<th><%=cancelStr %></th>
 								<%
@@ -162,7 +162,7 @@ div#contents::before {
 									    <%
 									} else if(cancelStr.equals("취소가능")) {
 									    %>
-									    <td><button type="button" onclick="btnFunc(<%=resvDto.getReservationId()%>)">취소하기</button></td>
+									    <td><button type="button" onclick="btnFunc('<%=resvDto.getReservationId()%>')">취소하기</button></td>
 									    <%
 									} else {
 									    %><td></td><%
@@ -210,9 +210,9 @@ div#contents::before {
 			});
 		});
 		
-		function btnFunc(resvId) {
+		function btnFunc(getResvId) {
 			if(confirm("정말 취소하시겠습니까? 취소 후 되돌릴 수 없습니다.")) {
-				location.href="<%=request.getContextPath() %>/mypage?param=deleteResv&resvId="+resvId+"&memberId="+<%=mem.getId()%>;
+				location.href="<%=request.getContextPath() %>/mypage?param=deleteResv&resvId="+getResvId+"&memberId=<%=mem.getId()%>";
 			} else {
 				return false;
 			}
