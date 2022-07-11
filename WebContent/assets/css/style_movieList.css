@@ -326,6 +326,14 @@
 	color: #fff;
 }
 
+.movie_page {
+	background: red;
+}
+
+.movie_filter {
+
+}
+
 .movie_chart {
 	height: 1500px;
 }

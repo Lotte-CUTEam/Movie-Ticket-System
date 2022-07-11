@@ -17,19 +17,6 @@
     }%>
 
 <%
-	String id = null;
-    Object obj = session.getAttribute("login");
-    MemberDto mem = null;
-    if (obj != null) {
-        mem = (MemberDto) obj;
-        id = mem.getId();
-    }
-
-if (id == null)
-    id = "";
-else
-    System.out.println("***id 확인: " + id + "***");
-
 MovieDao movieDao = MovieDao.getInstance();
 List<MovieDto> movies = movieDao.getMovies();
 %>
@@ -52,47 +39,12 @@ List<MovieDto> movies = movieDao.getMovies();
 <link
 	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&amp;subset=korean"
 	rel="stylesheet">
-
 </head>
 <body>
 
-	<header id="header">
-		<div class="container">
-			<div class="row">
-				<div class="header clearfix">
-					<h1>
-						<a href="main"> <em><img src="assets/img/cute-logo.png" alt="LOTTE"></em> </a>
-					</h1>
-					<nav id="mNav">
-						<h2 class="ir_so">전체메뉴</h2>
-						<a href="#" class="ham"><span></span></a>
-					</nav>
-					<nav class="nav">
-						<ul class="clearfix">
-							<li><a href="movie?param=list">영화</a></li>
-							<li><a href="#">영화관</a></li>
-							<li><a href="#">특별관</a></li>
-							<%
-							if (id != "") {
-							%>
-							<li><a href="mypage?param=mypage">마이페이지</a></li>
-							<li><a href="member?param=logout">로그아웃</a></li>
-							<%
-							} else {
-							%>
-							<li><a href="member?param=regi">회원가입</a></li>
-							<li><a href="member?param=login">로그인</a></li>
-							<%
-							}
-							%>
-						</ul>
-					</nav>
-				</div>
-			</div>
-		</div>
-	</header>
-	<!-- //header -->
-
+	 
+	 
+<%@include file = "header.jsp" %>
 
 	<section id="banner">
 		<div class="banner_menu">
@@ -112,7 +64,7 @@ List<MovieDto> movies = movieDao.getMovies();
 						</ul>
 						<ul>
 							<li class="white"><a href="#">상영시간표</a></li>
-							<li class="red"><a href="#">예매하기</a></li>
+							<li class="red"><a href="screen">예매하기</a></li>
 						</ul>
 					</div>
 				</div>
@@ -192,7 +144,7 @@ List<MovieDto> movies = movieDao.getMovies();
 							</div>
 						</div>
 						<!-- //무비차트-->
-
+ 
 						<div class="swiper-container2">
 							<div class="chart_cont2 swiper-wrapper">
 								<%
@@ -255,45 +207,30 @@ List<MovieDto> movies = movieDao.getMovies();
 		</div>
 	</section>
 	<!-- //movie -->
+	
+<%@include file = "footer.jsp" %>
 
-	<footer id="footer">
-		<div id="footer_sns">
-			<div class="container">
-				<div class="footer_sns">
-					<ul>
-						<li class="icon s1"><a href="#"><span class="ir_pm">트위터</span></a></li>
-						<li class="icon s2"><a href="#"><span class="ir_pm">페이스북</span></a></li>
-						<li class="icon s3"><a href="#"><span class="ir_pm">인스타그램</span></a></li>
-						<li class="icon s4"><a href="#"><span class="ir_pm">구글 플레이</span></a></li>
-						<li class="icon s5"><a href="#"><span class="ir_pm">아이폰 앱스토어</span></a></li>
-					</ul>
-					<div class="tel">
-						<a href="#">ARS <em>0101-0101</em></a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div id="footer_infor">
-			<div class="container">
-				<div class="row">
-					<div class="footer_infor">
-						<h2 style="margin-bottom: 20px;">
-							<img src="assets/img/logo-footer.png" alt="lotte">
-						</h2>
-						<address>
-							<p>
-								서울 서초구 서초대로74길 33, 비트교육센터 3층<br> <span class="bar2">정은우</span>
-								이충현 안채영 권나연 장혜원 이성은<br> <span class="bar2">롯데e커머스</span>
-								CUTEam
-							</p>
-							<p>Copyright 2022 by Lotte CUTEam All right reserved</p>
-						</address>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-	<!-- //footer -->
+<script>
+ 
+        window.addEventListener('load', function() {
+            var allElements = document.getElementsByTagName('*');
+            Array.prototype.forEach.call(allElements, function(el) {
+                var includePath = el.dataset.includePath;
+                if (includePath) {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            el.outerHTML = this.responseText;
+                        }
+                    };
+                    xhttp.open('GET', includePath, true);
+                    xhttp.send();
+                }
+            });
+        });
+ 
+    </script>
+
 
 	<!-- 자바스크립트 라이브러리 -->
 	<script src="assets/js/jquery.min_1.12.4.js"></script>
