@@ -1,0 +1,190 @@
+body {
+	width: 100%;
+	height: 100%;
+	padding-top: 110px;
+	padding-left: 500px;
+}
+
+#login {
+	font-size: 37px;
+}
+
+.login {
+	position: fixed;
+	width: 420px;
+	height: 900px;
+}
+
+.inid {
+	padding-top: 1em;
+}
+
+.inpassword {
+	padding-top: 10px;
+	font-size: 14px;
+}
+
+.login_search {
+	color: #eeeeee;
+	font-size: 13px;
+	margin-right: 5px;
+	text-decoration: none
+}
+
+.login_search:hover {
+	color: #eeeeee;
+	font-size: 13px;
+	margin-right: 5px;
+	text-decoration: none
+}
+
+.login_regi {
+	color: #999999;
+	font-size: 13px;
+	margin-left: 5px;
+	text-decoration: none
+}
+
+.login_regi:hover {
+	color: #999999;
+	font-size: 13px;
+	margin-left: 5px;
+	text-decoration: none
+}
+
+#i {
+	color: #dfdfdf;
+	font-size: 12px;
+}
+
+.login_or_regi {
+	float: right;
+	margin-left: 5px;
+}
+
+.login_regi {
+	background-color: white;
+	border-color: white;
+	box-shadow: none;
+	outline: none;
+}
+
+.form-group input:focus {
+	outline: 0 !important;
+	box-shadow: none !important;
+	border-color: #eee !important;
+	background-color: #eee;
+}
+
+.form-group input {
+	outline: 0 !important;
+	box-shadow: none !important;
+	border-color: #f8f8f8 !important;
+	background-color: #f8f8f8;
+	height: 52px;
+	width: 420px;
+}
+
+.btn-danger {
+	width: 420px;
+	height: 52px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	background-color: #ee1010;
+	border-radius: 6px;
+}
+
+.btn-danger:hover {
+	background-color: #ee1010;
+}
+
+.form-check-input {
+	outline: 0 !important;
+	box-shadow: none !important;
+}
+
+.form-check-input:checked {
+	outline: 0 !important;
+	box-shadow: none !important;
+	background-color: #ee1010;
+	border-color: #ee1010;
+}
+
+#chk {
+	float: left;
+}
+
+.autoLogin {
+	width: 420px;
+	height: 30px;
+	margin-bottom: 100px;
+}
+
+.socialSignupWrap {
+	position: relative;
+	margin-top: -25px;
+}
+
+.inner {
+	width: 384px;
+	height: 52px;
+}
+
+.socialbtn {
+	width: 420px;
+	height: 52px;
+	font-size: 19px;
+	margin-bottom: 10px;
+}
+
+.kakaoLoginBtn {
+	background-color: #f9e000;
+	outline: 0 !important;
+	box-shadow: none !important;
+	border-radius: 6px;
+}
+
+.naverLoginBtn {
+	background-color: #2DB400;
+	color: white;
+	outline: 0 !important;
+	box-shadow: none !important;
+	border-radius: 6px;
+}
+
+.facebookLoginBtn {
+	color: white;
+	background-color: #3b5998;
+	outline: 0 !important;
+	box-shadow: none !important;
+	border-radius: 6px;
+}
+
+.facebookLoginBtn:hover {
+	color: white;
+	background-color: #3b5998;
+}
+
+.otherLoginBtn {
+	border-color: #dddddd;
+	outline: 0 !important;
+	box-shadow: none !important;
+	border-radius: 6px;
+}
+
+.icon {
+	width: 30px;
+	height: 30px;
+}
+
+.kakaoLogo {
+	background: url("../resources/icon_kakao.png");
+}
+
+.facebookLogo {
+	background: url("../resources/facebook1.png");
+}
+
+.naverLogo {
+	background: url("../resources/icon_naver.png");
+}
