@@ -85,7 +85,7 @@ public class MypageController extends HttpServlet {
 
             req.setAttribute("resvDto", resvDto);
 
-            forward(req.getContextPath() + "/mypage/reservationDetail.jsp", req, resp);
+            forward("mypage/reservationDetail.jsp", req, resp);
         } else if (param.equals("deleteResv")) {
             // parameter
             // get memberId

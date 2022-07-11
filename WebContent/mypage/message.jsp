@@ -19,7 +19,6 @@
 <%
 if (param.equals("mypage")) {
     if (msg.equals("url")) {
-        System.out.println("mypage/message.jsp");
         %>
         <script type="text/javascript">
             alert("잘못된 접근입니다");
@@ -27,7 +26,6 @@ if (param.equals("mypage")) {
         </script>
         <%
     } else if (msg.equals("login")) {
-        System.out.println("mypage/message.jsp");
         %>
         <script type="text/javascript">
             alert("로그인 해주세요");

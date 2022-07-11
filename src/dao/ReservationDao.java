@@ -241,7 +241,7 @@ public class ReservationDao {
                                 + "from SCREEN s, MOVIE m "
                                 + "where s.movie_id = m.movie_id and screen_id = " + screenId + ") a; ";
 
-        int count = 0;
+        int count = 0; 
         try {
 
             conn = DBConnection.getConnection();
