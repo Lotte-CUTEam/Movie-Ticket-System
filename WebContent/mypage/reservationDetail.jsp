@@ -163,7 +163,7 @@ div#contents::before {
 									    <%
 									} else if(cancelStr.equals("취소가능")) {
 									    %>
-									    <td><button type="button" onclick="btnFunc()">취소하기</button></td>
+									    <td><button type="button" onclick="btnFunc(<%=resvDto.getReservationId()%>)">취소하기</button></td>
 									    <%
 									} else {
 									    %><td></td><%
@@ -211,9 +211,9 @@ div#contents::before {
 			});
 		});
 		
-		function btnFunc() {
+		function btnFunc(resvId) {
 			if(confirm("정말 취소하시겠습니까? 취소 후 되돌릴 수 없습니다.")) {
-				location.href="<%=request.getContextPath() %>/mypage?param=deleteResv&resvId=<%=resvDto.getReservationId() %>";
+				location.href="<%=request.getContextPath() %>/mypage?param=deleteResv&resvId="+resvId+"&memberId="+<%=mem.getId()%>;
 			} else {
 				return false;
 			}
