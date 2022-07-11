@@ -110,28 +110,27 @@
 						</ul>
 					</div>
 
-					<div id="movies_ctrl">
-						<div class="movie_page">
-						</div>
+					<div class="movies_ctrl">
 
 						<div id="movie_search_filter">
 							<div class="movie_search">
-								<select id="searchCategory">
+								<select id="searchCategory" class="search_category">
 									<option>검색</option>
 									<option value="title">제목</option>
 									<option value="director">감독</option>
 									<option value="actor">배우</option>
 								</select>
 
-								<input type="text" id="search" value="">
-								<button type="button" onclick="searchMovie()">검색</button>
+								<input type="text" id="search" value="" class="search_input">
+								<img src="<%=contextPath%>/movie/img/magnifying-glass-solid.svg"
+									 onclick="searchMovie()" class="search_btn">
 							</div>
 
 							<div class="empty_space"></div>
 
 							<div class="movie_filter">
-								<span title="rating" onclick="goFilter('rating')">평점순</span> &nbsp;&nbsp;
-								<span title="opening_date" onclick="goFilter('opening_date')">최신 개봉순</span> &nbsp;&nbsp;
+								<span title="rating" onclick="goFilter('rating')" class="filter_span">평점순</span> &nbsp;&nbsp;
+								<span title="opening_date" onclick="goFilter('opening_date')" class="filter_span">최신 개봉순</span> &nbsp;&nbsp;
 							</div>
 						</div>
 
@@ -141,6 +140,11 @@
 					<div class="movie_chart">
 						<!-- 영화 평점 TOP5 -->
 						<div class="chart_cont1"></div>
+					</div>
+
+					<div class="movies_ctrl">
+						<div class="movie_page">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -193,9 +197,9 @@
   });
 
   function movieMenuBtnToggle(index) {
+	  chartCont.empty();
 
-	  let moviesCtrl = $('#movies_ctrl');
-
+	  let moviesCtrl = $('.movies_ctrl');
 	  if (index == 0) {
 		  moviesCtrl.show();
 		  getMovies();
@@ -260,7 +264,6 @@
         $.each(data, function(idx, movie) {
           html += makeMovieTop5Div(idx, movie);
         });
-        chartCont.empty();
         chartCont.append(html);
 
         setMovieDivMarginTop();
@@ -286,7 +289,6 @@
         $.each(data, function(idx, movie) {
           html += makeMovieTop5Div(idx, movie);
         });
-        chartCont.empty();
         chartCont.append(html);
 
         setMovieDivMarginTop();
@@ -331,7 +333,6 @@
         $.each(data.movies, function(idx, movie) {
           html += makeMoviesDiv(idx, movie);
         });
-        chartCont.empty();
         chartCont.append(html);
 
         setMovieDivMarginTop();

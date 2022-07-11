@@ -32,17 +32,6 @@
   color: #fff;
 }
 
-.movie_filter {
-  margin-right: 0px;
-  margin-top: 20px;
-}
-
-.movie_search {
-  margin-left: 0px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
 #movie_search_filter {
   display: flex;
 }
@@ -50,7 +39,28 @@
 .movie_search {
   display: inline-block;
   float: left;
-  width: 600px;
+  width: 800px;
+
+  margin-left: 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.search_category {
+  width: 100px;
+  height: 30px;
+}
+
+.search_input {
+  width: 200px;
+  height: 25px;
+}
+
+.search_btn {
+  width: 20px;
+  margin-left: 13px;
+  margin-bottom: -2px;
+  font-size: 15px;
 }
 
 .empty_space {
@@ -62,6 +72,16 @@
   float: right;
   width: 600px;
   text-align: right;
+  font-size: 15px;
+  font-weight: bold;
+
+  margin-right: 0px;
+  margin-top: 20px;
+}
+
+.filter_span:hover {
+  cursor: grab;
+  text-shadow: 3px 3px 8px rgba(255, 0, 0, 1);
 }
 
 .movie_chart>div>div .poster .rated {
@@ -83,3 +103,8 @@
   color: #fff;
   text-shadow: 2px 2px 3px rgba(0, 0, 0, 1);
 }
+
+.movie_page {
+  margin-top: -500px;
+}
+
