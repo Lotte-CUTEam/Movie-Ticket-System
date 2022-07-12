@@ -17,7 +17,8 @@
 <link rel="stylesheet" href="../assets/css/res_default.css">
 <link rel="stylesheet" href="../assets/css/res_content.css">
 <link rel="stylesheet" href="../assets/css/reservation.css">
-
+<link rel="stylesheet" href="assets/css/reset_hnf.css">
+<link rel="stylesheet" href="assets/css/style_hnf.css">
 <link
    href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&amp;subset=korean"
    rel="stylesheet">
@@ -70,6 +71,7 @@ if (mem == null) {
 %> --%>
 
 <body>
+<%-- <%@include file = "/header.jsp" %> --%>
 <div id="header_section" class="header">
    <h1 class="logo">
       <a href="../main.jsp">LOTTE CINEMA</a>
@@ -136,15 +138,15 @@ if (mem == null) {
                      <strong class="tit">
                      <span>03</span>
                      <br>
-                     예약</strong>
+                     예매확인</strong>
                   </a>
                </li>
                <li class="disabled">
                   <a id="#reserveStep04"  id="reserveStep04">
                      <strong class="tit">
-                     <span>04</span>
+                     <span></span>
                      <br>
-                     예매확인</strong>
+                     </strong>
                   </a>
                </li>
             </ul>
@@ -338,7 +340,7 @@ if (mem == null) {
                         <h6 class="hidden">예매 정보</h6>
                         <span id="movie_thm" class="thm" style="display:block; overflow:hidden; margin-bottom:30px; border-radius:4px;"><img
                         style="width:300px;"
-                           src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202006/14702_103_1.jpg"></span>
+                          id = "step02_movie_img" src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202006/14702_103_1.jpg"></span>
                         <div class="group_infor">
                            <div id="movie_info_people" class="bx_tit">
                               <span class="ic_grade gr_12">관람가</span><strong>
@@ -415,8 +417,9 @@ if (mem == null) {
          <!-- STEP 04. 극장, 영화, 상영 시간 선택 --> 
           <div id="reserveStep04" class="section_step_con step04"></div>
           
-         
+   <%--       <%@include file = "/footer.jsp" %> --%>
    </div> 
+   
 </div>
 
 <form method="post">
