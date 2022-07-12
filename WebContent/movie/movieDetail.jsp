@@ -137,8 +137,6 @@
         </div>
 
     </div>
-
-    <button type="button" name="reservationBtn" onclick="reserve(<%= dto.getMovieId()%>)" style="padding: 10px; margin-bottom: 50px; border: 1px solid black ">예매하기</button>
 </div>
 
 
@@ -157,7 +155,7 @@
             %>
             // location.href = "/screen?param=screenChoice&movie_id=" + id;
 
-            location.href = "/reservation?param=reservation&movie_id=" + id;
+            location.href = "<%=request.getContextPath()%>/reservation?param=reservation";
             <%
         }
       %>
