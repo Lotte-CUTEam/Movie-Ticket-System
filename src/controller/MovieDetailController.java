@@ -48,14 +48,12 @@ public class MovieDetailController extends HttpServlet {
         String param = req.getParameter("param");
 
         if (param.equals("detail")) {
-            System.out.println("[movieDetail]: call success");
 
             Long id = Long.parseLong(req.getParameter("id"));
 
             MovieDto result = getMovieDetail(id);
 
             if (result == null) {
-                System.out.println("[movieDetail]: result is null, FAIL");
 
                 String msg = "movieDetail FAIL";
                 resp.sendRedirect("message.jsp?msg=" + msg);
@@ -67,7 +65,6 @@ public class MovieDetailController extends HttpServlet {
             req.setAttribute("movie", result);
             req.getRequestDispatcher("movie/movieDetail.jsp").forward(req, resp);
 
-            System.out.println("[movieDetail]: call end");
         }
     }
 
