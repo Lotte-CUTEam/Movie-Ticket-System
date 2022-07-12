@@ -26,6 +26,7 @@ public class ReservationController extends HttpServlet {
         doProcess(req, resp);
     }
 
+    //
     public void doProcess(HttpServletRequest req, HttpServletResponse resp)
             throws IOException, ServletException {
 
@@ -39,8 +40,14 @@ public class ReservationController extends HttpServlet {
             long screenId = Long.parseLong(req.getParameter("screen_id"));
 
 
-            reservationDao.makeReservation(member_id, people_count, screenId);
-            resp.sendRedirect(req.getContextPath() + "/mypage?param=mypage&memberId=" + member_id);
+            int count = reservationDao.makeReservation(member_id, people_count, screenId);
+
+            if (count > 0) {
+                resp.sendRedirect(req.getContextPath() + "/mypage?param=reservation");
+            } else {
+                resp.sendRedirect(req.getContextPath() + "/reservation/reservationMsg.jsp");
+            }
+
 
         }
     }
