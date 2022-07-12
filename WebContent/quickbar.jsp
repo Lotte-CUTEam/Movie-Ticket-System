@@ -1,12 +1,12 @@
 <!-- 
-[프로젝트]롯데e커머스_자바전문가과정
-[시스템명]영화예매시스템
-[팀 명]CUTEam
-[파일명]quickbar.jsp
------------------------------------------------------------
-수정일자			수정자		수정내용
-2022.07.11		정은우		신규생성
------------------------------------------------------------
+* [프로젝트]롯데e커머스_자바전문가과정
+* [시스템명]영화예매시스템
+* [팀 명]CUTEam
+* [파일명]quickbar.jsp
+* -----------------------------------------------------------
+* 수정일자			수정자		수정내용
+* 2022.07.11		정은우		신규생성
+* -----------------------------------------------------------
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -20,3 +20,20 @@
 			style="margin-top: 10px; background: #3e3d3d; font-size: 11px; color: #fff; letter-spacing: 5px; padding: 5px 5px 5px 13px; text-decoration: none; display: block;">TOP</a>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(window).resize(function() {
+			if ($(window).width() < 980) {
+				$('#quick_menu').hide();
+			} else {
+				$('#quick_menu').show();
+			}
+		});
+		
+		$( '.qick_top' ).click( function() {
+			$( 'html, body' ).animate( { scrollTop : 0 }, 400 );
+			return false;
+		} );
+	});
+</script>

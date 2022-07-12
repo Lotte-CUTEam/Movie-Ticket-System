@@ -11,17 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * [프로젝트]롯데e커머스_자바전문가과정
- *
  * [시스템명]영화예매시스템
- *
  * [팀   명]CUTEam
- *
+ * [파일명]MovieDetailController.java
  * -----------------------------------------------------------
- *
  * 수정일자           수정자         수정내용
- *
  * 2022.07.09       안채영         신규생성
- *
  * -----------------------------------------------------------
  */
 
@@ -53,14 +48,12 @@ public class MovieDetailController extends HttpServlet {
         String param = req.getParameter("param");
 
         if (param.equals("detail")) {
-            System.out.println("[movieDetail]: call success");
 
             Long id = Long.parseLong(req.getParameter("id"));
 
             MovieDto result = getMovieDetail(id);
 
             if (result == null) {
-                System.out.println("[movieDetail]: result is null, FAIL");
 
                 String msg = "movieDetail FAIL";
                 resp.sendRedirect("message.jsp?msg=" + msg);
@@ -72,7 +65,6 @@ public class MovieDetailController extends HttpServlet {
             req.setAttribute("movie", result);
             req.getRequestDispatcher("movie/movieDetail.jsp").forward(req, resp);
 
-            System.out.println("[movieDetail]: call end");
         }
     }
 

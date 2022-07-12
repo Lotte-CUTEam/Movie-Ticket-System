@@ -15,9 +15,8 @@ import dto.ReservationDto;
 /**
  * [프로젝트]롯데e커머스_자바전문가과정
  * [시스템명]영화예매시스템
- * [팀   명]CUTEam
+ * [팀 명]CUTEam
  * [파일명]ReservationDao.java
- * 예매 내역 생성 조회 삭제
  * -----------------------------------------------------------
  * 수정일자           수정자         수정내용
  * 2022.07.09       장혜원         신규생성
@@ -234,14 +233,16 @@ public class ReservationDao {
 
         String sql =
                 "insert into RESERVATION ( member_id, screen_id, movie_id, screen_at, people_count, cinema, title, runtime, created_at, deleted_at, status) "
-                    + "select '" + memberId + "' as member_id, a.screen_id, a.movie_id, a.screen_at, "
-                        + " people_count as people_count, a.cinema, a.title, a.runtime, "
+                        + "select '" + memberId
+                        + "' as member_id, a.screen_id, a.movie_id, a.screen_at, " + peopleCount
+                        + " as people_count, a.cinema, a.title, a.runtime, "
                         + " now() as created_at, null as deleted_at, 0 as status "
-                    + "from (select s.screen_id, s.movie_id, s.screen_at, s.cinema, m.title, m.runtime "
-                                + "from SCREEN s, MOVIE m "
-                                + "where s.movie_id = m.movie_id and screen_id = " + screenId + ") a; ";
+                        + "from (select s.screen_id, s.movie_id, s.screen_at, s.cinema, m.title, m.runtime "
+                        + "from SCREEN s, MOVIE m "
+                        + "where s.movie_id = m.movie_id and screen_id = " + screenId + ") a; ";
 
-        int count = 0; 
+        // System.out.println(sql);
+        int count = 0;
         try {
 
             conn = DBConnection.getConnection();
@@ -262,11 +263,9 @@ public class ReservationDao {
         Connection conn = null;
         PreparedStatement psmt = null;
 
-        String sql = "update RESERVATION "
-                + " set deleted_at=now(), status=1 "
-                + " where reservation_id = ? "
-                        + " and member_id = ? "
-                        + " and now() < DATE_SUB(screen_at, INTERVAL " + 20 + " MINUTE) ";
+        String sql = "update RESERVATION " + " set deleted_at=now(), status=1 "
+                + " where reservation_id = ? " + " and member_id = ? "
+                + " and now() < DATE_SUB(screen_at, INTERVAL " + 20 + " MINUTE) ";
         int count = 0;
         try {
 

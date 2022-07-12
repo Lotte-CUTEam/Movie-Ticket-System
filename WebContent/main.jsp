@@ -1,3 +1,16 @@
+<!--
+/**
+* [프로젝트]롯데e커머스_자바전문가과정
+* [시스템명]영화예매시스템
+* [팀 명]CUTEam
+* [파일명]main.jsp
+* -----------------------------------------------------------
+* 수정일자          수정자             수정내용
+* 2022.07.08      이성은             신규생성
+* -----------------------------------------------------------
+*/
+-->
+
 <%@page import="dto.MemberDto"%>
 <%@page import="dto.MovieDto"%>
 <%@page import="java.util.List"%>
@@ -28,7 +41,7 @@ List<MovieDto> movies = movieDao.getMovies();
 <meta name="viewport"
 	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>롯데시네마 구현하기</title>
+<title>큐트시네마</title>
 
 <!-- css -->
 <link rel="stylesheet" href="assets/css/reset.css">

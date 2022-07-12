@@ -2,9 +2,10 @@
 * [프로젝트]롯데e커머스_자바전문가과정
 * [시스템명]영화예매시스템
 * [팀 명]CUTEam
+* [파일명]login.jsp
 * -----------------------------------------------------------
-* 수정일자 수정자 수정내용
-* 2022.07.08 이충현 신규생성
+* 수정일자 			수정자 		수정내용
+* 2022.07.08 		이충현 		신규생성
 * -----------------------------------------------------------
 */-->
 
@@ -22,11 +23,17 @@
 	crossorigin="anonymous">
 <!-- css -->
 <link rel="stylesheet" href="./css/login.css?ver=3.0">
+<!-- Jquery -->
+ <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>  
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
 <!-- JavaScript -->
 <script src="js/login.js"></script>
 
+
+
 <meta charset="UTF-8">
-<title>롯데ON 로그인 : 롯데ON</title>
+<title>로그인 - 큐트시네마</title>
 </head>
 <body>
 	<main>

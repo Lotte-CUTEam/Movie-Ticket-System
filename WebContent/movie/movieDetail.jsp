@@ -1,16 +1,15 @@
 <%--
-
 /**
-[프로젝트]롯데e커머스_자바전문가과정
-[시스템명]영화예매시스템
-[팀   명]CUTEam
+* [프로젝트]롯데e커머스_자바전문가과정
+* [시스템명]영화예매시스템
+* [팀 명]CUTEam
+* [파일명]movieDetail.jsp
 * -----------------------------------------------------------
-수정일자           수정자         수정내용
-2022.07.09       안채영         신규생성
-2022.07.11       안채영         css구현
+* 수정일자           수정자         수정내용
+* 2022.07.09       안채영         신규생성
+* 2022.07.11       안채영         css구현
 * -----------------------------------------------------------
 */
-
 --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -21,7 +20,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>영화 상세 페이지</title>
+    <title>영화 상세 - 큐트시네마</title>
 
     <!-- css -->
     <link rel="stylesheet" href="assets/css/reset.css">
@@ -41,12 +40,16 @@
 <body>
 
 <%@include file="../header.jsp"%>
+
+<%@include file = "/quickbar.jsp" %>
+
 <%
     if (id != null)
         System.out.println("***id 확인: " + id + "***");
 
     MovieDto dto = (MovieDto) request.getAttribute("movie");
 %>
+
 
 <div align="center" class="poster_info">
 
@@ -153,6 +156,7 @@
         } else {
             %>
             // location.href = "/screen?param=screenChoice&movie_id=" + id;
+
             location.href = "/reservation?param=reservation&movie_id=" + id;
             <%
         }
@@ -162,6 +166,7 @@
 </script>
 
 <%@include file="../footer.jsp"%>
+
 
 </body>
 </html>

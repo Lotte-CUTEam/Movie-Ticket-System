@@ -116,7 +116,7 @@ public class MypageController extends HttpServlet {
             if (ret > 0) {
                 resp.sendRedirect("mypage?param=showMypage&memberId=" + memberId);
             } else {
-                resp.sendRedirect("mypage/message.jsp?param=mypage&msg=deletefail");
+                resp.sendRedirect("util/message.jsp?param=mypage&msg=deletefail");
             }
             
         } else {

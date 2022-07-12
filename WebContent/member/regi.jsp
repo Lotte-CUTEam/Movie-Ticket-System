@@ -2,9 +2,10 @@
 * [프로젝트]롯데e커머스_자바전문가과정
 * [시스템명]영화예매시스템
 * [팀 명]CUTEam
+* [파일명]regi.jsp
 * -----------------------------------------------------------
-* 수정일자 수정자 수정내용
-* 2022.07.08 이충현 신규생성
+* 수정일자 			수정자 			수정내용
+* 2022.07.08 		이충현 			신규생성
 * -----------------------------------------------------------
 */-->
 
@@ -16,7 +17,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>회원가입</title>
+<title>회원가입 - 큐트시네마</title>
 
 <!-- Bootstrap CSS -->
 <link
@@ -70,7 +71,7 @@
 							</div>
 
 							<div class="col-md-6 mb-3">
-								<label for="password">비밀번호</label> <input type="text"
+								<label for="password">비밀번호</label> <input type="password"
 									class="form-control" name="pwd" id="password"
 									placeholder="비밀번호" value="" required>
 								<div class="invalid-feedback">비밀번호을 입력해주세요.</div>

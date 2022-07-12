@@ -1,12 +1,12 @@
 <!-- 
-[프로젝트]롯데e커머스_자바전문가과정
-[시스템명]영화예매시스템
-[팀 명]CUTEam
-[파일명]myPage.jsp
------------------------------------------------------------
-수정일자			수정자		수정내용
-2022.07.08		정은우		신규생성
------------------------------------------------------------
+* [프로젝트]롯데e커머스_자바전문가과정
+* [시스템명]영화예매시스템
+* [팀 명]CUTEam
+* [파일명]myPage.jsp
+* -----------------------------------------------------------
+* 수정일자			수정자		수정내용
+* 2022.07.08		정은우		신규생성
+* -----------------------------------------------------------
  -->
 <%@page import="dto.MemberDto"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
@@ -16,9 +16,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%//request.setCharacterEncoding("utf-8");
+<%
+	request.setCharacterEncoding("utf-8");
 	List<ReservationDto> list = (List<ReservationDto>) request.getAttribute("resvList");
-	//List<ReservationDto> list = null;%>
+%>
 
 <!-- 로그인 확인 -->
 
@@ -65,12 +66,11 @@ div#contents::before {
 	z-index: -1;
 	left: 0;
 	right: 0;
-	/*     top: 114px; */
 	height: 120px;
 	background-color: #FF7787;
 }
 </style>
-<title>My Page</title>
+<title>마이페이지 - 큐트시네마</title>
 
 <link rel="stylesheet" href="assets/css/reset_hnf.css">
 <link rel="stylesheet" href="assets/css/style_hnf.css">
@@ -98,6 +98,7 @@ div#contents::before {
 				</p>
 			</div>
 			<br>
+			
 			<!-- 마이페이지 메인메뉴탭 -->
 			<div class="mypage_main_menu" align="center">
 				<table style="border-bottom: 1px solid;">
@@ -182,6 +183,8 @@ div#contents::before {
 					}
 					%>
 				</div>
+				
+				<!-- 유의사항 -->
 				<div class="mypage_warning_box" align="left"
 					style="border: 1px solid #eee; padding: 30px 25px;">
 					<h5 style="border-bottom: 1px #eee solid;">유의사항</h5>
@@ -206,19 +209,8 @@ div#contents::before {
 		</div>
 		
 		<!-- 공통부분 footer -->
-		<%@include file = "../footer.jsp" %>
+		<%@include file = "/footer.jsp" %>
 		
 	</div>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$(window).resize(function() {
-				if ($(window).width() < 980) {
-					$('#quick_menu').hide();
-				} else {
-					$('#quick_menu').show();
-				}
-			});
-		});
-	</script>
 </body>
 </html>

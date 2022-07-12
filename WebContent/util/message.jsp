@@ -1,12 +1,15 @@
-<!-- /**
+<!--
+/**
 * [프로젝트]롯데e커머스_자바전문가과정
 * [시스템명]영화예매시스템
 * [팀 명]CUTEam
+* [파일명]message.jsp
 * -----------------------------------------------------------
-* 수정일자 수정자 수정내용
-* 2022.07.11 이충현 신규생성
+* 수정일자          수정자             수정내용
+* 2022.07.11      이충현             신규생성
 * -----------------------------------------------------------
-*/-->
+*/
+-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
@@ -48,9 +51,8 @@
 </script>
 <%
         }
-    }else if (param.equals("mypage")) {
+}else if (param.equals("mypage")) {
     if (msg.equals("url")) {
-        System.out.println("mypage/message.jsp");
         %>
         <script type="text/javascript">
             alert("잘못된 접근입니다");
@@ -58,7 +60,6 @@
         </script>
         <%
     } else if (msg.equals("login")) {
-        System.out.println("mypage/message.jsp");
         %>
         <script type="text/javascript">
             alert("로그인 해주세요");
@@ -72,6 +73,28 @@
             location.href = "<%=request.getContextPath()%>/mypage?param=mypage";
         </script>
         <%
+        }  else if (msg.equals("login")) { 
+            %>
+      <script type="text/javascript">
+            alert("로그인 해주세요");
+            location.href = "<%=request.getContextPath()%>/member?param=login";
+        </script>
+        <% }
+} else if (param.equals("reservation")) {
+    if (msg.equals("bookingSuccess")) {
+        %>
+        <script type="text/javascript">
+            alert("예약 성공했습니다.");
+            location.href = "<%=request.getContextPath()%>/mypage?param=mypage";
+        </script>
+        <% 
+    } else if (msg.equals("bookingFail")) {
+        %>
+        <script type="text/javascript">
+            alert("예약 실패했습니다.");
+            location.href = "<%=request.getContextPath()%>/reservation";
+        </script>
+        <%
     }
 }
-%>
+%> 
