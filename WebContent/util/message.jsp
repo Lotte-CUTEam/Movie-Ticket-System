@@ -48,7 +48,7 @@
 </script>
 <%
         }
-    }else if (param.equals("mypage")) {
+}else if (param.equals("mypage")) {
     if (msg.equals("url")) {
         %>
         <script type="text/javascript">
@@ -70,6 +70,28 @@
             location.href = "<%=request.getContextPath()%>/mypage?param=mypage";
         </script>
         <%
+        }  else if (msg.equals("login")) { 
+            %>
+      <script type="text/javascript">
+            alert("로그인 해주세요");
+            location.href = "<%=request.getContextPath()%>/member?param=login";
+        </script>
+        <% }
+} else if (param.equals("reservation")) {
+    if (msg.equals("bookingSuccess")) {
+        %>
+        <script type="text/javascript">
+            alert("예약 성공했습니다.");
+            location.href = "<%=request.getContextPath()%>/mypage?param=mypage";
+        </script>
+        <% 
+    } else if (msg.equals("bookingFail")) {
+        %>
+        <script type="text/javascript">
+            alert("예약 실패했습니다.");
+            location.href = "<%=request.getContextPath()%>/reservation";
+        </script>
+        <%
     }
 }
-%>
+%> 
