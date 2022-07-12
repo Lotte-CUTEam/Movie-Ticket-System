@@ -11,7 +11,6 @@
 */
 --%>
 
-<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@page import="dao.ScreenDao"%>
 <%@page import="dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -26,7 +25,6 @@
 <title>예매 - 큐트시네마</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<script src="reservation.js"></script>
 <link rel="stylesheet" href="../assets/css/res_default.css">
 <link rel="stylesheet" href="../assets/css/res_content.css">
 <link rel="stylesheet" href="../assets/css/reservation.css">
@@ -147,7 +145,7 @@ if (mem == null) {
                   </a>
                </li>
                <li class="disabled">
-                  <a id="#reserveStep03"  id="reserveStep03">
+                  <a id="#reserveStep03">
                      <strong class="tit">
                      <span>03</span>
                      <br>
@@ -155,7 +153,7 @@ if (mem == null) {
                   </a>
                </li>
                <li class="disabled">
-                  <a id="#reserveStep04"  id="reserveStep04">
+                  <a id="#reserveStep04">
                      <strong class="tit">
                      <span></span>
                      <br>
@@ -173,7 +171,8 @@ if (mem == null) {
          <h3 class="hidden">상영시간</h3>
            
             <!-- 1.1 극장 선택 -->
-            <div id="location_article" class="article article_cinema" style="width:170px;">
+            <!-- FIXME -->
+            <div id="" class="article article_cinema" style="width:170px;">
                <div class="group_top">
                   <h4 class="tit" id="h4_location">지역</h4>
                </div>
@@ -185,15 +184,15 @@ if (mem == null) {
                         <div class="tab_con">
                         <h5 class="hidden">전체</h5>
                            <div class="cinema_select_wrap cinemaSelect basicCinema">
-                              <ul id="#select_location">
+                              <ul id="select_location">
                              <!-- 지역 enum -->
                                <%    int idx = 0;
                                   for(Location loc : Location.values()) { 
                                      idx++;
                                      if (idx==1) {%>
-                                           <li class="depth1 active" value="<%=loc%>"><a href="#"><%=loc.getLocationName()%></a>                                      
+                                 <li class="depth1 active" value="<%=loc%>" onclick="setCinema()"><a href="#"><%=loc.getLocationName()%></a></li>
                                      <% } else {%>
-                                            <li class="depth1" value="<%=loc%>"><a href="#"><%=loc.getLocationName()%></a>                                      
+                                 <li class="depth1" value="<%=loc%>" onclick="setCinema()"><a href="#"><%=loc.getLocationName()%></a></li>
                                  <% }
                                      } %>
                               </ul>
@@ -219,8 +218,8 @@ if (mem == null) {
                         <div class="tab_con">
                            <h5 class="hidden">전체</h5>
                            <div class="cinema_select_wrap cinemaSelect basicCinema">
+                              <!-- 영화관 선택 -->
                               <ul id="#select_cinema">
-
  
                               </ul>
                            </div>
@@ -269,7 +268,7 @@ if (mem == null) {
                         
                         <!-- 영화 정보 (1) -->
                         <div class="group_time_select" id="screen_element">
-                           <input type='hidden' id="screen_id" value=2> 
+                           <input type='hidden' value=2>
                            <div class="time_select_tit" id="movie_name">
                                  <span class="ic_grade gr_12">12</span><strong>탑건: 매버릭</strong>
                            </div>
@@ -287,20 +286,21 @@ if (mem == null) {
 
                         </div>
                         
-                       <div class="group_time_select" id="screen_element">
-                           <input type='hidden' id="screen_id" value=1> 
-                           <div class="time_select_tit" id="movie_name">
+                       <div class="group_time_select">
+                           <input type='hidden' value=1>
+                           <div class="time_select_tit">
                                  <span class="ic_grade gr_12">12</span><strong>토르 러브 앤 썬더</strong>
                            </div>
                            <div class="time_select_wrap timeSelect">
                            
-                           <ul class="list_time" id="screen_list">
+                           <ul class="list_time">
                               <li class="temp_left">
                                  <a role="button" href="#none" class="screen_time" onclick="goReservation()">12:05
                                  </a>
                               </li>
                               <li class="temp_left">
                                  <a role="button" href="#none" class="screen_time" onclick="goReservation()">16:05
+                                 </a>
                               </li>
                            </ul>
                      </div>
@@ -425,6 +425,7 @@ if (mem == null) {
 </form>
 
 
+<script src="reservation.js"></script>
 
 </body>
 </html>
