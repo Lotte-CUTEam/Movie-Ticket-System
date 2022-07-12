@@ -74,6 +74,14 @@ public class ScreenController extends HttpServlet {
 
         } else if (param.equals("movieDetail")) {
             // send movie
+            String screenId = req.getParameter("screen_id");
+            long screen_id = 1;
+            if (!(screenId == null || screenId.equals(""))) {
+                screen_id = Long.parseLong(screenId);
+            }
+
+            MovieScreenDto movieScreen = screenDao.getMovieScreenDto(screen_id);
+            sendMovieScreen(movieScreen, resp);
 
         } else if (param.equals("cinema")) {
             // 극장 리스트
@@ -89,11 +97,12 @@ public class ScreenController extends HttpServlet {
         } else if (param.equals("timetable")) {
             // 상영 타임 테이블
             String cinema = req.getParameter("cinema");
-            int movieId = Integer.parseInt(req.getParameter("movieid"));
+            int movieId = 1;
             String inputDate = req.getParameter("inputdate");
 
             List<MovieScreenDto> movieScreenList =
-                    screenDao.getMovieScreenList("서울-월드타워", 0, inputDate);
+                    // screenDao.getMovieScreenList("서울-월드타워", 0, inputDate);
+                    screenDao.getMovieScreenList(cinema, movieId, inputDate);
             sendMovieScreenList(movieScreenList, resp);
         }
     }
@@ -108,6 +117,31 @@ public class ScreenController extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
+    protected void sendMovieScreen(MovieScreenDto movieScreen, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        JSONArray jsonArr = new JSONArray();
+        JSONObject obj = new JSONObject();
+
+        obj = new JSONObject();
+        obj.put("MOVIE_ID", movieScreen.getMovieDto().getMovieId());
+        obj.put("GENRE", movieScreen.getMovieDto().getGenre());
+        obj.put("IMAGE_URL", movieScreen.getMovieDto().getImageUrl());
+        obj.put("TITLE", movieScreen.getMovieDto().getTitle());
+        obj.put("RUNTIME", movieScreen.getMovieDto().getRuntime());
+        obj.put("RATED", movieScreen.getMovieDto().getRated());
+
+        obj.put("SCREEN_ID", movieScreen.getScreenDto().getScreenId());
+        obj.put("CINEMA", movieScreen.getScreenDto().getCinema());
+        obj.put("SCREEN_AT", movieScreen.getScreenDto().getScreenAt());
+
+
+        resp.setContentType("application/x-json; charset=utf-8");
+        resp.getWriter().print(jsonArr);
+
+    }
+
+
     protected void sendMovieList(List<MovieDto> movieList, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -139,8 +173,7 @@ public class ScreenController extends HttpServlet {
 
             obj = new JSONObject();
             obj.put("CINEMA", cinemaList.get(i));
-            System.out.println(cinemaList.get(i));
-            System.out.println("극장불러오기");
+
             jsonArr.add(obj);
         }
 
@@ -148,6 +181,7 @@ public class ScreenController extends HttpServlet {
         resp.getWriter().print(jsonArr);
 
     }
+
 
     /**
      * 상영시간 테이블
@@ -157,6 +191,7 @@ public class ScreenController extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
+    @SuppressWarnings("unchecked")
     protected void sendMovieScreenList(List<MovieScreenDto> movieScreenList,
             HttpServletResponse resp) throws ServletException, IOException {
 
@@ -174,8 +209,7 @@ public class ScreenController extends HttpServlet {
             obj.put("TITLE", movieScreen.getMovieDto().getTitle());
             obj.put("RATED", movieScreen.getMovieDto().getRated());
 
-
-            // System.out.println(movieScreen.getScreenDto().getCinema());
+            System.out.println(movieScreen.getScreenDto().getCinema());
             jsonArr.add(obj);
         }
 

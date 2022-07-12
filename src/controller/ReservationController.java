@@ -49,14 +49,16 @@ public class ReservationController extends HttpServlet {
             int people_count = Integer.parseInt(req.getParameter("people_count"));
             long screenId = Long.parseLong(req.getParameter("screen_id"));
 
-
+            System.out.println("");
             int count = reservationDao.makeReservation(member_id, people_count, screenId);
 
             if (count > 0) {
-                resp.sendRedirect(req.getContextPath() + "/mypage?param=reservation");
+                resp.sendRedirect("util/message.jsp?param=reservation&msg=bookingSuccess");
             } else {
-                resp.sendRedirect(req.getContextPath() + "/reservation/reservationMsg.jsp");
+                resp.sendRedirect("util/message.jsp?param=reservation&msg=bookingFail");
+
             }
+
 
 
         }

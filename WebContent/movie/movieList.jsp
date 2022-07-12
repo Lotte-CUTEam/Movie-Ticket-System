@@ -52,6 +52,8 @@
 
 	<%@include file="../header.jsp"%>
 
+	<%@include file = "/quickbar.jsp" %>
+
 	<section id="banner">
 		<div class="banner_menu">
 			<h2 class="ir_so">배너 영역</h2>

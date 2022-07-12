@@ -74,7 +74,7 @@
 %>
 <html>
 <head>
-    <title>예매 내역 확인</title>
+    <title>예매 내역 - 큐트시네마</title>
 
     <!-- css -->
     <link rel="stylesheet" href="assets/css/reset.css">

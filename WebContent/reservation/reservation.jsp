@@ -427,6 +427,8 @@ if (mem == null) {
           
          <!-- STEP 04. 극장, 영화, 상영 시간 선택 --> 
           <div id="reserveStep04" class="section_step_con step04"></div>
+          
+         
    </div> 
 </div>
 
@@ -435,6 +437,7 @@ if (mem == null) {
    <input type="hidden" id="member_id" name="member_id" value="hyewon">
    <input type="hidden" id="screen_id" name="screen_id" value="">
    <input type="hidden" id="movie_id" name="movie_id" value="">
+   <input type="hidden" id="input_date" name="input_date" value="">
    
    <input type="hidden" id="people_count" name="people_count" value="">
 
