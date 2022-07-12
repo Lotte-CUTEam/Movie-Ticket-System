@@ -15,15 +15,12 @@ window.addEventListener('DOMContentLoaded', function () {
     domready();
 
    // 클릭시
-   $(".depth1").click(function() {
-      $(this).addClass("active");
-      $(this).siblings("li").removeClass("active");
-   });
+
    
    // 지역 클릭시 재조회
-	$("#select_location > li").click(function(){
-		setCinema();
-	});
+	// $("#select_location > li").click(function(){
+	// 	setCinema();
+	// });
 
    
    // 영화 클릭시 재조회
@@ -64,6 +61,11 @@ window.addEventListener('DOMContentLoaded', function () {
 	
 }); 
 
+function activeDepth1(el) {
+    $(el).addClass("active");
+    $(el).siblings("li").removeClass("active");
+}
+
 
 // 화면 초기 진입 세팅
 const domready = () => {
@@ -94,11 +96,13 @@ const setCinema = () => {
          $("#select_cinema").empty();
          
          for (var i=0; i< data.length ; i++){
-			console.log(data[i]);
-			console.log(data[i].CINEMA);
-			htmlTxt = "<li value=" + data[i].CINEMA + ">" + data[i].CINEMA + "</li>";
-			console.log(htmlTxt);
-			$("#select_cinema").append(htmlTxt);
+            console.log(data[i]);
+            console.log(data[i].CINEMA);
+            let cinema = data[i].CINEMA.split('/')[1];
+
+            htmlTxt = "<li class='depth1' onclick='' value='" + data[i].CINEMA + "'>" + data[i].CINEMA + "</li>";
+            console.log(htmlTxt);
+            $("#select_cinema").append(htmlTxt);
          }        
 
       },
@@ -185,7 +189,7 @@ const setScreen = () => {
 	let location = document.querySelector("#\\#select_location > li.depth1.active > a").text;
 	let cinema	 = document.querySelector("#\\#select_cinema > li.depth1.active > a").text;
 	
-	let cinema_param = location + '-' + cinema;
+	let cinema_param = cinema;
 	let movieid 	 = $("#select_movie option:selected").val();
 	
 	let inputdate	 = $("#input_date").val();

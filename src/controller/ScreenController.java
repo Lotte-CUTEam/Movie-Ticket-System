@@ -86,6 +86,8 @@ public class ScreenController extends HttpServlet {
         } else if (param.equals("cinema")) {
             // 극장 리스트
             String location = req.getParameter("location");
+            location = location.trim().replaceAll("\n", "");
+
             List<String> cinemaList = null;
             if (location == null || location.equals("")) {
                 cinemaList = screenDao.getCinemaList();

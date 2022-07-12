@@ -25,6 +25,7 @@ import dto.ScreenDto;
  * -----------------------------------------------------------
  * 수정일자           수정자        수정내용
  * 2022.07.08       장혜원        신규생성
+ * 2022.07.12       권나연        예매 화면 데이터 조회
  * -----------------------------------------------------------
  */
 
@@ -96,12 +97,13 @@ public class ScreenDao {
             location = "서울";
         }
 
-        String sql = "select  SUBSTRING_INDEX(cinema, '-', -1) AS LOCATION from screen \n"
-                + "where  SUBSTRING_INDEX(cinema, '-', 1) = '" + location.trim() + "' \n"
-                + "GROUP BY SUBSTRING_INDEX(cinema, '-', -1)\n"
-                + "ORDER BY SUBSTRING_INDEX(cinema, '-', -1);";
+//        String sql = "select  SUBSTRING_INDEX(cinema, '-', -1) AS LOCATION from screen \n"
+//                + "where  SUBSTRING_INDEX(cinema, '-', 1) = '" + location.trim() + "' \n"
+//                + "GROUP BY SUBSTRING_INDEX(cinema, '-', -1)\n"
+//                + "ORDER BY SUBSTRING_INDEX(cinema, '-', -1);";
 
-
+        String sql = " SELECT cinema  FROM SCREEN "
+                    + " WHERE cinema LIKE '서울/%' GROUP BY cinema ";
 
         List<String> CinemaList = new ArrayList<String>();
         String cinema = "";
@@ -247,6 +249,7 @@ public class ScreenDao {
         whereConditionWord = " and s.cinema ='" + cinema + "'\n";
 
         // 영화 (없는 경우 디폴트 영화 조회)
+        // FIXME
         if (movieId < 1) {
             movieId = 1;
         }
