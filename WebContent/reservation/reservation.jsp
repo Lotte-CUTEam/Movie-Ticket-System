@@ -87,36 +87,37 @@ if (mem == null) {
    <h1 class="logo" style="width: 11%">
       <a href="../main.jsp">LOTTE CINEMA</a>
    </h1>
-   <div class="gnb">
+<div class="gnb">
       <ul class="g_menu2">
          <li>
-            <a href="../member/login.jsp">로그인</a>
+            <a href="../member?param=login">로그인</a>
          </li>
          <li>
-            <a href="../member/regi.jsp">회원가입</a>
+            <a href="../member?param=regi">회원가입</a>
          </li>
          <li>
-            <a href="#">마이페이지</a>
+            <a href="../mypage?param=mypage">마이페이지</a>
          </li>         
       </ul>
    </div>
    <div id="nav">
       <ul>
          <li class="">
-            <a href="reservation.jsp">예매</a>
+            <a href="../reservation?param=reservation">예매</a>
          </li>
          <li class="">
-            <a href="../movie/movieList.jsp">영화</a>
+            <a href="../movies">영화</a>
          </li>
          <li class="">
-            <a href="#">영화관</a>
+            <a href="../movies">영화관</a>
          </li>
          <li class="">
-            <a href="#">시간표</a>
+            <a href="../movies">시간표</a>
          </li>
       </ul>
    </div>
  </div> 
+
  
  
  
