@@ -17,8 +17,8 @@
 <link rel="stylesheet" href="../assets/css/res_default.css">
 <link rel="stylesheet" href="../assets/css/res_content.css">
 <link rel="stylesheet" href="../assets/css/reservation.css">
-<link rel="stylesheet" href="assets/css/reset_hnf.css">
-<link rel="stylesheet" href="assets/css/style_hnf.css">
+<link rel="stylesheet" href="../assets/css/reset_hnf.css">
+<link rel="stylesheet" href="../assets/css/style_hnf.css">
 <link
    href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&amp;subset=korean"
    rel="stylesheet">
@@ -73,7 +73,7 @@ if (mem == null) {
 <body>
 <%-- <%@include file = "/header.jsp" %> --%>
 <div id="header_section" class="header">
-   <h1 class="logo">
+   <h1 class="logo" style="width: 11%">
       <a href="../main.jsp">LOTTE CINEMA</a>
    </h1>
    <div class="gnb">
@@ -252,7 +252,7 @@ if (mem == null) {
 
                     <div class="inner">
                         <div class="list_filter">
-                            <select id = "select_movie" title="영화선택" onchange="setMovie()">                           
+                            <select id = "select_movie" title="영화선택">                           
                             </select>
                         </div>
             		</div>
@@ -417,7 +417,7 @@ if (mem == null) {
          <!-- STEP 04. 극장, 영화, 상영 시간 선택 --> 
           <div id="reserveStep04" class="section_step_con step04"></div>
           
-   <%--       <%@include file = "/footer.jsp" %> --%>
+        <%@include file = "/footer.jsp" %> 
    </div> 
    
 </div>
