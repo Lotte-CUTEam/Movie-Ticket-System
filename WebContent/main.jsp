@@ -89,21 +89,21 @@ List<MovieDto> movies = movieDao.getMovies();
 					<div class="swiper-slide ss1">
 						<div class="container">
 							<div class="row">
-								<h3>토르-러브 앤 썬더</h3><p>토르 개봉 히히</p>
+								<h3>토르-러브 앤 썬더</h3><p>토르</p>
 							</div>
 						</div>
 					</div>
 					<div class="swiper-slide ss2">
 						<div class="container">
 							<div class="row">
-								<h3>엘비스</h3><p>엘비스입니당 낄낄</p>
+								<h3>엘비스</h3><p>엘비스</p>
 							</div>
 						</div>
 					</div>
 					<div class="swiper-slide ss3">
 						<div class="container">
 							<div class="row">
-								<h3>무비무비</h3><p>이건 대체 먼 영화여</p>
+								<h3>체리마호</h3><p>체리마호</p>
 							</div>
 						</div>
 					</div>
