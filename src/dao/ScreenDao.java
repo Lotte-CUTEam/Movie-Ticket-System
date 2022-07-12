@@ -129,6 +129,48 @@ public class ScreenDao {
 
 
 
+    public List<String> getScreenMovieNameList(String inputDate) {
+
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        ResultSet rs = null;
+
+        String sql = "select m.title\n" + "  from screen s, movie m \n"
+                + " where m.movie_id = s.movie_id \n"
+                + "  and DATE_FORMAT(s.screen_at, '%Y%m%d') = ? \n" + " group by m.title;";
+
+
+        // 선택날짜 (없는 경우 오늘을 기준으로 조회)
+        if (inputDate == null || inputDate.equals("") || inputDate.length() != 8) {
+            inputDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        }
+
+        List<String> getScreenMovieNameList = new ArrayList<String>();
+
+        MovieDto movieDto = null;
+        ScreenDto screenDto = null;
+
+        try {
+
+            conn = DBConnection.getConnection();
+            psmt = conn.prepareStatement(sql);
+            psmt.setString(1, inputDate);
+            rs = psmt.executeQuery();
+
+
+            while (rs.next()) {
+                int i = 1;
+                getScreenMovieNameList.add(rs.getString(i++));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBClose.close(conn, psmt, rs);
+        }
+
+        return getScreenMovieNameList;
+    }
+
     /**
      * 영화관, 영화, 선택날짜에 따른 조회
      * 
@@ -148,29 +190,32 @@ public class ScreenDao {
         String whereConditionWord = "";
 
         // 영화관 (없는 경우 디폴트 영화관 조회)
-        if (cinema.equals("") || cinema == null) {
+        if (cinema == null || cinema.equals("")) {
             cinema = "서울-월드타워";
         }
-        whereConditionWord = " and s.cinema '" + cinema + "'\n";
+        whereConditionWord = " and s.cinema ='" + cinema + "'\n";
 
         // 영화 (없는 경우 디폴트 영화 조회)
         if (movieId < 1) {
             movieId = 1;
         }
-        whereConditionWord += " and s.movie_id " + movieId + "\n";
+        // whereConditionWord += " and s.movie_id =" + movieId + "\n";
 
         // 선택날짜 (없는 경우 오늘을 기준으로 조회)
-        if (inputDate.equals("") || inputDate == null && inputDate.length() != 8) {
+        if (inputDate == null || inputDate.equals("") || inputDate.length() != 8) {
             inputDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         }
-        whereConditionWord += " and DATE_FORMAT(screen_at, '%Y%m%d') = " + inputDate + "\n";
+
+        System.out.println(inputDate);
+        // whereConditionWord += " and DATE_FORMAT(screen_at, '%Y%m%d') = " + inputDate + "\n";
 
         String sql = " select s.screen_id, s.movie_id, s.screen_at, s.cinema, \n"
                 + "        m.movie_id, m.title, m.director, m.actor, m.opening_date, m.rating, m.runtime, m.image_url, m.genre, m.rated \n"
                 + "  from screen s, movie m \n" + " where m.movie_id = s.movie_id\r\n"
-                + "   and s.screen_at > now() and s.screen_at < DATE_ADD(NOW(), INTERVAL 7 DAY) \n"
                 + whereConditionWord + "; ";
 
+
+        System.out.println(sql);
         List<MovieScreenDto> getMovieScreenList = new ArrayList<MovieScreenDto>();
 
         MovieDto movieDto = null;
