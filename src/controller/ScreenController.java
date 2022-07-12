@@ -54,6 +54,9 @@ public class ScreenController extends HttpServlet {
             List<MovieDto> movies = movieDao.getMovies("", "", 0, "");
             sendMovieList(movies, resp);
 
+        } else if (param.equals("movieDetail")) {
+            // send movie
+
         } else if (param.equals("cinema")) {
             // 극장 리스트
             String location = req.getParameter("location");
@@ -71,7 +74,8 @@ public class ScreenController extends HttpServlet {
             int movieId = Integer.parseInt(req.getParameter("movieid"));
             String inputDate = req.getParameter("inputdate");
 
-            List<MovieScreenDto> movieScreenList = screenDao.getMovieScreenList("서울-월드타워", 0, null);
+            List<MovieScreenDto> movieScreenList =
+                    screenDao.getMovieScreenList("서울-월드타워", 0, inputDate);
             sendMovieScreenList(movieScreenList, resp);
         }
     }
@@ -162,7 +166,7 @@ public class ScreenController extends HttpServlet {
 
     }
 
-
+    //
 
     public void forward(String arg, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

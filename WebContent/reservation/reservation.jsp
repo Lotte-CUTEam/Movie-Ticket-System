@@ -116,15 +116,15 @@ if (mem == null) {
          <div class="section_step_tit">
             <ul id="select_step">
                <li class="active step01">
-                  <a href = "#reserveStep01">
+                  <a href = "#reserveStep01" id="reserveStep01">
                      <strong class="tit">
                      <span>01</span>
                      <br>
                      상영시간</strong>
                   </a>
                </li>
-               <li class="disabled">
-                  <a id="#reserveStep02">
+               <li class="disabled step01">
+                  <a href="#reserveStep02" id="reserveStep02">
                      <strong class="tit">
                      <span>02</span>
                      <br>
@@ -132,7 +132,7 @@ if (mem == null) {
                   </a>
                </li>
                <li class="disabled">
-                  <a id="#reserveStep03" >
+                  <a id="#reserveStep03"  id="reserveStep03">
                      <strong class="tit">
                      <span>03</span>
                      <br>
@@ -140,7 +140,7 @@ if (mem == null) {
                   </a>
                </li>
                <li class="disabled">
-                  <a id="#reserveStep04" style="cursor: default;">
+                  <a id="#reserveStep04"  id="reserveStep04">
                      <strong class="tit">
                      <span>04</span>
                      <br>
@@ -154,7 +154,7 @@ if (mem == null) {
          
          
         <!-- STEP 01. 극장, 영화, 상영 시간 선택 --> 
-         <div id="reserveStep01" class="section_step_con step01 active">
+         <div id="contentStep01" class="section_step_con step01 active">
          <h3 class="hidden">상영시간</h3>
            
             <!-- 1.1 극장 선택 -->
@@ -243,25 +243,21 @@ if (mem == null) {
             <!-- 1.2 영화관 선택 종료 -->
             
             <!-- 1.3 영화 선택 -->
-                <div class="article article_movie">
+             <div class="article article_movie">
                <div class="group_top">
                   <h4 class="tit" id="h4_movie">영화</h4>
                </div>
 
                     <div class="inner">
                         <div class="list_filter">
-                            <select id = "select_movie" title="영화선택" onchange="setMovie()">
-                                
+                            <select id = "select_movie" title="영화선택" onchange="setMovie()">                           
                             </select>
                         </div>
-
-
-
-                    </div>
-                    
-
-             </div>
-
+            		</div>
+              </div>
+			<!-- 1.3 영화 선택 종료-->
+			
+			<!-- 1.3 시간 선택 -->
             <div class="article article_time">
                <div class="group_top" >
                   <h4 class="tit" id="h4_date">2022-07-11(오늘)</h4>
@@ -327,40 +323,8 @@ if (mem == null) {
       </div>
    
    
-         <!-- STEP 02. 극장, 영화, 상영 시간 선택 --> 
-          <div id="reserveStep02" class="section_step_con step02">
-            <div id="contents" class="contents_full contents_reserve">
-      <div class="wrap_reserve">
-         <h2 class="hidden">예매하기</h2>
-
-         <!--      step side bar -->
-         <div class="section_step_tit">
-            <ul>
-               <li class="active step01"><a href="#reserveStep01"> <strong
-                     class="tit"> <span>01</span> <br> 상영시간
-                  </strong>
-               </a></li>
-               <li class="dsabled"><a id="reserveStep02"
-                  style="cursor: default;"> <strong class="tit"> <span>02</span>
-                        <br> 인원 선택
-                  </strong>
-               </a></li>
-               <li class="dsabled"><a id="reserveStep03"
-                  style="cursor: default;"> <strong class="tit"> <span>03</span>
-                        <br> 예약
-                  </strong>
-               </a></li>
-               <li class="dsabled"><a id="reserveStep04"
-                  style="cursor: default;"> <strong class="tit"> <span>04</span>
-                        <br> 예매확인
-                  </strong>
-               </a></li>
-            </ul>
-         </div>
-
-         <!-- 콘텐츠 -->
-
-         <div class="article article_seat" style="margin-left: 78px;">
+   		<!-- 인원 선택 -->
+           <div id="contentStep02" class="article article_seat" style="margin-left: 78px;">
             <div class="group_top" style="background-color: black; color: white;">
                <h1 style="text-align: center; padding: 40px; margin-bottom: 10px;">인원/좌석 선택</h1>
             </div>
@@ -372,22 +336,22 @@ if (mem == null) {
                      
                      <div style="text-align: center; font-size: 20px;">
                         <h6 class="hidden">예매 정보</h6>
-                        <span class="thm" style="display:block; overflow:hidden; margin-bottom:30px; border-radius:4px;"><img
+                        <span id="movie_thm" class="thm" style="display:block; overflow:hidden; margin-bottom:30px; border-radius:4px;"><img
                         style="width:300px;"
                            src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202006/14702_103_1.jpg"></span>
                         <div class="group_infor">
-                           <div class="bx_tit">
+                           <div id="movie_info_people" class="bx_tit">
                               <span class="ic_grade gr_12">관람가</span><strong>
                               탑건: 매버릭
                               </strong>
                            </div>
                            <dl>
                               <dt>일시</dt>
-                              <dd class="sub_info1">
+                              <dd class="sub_info1" id="sub_info_screen">
                                  22.07.11<em>(월)</em><span class="time">14:00 ~ 16:20</span>
                               </dd>
                               <dt>영화관</dt>
-                              <dd class="sub_info1">가산디지털 · 1관</dd>
+                              <dd class="sub_info1" id="sub_info_cinema">가산디지털</dd>
                            </dl>
                         </div>
                      </div>
@@ -396,7 +360,7 @@ if (mem == null) {
                         <ul>
                            <li id="person_10" data-code="10" data-peple="성인"
                               data-count="0"><strong class="tit">성인</strong><span
-                              class="bx_num"> <input type="number" id="cnt" value=0
+                              class="bx_num"> <input type="number" id="sub_info_people_cnt" value=0
                                  min=0 onchange="cnt_price(this.value)">
                            </span></li>
                         </ul>
@@ -426,10 +390,7 @@ if (mem == null) {
          <!-- <div class="inner">
          여기
          </div>
-          -->
-      </div>
-   </div>
-          
+
           
           
           
@@ -439,69 +400,6 @@ if (mem == null) {
 
 
          <!-- 콘텐츠 -->
-
-         <div class="article article_seat" style="margin-left: 78px;">
-            <div class="group_top" style="background-color: black; color: white;">
-               <h1 style="text-align: center; padding: 40px; margin-bottom: 10px;">인원/좌석 선택</h1>
-            </div>
-            <div class="inner">
-
-               <div id="PersonSeatCount">
-                  <div class="select_num_people_wrap" style="height: 695px; text-align: center;">
-                     <h5 class="hidden">인원선택</h5>
-                     
-                     <div style="text-align: center; font-size: 20px;">
-                        <h6 class="hidden">예매 정보</h6>
-                        <span class="thm" style="display:block; overflow:hidden; margin-bottom:30px; border-radius:4px;"><img
-                        style="width:300px;"
-                           src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202006/14702_103_1.jpg"></span>
-                        <div class="group_infor">
-                           <div class="bx_tit">
-                              <span class="ic_grade gr_12">관람가</span><strong>
-                              탑건: 매버릭
-                              </strong>
-                           </div>
-                           <dl>
-                              <dt>일시</dt>
-                              <dd class="sub_info1">
-                                 22.07.11<em>(월)</em><span class="time">14:00 ~ 16:20</span>
-                              </dd>
-                              <dt>영화관</dt>
-                              <dd class="sub_info1">가산디지털 · 1관</dd>
-                           </dl>
-                        </div>
-                     </div>
-                     
-                     <div class="count_people" style="width: 660px;">
-                        <ul>
-                           <li id="person_10" data-code="10" data-peple="성인"
-                              data-count="0"><strong class="tit">성인</strong><span
-                              class="bx_num"> <input type="number" id="cnt" value=0
-                                 min=0 onchange="cnt_price(this.value)">
-                           </span></li>
-                        </ul>
-                     </div>
-                  </div>
-
-               </div>
-
-               <div id="PersonSeatSummery" >
-                  <div class="select_seat_result">
-                     <div class="group_lft">
-                        <dl class="total_price" style="font-size: 25px;">
-                           총 합계
-                           <input type="number" id="res" value=0 min=0 >원
-                        </dl>
-
-                     </div>
-                     <div class="group_rgt">
-                        <a href="#" class="btn_col1" id="link_rpay">결제하기</a>
-                     </div>
-                  </div>
-               </div>
-
-            </div>
-         </div>
 
          <!-- <div class="inner">
          여기

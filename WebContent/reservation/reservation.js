@@ -28,10 +28,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
    
    // 화면 이동
-   $("#select_step").find("li").click(function(){
-		console.log(this);
-       goNextStep($("#reserveStep02 > strong > span").text());
-   });
+   goNextStep();
    
    // 극장 버튼 선택시
    $(".depth1").click(function() {
@@ -39,8 +36,9 @@ window.addEventListener('DOMContentLoaded', function () {
       $(this).siblings("li").removeClass("active");
    });
 
-	$("#select_weekly li").click(function() {
-		$(t)
+	//
+	$("#link_rpay").click(function(){
+		goReservation();
 	});
 	
 	
@@ -99,26 +97,23 @@ function getMovieId(e) {
 }
 
 // 다음 예매 스텝
-const goNextStep = (step) => {
+const goNextStep = () => {
 	
+	$("#reserveStep02").click(function(){
+		$("#contentStep01").css("display", "none");
+		selectPeople();
+	});
 	
-	switch (step) {
-	  case '02':
-		$("#reserveStep01").parent().removeClass("active").removeClass("step01").addClass("disabled");
-		$("#reserveStep01").parent().removeClass("disabled").addClass("active").addClass("step02");
-		document.getElementById("reserveStep01").display = none;
-		document.getElementById("reserveStep02").display = block;
-	    break;
+	$("#reserveStep03").click(function(){
+		alert("인원 먼저 선택해주세요");
+		return;
+	});
+		
+	$("#reserveStep04").click(function(){
+		alert("인원 먼저 선택해주세요");
+		return;
+	});
 	
-	  case '03': 
-		break;
-	  case '04':
-
-	    break;
-	
-	  default:
-	   
-	}
 	
 	
 };
@@ -190,7 +185,27 @@ const setScreen = () => {
    });
 };
 
+// 인원 선택 화면 세팅
+const selectPeople = () => {
+	console.log( $("#movie_id").val());
+	  $.ajax({
+      type:"get",
+      data : {movie_id : $("#movie_id").val()},
+      url: "../screen?param=movie",
+      success:function( data ){
+         
+		// 관람가 #movie_info_people
+		// 제목
+		// 상영정보 #sub_info_screen
+		// 영화관 #sub_info_cinema
+		
+      },
 
+      error:function(){
+         console.log("error");
+      }
+   });
+}
 
 // 날짜 세팅
 const setWeekly = () => {
@@ -241,12 +256,13 @@ const setWeekly = () => {
 
 
 
+// insert to reservation
 const goReservation = () => {
       $.ajax({
       type:"get",
       data:{ "member_id":$("#member_id").val(), 
              "screen_id":$("#screen_id").val(),
-             "people_count":$("#people_count").val(),       
+             "people_count":$("#sub_info_people_cnt").val(),       
       },
       url: "../reservation?param=reservation",
       success:function( data ){
@@ -259,9 +275,3 @@ const goReservation = () => {
    });
    
 };
-
-const gotoReservation = () => {
-   
-   let cinema = $("#location_setting > div > div > ul > li.depth1.active > a").text();
-   let movie  = $("#select_movie > li.depth1.active > a").text();
-}
