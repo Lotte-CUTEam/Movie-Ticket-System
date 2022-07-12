@@ -148,8 +148,8 @@ function getMovies() {
       }
       // 확인된 영화 목록이 없는 경우 메시지 출력
       else {
-        let html = getNotFoundMovieMsg(curSearchCategory, curSearch);
-        chartCont.append(html);
+        alert(curSearchCategory + ":" + curSearch + "와 일치하는 영화 목록이 없습니다 :(");
+        location.reload();
       }
 
       curSearchCategory = data.searchCategory;

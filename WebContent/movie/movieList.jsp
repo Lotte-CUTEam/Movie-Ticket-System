@@ -155,7 +155,6 @@
 
 
 <script src="<%=contextPath%>/assets/js/banner.js"></script>
-<script src="<%=contextPath%>/movie/js/message.js"></script>
 <script src="<%=contextPath%>/movie/js/movie.js"></script>
 
 </body>
