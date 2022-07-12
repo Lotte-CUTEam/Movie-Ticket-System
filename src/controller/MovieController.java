@@ -97,7 +97,7 @@ public class MovieController extends HttpServlet {
 
                 List<MovieDto> movies = movieDao.getMovies(searchCategory, search, pageNo, filter);
 
-                Integer movieCnt = movieDao.getMovieCount();
+                Integer movieCnt = movieDao.getMovieCount(searchCategory, search, filter);
                 int pageCnt = movieCnt / MovieDao.PAGE_CONTENT_COUNT;
                 if ((pageCnt % MovieDao.PAGE_CONTENT_COUNT) > 0) {
                     pageCnt = pageCnt + 1;

@@ -82,7 +82,6 @@ public class MovieDao {
                 sql += " OVER(ORDER BY opening_date DESC) ";
                 break;
         }
-        System.out.println(sql);
         sql += " AS rnum, movie_id, title, rating, image_url, rated " + "      FROM MOVIE ";
 
         // 검색 파라미터 적용
@@ -121,7 +120,6 @@ public class MovieDao {
                             rs.getString(4), rs.getInt(5));
                     list.add(dto);
                 }
-                System.out.println("[MovieDao] getMovies: success get movie from db. ");
                 return list;
             }
         } catch (SQLException e) {
@@ -133,18 +131,51 @@ public class MovieDao {
         return null;
     }
 
-    public Integer getMovieCount() {
+    public Integer getMovieCount(String searchCategory, String search, String filter) {
 
-        String sql = " SELECT COUNT(*) FROM MOVIE ";
+        String sql = " SELECT COUNT(*) "
+            + " FROM (SELECT ROW_NUMBER() ";
+
+        // 필터 파라미터 적용
+        switch (filter) {
+            case "": // filter == ""
+            case "rating":
+                sql += " OVER(ORDER BY rating DESC) ";
+                break;
+
+            case "opening_date":
+                sql += " OVER(ORDER BY opening_date DESC) ";
+                break;
+        }
+        System.out.println(sql);
+        sql += " AS rnum, movie_id, title, rating, image_url, rated " + "      FROM MOVIE ";
+
+        // 검색 파라미터 적용
+        String sCondition = "";
+        switch (searchCategory) {
+            case "title":
+                sCondition = " WHERE title LIKE '%" + search + "%' ";
+                break;
+
+            case "director":
+                sCondition = " WHERE director LIKE '%" + search + "%' ";
+                break;
+
+            case "actor":
+                sCondition = " WHERE actor LIKE '%" + search + "%' ";
+                break;
+        }
+        sql += sCondition;
+        sql += ") row_num_tb ";
 
         try (Connection conn = DBConnection.getConnection();
-                PreparedStatement psmt = conn.prepareStatement(sql);) {
+            PreparedStatement psmt = conn.prepareStatement(sql);) {
+
             System.out.println("[MovieDao] getMovieCount: success db connection. ");
 
             try (ResultSet rs = psmt.executeQuery();) {
                 if (rs.next()) {
-                    System.out
-                            .println("[MovieDao] getMovieCount: success get movie count from db. ");
+                    System.out.println("[MovieDao] getMovieCount: success get movie count from db. ");
                     return rs.getInt(1);
                 }
             }
@@ -152,7 +183,8 @@ public class MovieDao {
             e.printStackTrace();
         }
 
-        System.out.println("[MovieDao] getMovieCount: fail get movie count. ");
+        System.out.println("[MovieDao] getMovieCount: fail get movie count.");
+
         return null;
     }
 

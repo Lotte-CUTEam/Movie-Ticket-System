@@ -68,9 +68,12 @@ public class ScreenController extends HttpServlet {
          */
 
         if (param.equals("movie")) {
+            String cinema = req.getParameter("cinema");
+            List<MovieScreenDto> dto = screenDao.getMovieScreenList(cinema);
+
             // 영화 리스트
-            List<MovieDto> movies = movieDao.getMovies("", "", 0, "");
-            sendMovieList(movies, resp);
+//            List<MovieDto> movies = movieDao.getMovies("", "", 0, "");
+            sendMovieScreenList(dto, resp);
 
         } else if (param.equals("movieDetail")) {
             // send movie
@@ -86,6 +89,8 @@ public class ScreenController extends HttpServlet {
         } else if (param.equals("cinema")) {
             // 극장 리스트
             String location = req.getParameter("location");
+            location = location.trim().replaceAll("\n", "");
+
             List<String> cinemaList = null;
             if (location == null || location.equals("")) {
                 cinemaList = screenDao.getCinemaList();
@@ -203,7 +208,7 @@ public class ScreenController extends HttpServlet {
             MovieScreenDto movieScreen = movieScreenList.get(i);
             obj.put("SCREEN_ID", movieScreen.getScreenDto().getScreenId());
             obj.put("MOVIE_ID", movieScreen.getMovieDto().getMovieId());
-            obj.put("SCREEN_AT", movieScreen.getScreenDto().getScreenAt());
+            obj.put("SCREEN_AT", movieScreen.getScreenDto().getScreenAt().toString());
             obj.put("CINEMA", movieScreen.getScreenDto().getCinema());
 
             obj.put("TITLE", movieScreen.getMovieDto().getTitle());

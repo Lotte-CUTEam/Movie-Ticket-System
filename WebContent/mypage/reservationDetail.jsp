@@ -120,8 +120,8 @@ div#contents::before {
 							    String cancelStr = "";
 							    if(resvDto.getStatus() == 1) {
 							        cancelStr = resvDto.getDeleteddAt()+"취소완료";
-							    } else if(LocalDateTime.now().isBefore(
-							                resvDto.getScreenAt().minusMinutes(20))
+							    } else if(resvDto.getScreenAt().minusMinutes(20).isAfter(
+					                    LocalDateTime.now())
 							            ){
 							        cancelStr = "취소가능";
 							    }

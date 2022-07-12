@@ -25,6 +25,7 @@ import dto.ScreenDto;
  * -----------------------------------------------------------
  * 수정일자           수정자        수정내용
  * 2022.07.08       장혜원        신규생성
+ * 2022.07.12       권나연        예매 화면 데이터 조회
  * -----------------------------------------------------------
  */
 
@@ -103,6 +104,9 @@ public class ScreenDao {
 
 
 
+        String sql = " SELECT cinema  FROM SCREEN "
+                    + " WHERE cinema LIKE '%" + location + "%' GROUP BY cinema ";
+
         List<String> CinemaList = new ArrayList<String>();
         String cinema = "";
         try {
@@ -132,17 +136,19 @@ public class ScreenDao {
      * 
      * @return getMovieScreenList
      */
-    public List<MovieScreenDto> getMovieScreenList() {
+    public List<MovieScreenDto> getMovieScreenList(String cinema) {
 
         Connection conn = null;
         PreparedStatement psmt = null;
         ResultSet rs = null;
 
-        String sql = " select s.screen_id, s.movie_id, s.screen_at, s.cinema, \n"
-                + "        m.movie_id, m.title, m.director, m.actor, m.opening_date, m.rating, m.runtime, m.image_url, m.genre, m.rated \n"
-                + "  from SCREEN s, MOVIE m \n" + " where m.movie_id = s.movie_id\r\n"
-                + "   and s.screen_at > now() and s.screen_at < DATE_ADD(NOW(), INTERVAL 7 DAY); \n"
-                + " ";
+
+        String sql = " SELECT s.screen_id, s.movie_id, s.screen_at, s.cinema, "
+                + "        m.movie_id, m.title, m.director, m.actor, m.opening_date, m.rating, m.runtime, m.image_url, m.genre, m.rated "
+                + "  FROM SCREEN s, MOVIE m "
+                + " WHERE m.movie_id = s.movie_id AND s.cinema = ? "
+                + "   AND s.screen_at > now() AND s.screen_at < DATE_ADD(NOW(), INTERVAL 7 DAY) "
+                + " GROUP BY m.movie_id ";
 
         List<MovieScreenDto> getMovieScreenList = new ArrayList<MovieScreenDto>();
 
@@ -152,7 +158,10 @@ public class ScreenDao {
         try {
 
             conn = DBConnection.getConnection();
+
             psmt = conn.prepareStatement(sql);
+            psmt.setString(1, cinema);
+
             rs = psmt.executeQuery();
 
 
@@ -247,6 +256,7 @@ public class ScreenDao {
         whereConditionWord = " and s.cinema ='" + cinema + "'\n";
 
         // 영화 (없는 경우 디폴트 영화 조회)
+        // FIXME
         if (movieId < 1) {
             movieId = 1;
         }

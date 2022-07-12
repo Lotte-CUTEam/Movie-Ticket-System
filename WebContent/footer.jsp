@@ -26,7 +26,7 @@
 						<li class="icon s5"><a href="#" class="h_m"><span class="ir_pm">아이폰 앱스토어</span></a></li>
 					</ul>
 					<div class="tel">
-						<a href="#" class="h_m">ARS <em>0101-0101</em></a>
+						<a href="https://github.com/Lotte-CUTEam/Movie-Ticket-System" class="h_m">go to <em>CUTEam Git</em><br></a>
 					</div>
 				</div>
 			</div>

@@ -148,8 +148,8 @@ div#contents::before {
 							    if(resvDto.getStatus() == 1) {
 							        cancelStr = resvDto.getDeleteddAt()+"취소완료";
 							    }
-							    else if(resvDto.getScreenAt().isAfter(
-							                    LocalDateTime.now().plusMinutes(20))
+							    else if(resvDto.getScreenAt().minusMinutes(20).isAfter(
+					                    LocalDateTime.now())
 							            ){
 							        cancelStr = "취소가능";
 							    }

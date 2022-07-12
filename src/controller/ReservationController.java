@@ -47,7 +47,7 @@ public class ReservationController extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         String param = req.getParameter("param");
 
-        if (param.equals("reservation")) {
+        if (param.equals("booking")) {
             // 영화 리스트
             /*String member_id = req.getParameter("member_id");
             int people_count = Integer.parseInt(req.getParameter("people_count"));
