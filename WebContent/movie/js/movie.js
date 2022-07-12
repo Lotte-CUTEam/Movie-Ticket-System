@@ -241,7 +241,8 @@ function makeMoviesDiv(movies) {
                                             <strong>` + dot3(movie.title) + `</strong>
                                         </h4>
                                         <div class="infor_btn">
-                                            <a href="${contextPath}/movieDetail?param=detail&id=` + movie.movieId + `">상세정보</a> <a href="#">예매하기</a>
+                                            <a href="${contextPath}/movieDetail?param=detail&id=` + movie.movieId + `">상세정보</a>
+											<a href="${contextPath}/reservation?param=reservation">예매하기</a>
                                         </div>
                                     </div>
                                 </div>`;
