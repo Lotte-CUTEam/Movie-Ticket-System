@@ -39,7 +39,7 @@ public class ReservationController extends HttpServlet {
             int people_count = Integer.parseInt(req.getParameter("people_count"));
             long screenId = Long.parseLong(req.getParameter("screen_id"));
 
-
+            System.out.println("");
             int count = reservationDao.makeReservation(member_id, people_count, screenId);
 
             if (count > 0) {
