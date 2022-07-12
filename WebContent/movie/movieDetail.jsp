@@ -41,6 +41,9 @@
 <body>
 
 <%@include file="../header.jsp"%>
+
+<%@include file = "/quickbar.jsp" %>
+
 <%
     if (id != null)
         System.out.println("***id 확인: " + id + "***");
