@@ -34,6 +34,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 	//영화시간 클릭 > 
    $("#screen_list > li").click(function(){
+		
 		$("#reserveStep02").click();
 	});
 	
@@ -48,7 +49,16 @@ window.addEventListener('DOMContentLoaded', function () {
 
 	// 결제하기 버튼 > 예약 
 	$("#link_rpay").click(function(){
-		goReservation();
+	  	if (!confirm("예매하시겠습니까?")) {
+	       alert("예매 취소하셨습니다");
+		   return;
+	    } else {	
+			$("#reserveStep04").click();
+			goReservation();
+			//reservationDetail.jsp 로 이동
+
+	    }
+		
 	});
 	
 	
@@ -127,12 +137,19 @@ const goNextStep = () => {
 	});
 	
 	$("#reserveStep03").click(function(){
-		alert("인원 먼저 선택해주세요");
+		//$("#contentStep01").css("display", "none");
+		//$("#contentStep02").css("display", "");
+		$("#reserveStep02").parent().removeClass("active").removeClass("step01").addClass("disabled")
+		$("#reserveStep03").parent().addClass("active").addClass("step02").removeClass("disabled");
 		return;
 	});
 		
 	$("#reserveStep04").click(function(){
-		alert("인원 먼저 선택해주세요");
+		//$("#contentStep03").css("display", "none");
+		//$("#contentStep04").css("display", "");
+		$("#reserveStep03").parent().removeClass("active").removeClass("step01").addClass("disabled")
+		$("#reserveStep04").parent().addClass("active").addClass("step02").removeClass("disabled");
+
 		return;
 	});
 	
@@ -220,27 +237,33 @@ const setScreen = () => {
 
 // 인원 선택 화면 세팅
 const selectPeople = () => {
+	
+	
 	console.log( $("#screen_id").val());
 	  $.ajax({
       type:"get",
       data : {movie_id : $("#screen_id").val()},
       url: "../screen?param=movieDetail",
       success:function( data ){
-	
+		console.log(data);
+		
 		// 관람가 + 제목 #movie_info_people
 		$("#movie_info_people").empty();
 		var title = "<span class='ic_grade gr_'"+ data.RATED +">관람가</span><strong>";
 		title += "<strong>"+data.TITLE+"</strong>";	
 		$("#movie_info_people").append(title);
 		
+		// 상영정보 #sub_info_screen
         $("#sub_info_screen").empty();
 		var screen = data.SCREEN_AT + " / " + data.RUNTIME + "분";
 		title += "<strong>"+data.TITLE+"</strong>";	
 		$("#sub_info_screen").append(screen);
 		
-		
-		// 상영정보 #sub_info_screen
+		// 포스터 이미지 #step02_movie_img
+		$("#step02_movie_img").attr("src", data.IMAGE_URL);
+
 		// 영화관 #sub_info_cinema
+		$("#sub_info_cinema").text(data.CINEMA);
 		
       },
 
@@ -278,7 +301,7 @@ const setWeekly = () => {
       htmlTxt += "<div class='owl-item' style='width:52.5px; float:left;'>";
       htmlTxt += "<span class = 'date'>";
       htmlTxt += "<label>";
-	  htmlTxt += "<input type='radio' name='radioDate1' value='"+ inputdate + "'  onclick='setDate(inputdate)'>";
+	  htmlTxt += "<input type='radio' name='radioDate1' value='"+ inputdate + "'  onclick='setDate(this.value)'>";
       htmlTxt += "<strong>"+ date + "</strong>";
       htmlTxt += "<em>" + week[i] + "</em>";
       htmlTxt += "</label>";
@@ -303,7 +326,7 @@ const goReservation = () => {
              "screen_id":$("#screen_id").val(),
              "people_count":$("#sub_info_people_cnt").val(),       
       },
-      url: "../reservation?param=reservation",
+      url: "../reservation?param=booking",
       success:function( data ){
             //location.href = "../mypage/myPage.jsp"
       },      
