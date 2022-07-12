@@ -250,14 +250,14 @@ public class ScreenDao {
         if (cinema == null || cinema.equals("")) {
             cinema = "서울-월드타워";
         }
-        whereConditionWord = " and s.cinema ='" + cinema + "'\n";
+        whereConditionWord = " and s.cinema LIKE '%" + cinema + "%' ";
 
         // 영화 (없는 경우 디폴트 영화 조회)
         // FIXME
         if (movieId < 1) {
             movieId = 1;
         }
-        whereConditionWord += " and s.movie_id =" + movieId + "\n";
+        whereConditionWord += " and s.movie_id =" + movieId + " ";
 
         // 선택날짜 (없는 경우 오늘을 기준으로 조회)
         if (inputDate == null || inputDate.equals("")) {
@@ -270,9 +270,9 @@ public class ScreenDao {
 
         // whereConditionWord += " and DATE_FORMAT(screen_at, '%Y%m%d') = " + inputDate + "\n";
 
-        String sql = " select s.screen_id, s.movie_id, s.screen_at, s.cinema, \n"
-                + "        m.movie_id, m.title, m.director, m.actor, m.opening_date, m.rating, m.runtime, m.image_url, m.genre, m.rated \n"
-                + "  from screen s, movie m \n" + " where m.movie_id = s.movie_id\r\n"
+        String sql = " SELECT s.screen_id, s.movie_id, s.screen_at, s.cinema, "
+                + "        m.movie_id, m.title, m.director, m.actor, m.opening_date, m.rating, m.runtime, m.image_url, m.genre, m.rated  "
+                + "  FROM SCREEN s, MOVIE m " + " where m.movie_id = s.movie_id "
                 + whereConditionWord + "; ";
 
         List<MovieScreenDto> getMovieScreenList = new ArrayList<MovieScreenDto>();
