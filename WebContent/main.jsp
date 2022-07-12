@@ -76,8 +76,8 @@ List<MovieDto> movies = movieDao.getMovies();
 							<li><a href="#">VIP</a></li>
 						</ul>
 						<ul>
-							<li class="white"><a href="#">상영시간표</a></li>
-							<li class="red"><a href="screen">예매하기</a></li>
+							<li class="white"><a href="reservation?param=reservation">상영시간표</a></li>
+							<li class="red"><a href="reservation?param=reservation">예매하기</a></li>
 						</ul>
 					</div>
 				</div>
