@@ -1,0 +1,113 @@
+.movie_div {
+  height: 550px !important;
+}
+
+.movie_page {
+  margin-bottom: 60px;
+}
+
+.movie_page ul {
+  overflow: hidden;
+  width: 500px;
+  margin: 0 auto;
+  text-align: center;
+  align-content: center;
+}
+
+.movie_page li {
+  display: inline-block;
+  width: 100px;
+  border: 1px solid #c4c4c4;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.movie_page li a {
+  display: block;
+  padding: 15px 0;
+  font-size: 18px;
+  color: #666;
+  font-weight: 700;
+}
+
+.movie_page li.active a {
+  background: #666;
+  color: #fff;
+}
+
+#movie_search_filter {
+  display: flex;
+}
+
+.movie_search {
+  display: inline-block;
+  float: left;
+  width: 800px;
+
+  margin-left: 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.search_category {
+  width: 100px;
+  height: 30px;
+}
+
+.search_input {
+  width: 200px;
+  height: 25px;
+}
+
+.search_btn {
+  width: 20px;
+  margin-left: 13px;
+  margin-bottom: -2px;
+  font-size: 15px;
+}
+
+.empty_space {
+  width: 600px;
+}
+
+.movie_filter {
+  display: inline-block;
+  float: right;
+  width: 600px;
+  text-align: right;
+  font-size: 15px;
+  font-weight: bold;
+
+  margin-right: 0px;
+  margin-top: 20px;
+}
+
+.filter_span:hover {
+  cursor: grab;
+  text-shadow: 3px 3px 8px rgba(255, 0, 0, 1);
+}
+
+.movie_chart>div>div .poster .rated {
+  position: absolute;
+  top: 17px;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  font-size: 22px;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.5);
+  line-height: 50px;
+  background-color: #00CEFF;
+  text-align: center;
+
+  border-radius: 25px;
+}
+
+.movie_chart>div>div .poster .rated strong {
+  color: #fff;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 1);
+}
+
+.movie_page {
+  margin-top: -500px;
+}
+

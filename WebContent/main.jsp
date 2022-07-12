@@ -237,20 +237,8 @@ List<MovieDto> movies = movieDao.getMovies();
 	<script src="assets/js/modernizr-custom.js"></script>
 	<script src="assets/js/ie-checker.js"></script>
 	<script src="assets/js/swiper.min.js"></script>
+	<script src="assets/js/banner.js"></script> <!-- 배너 이미지 슬라이드 -->
 	<script>
-		//배너 이미지 슬라이드
-		var swiper = new Swiper('.swiper-container', {
-			pagination : {
-				el : '.swiper-pagination',
-			},
-			navigation : {
-				nextEl : '.swiper-button-next',
-				prevEl : '.swiper-button-prev',
-			},
-			autoplay : {
-				delay : 4000,
-			},
-		});
 
 		//영화차트 이미지 슬라이드
 		var swiper = new Swiper('.swiper-container2', {
