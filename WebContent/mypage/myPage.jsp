@@ -70,7 +70,7 @@ div#contents::before {
 	background-color: #FF7787;
 }
 </style>
-<title>My Page</title>
+<title>마이페이지 - 큐트시네마</title>
 
 <link rel="stylesheet" href="assets/css/reset_hnf.css">
 <link rel="stylesheet" href="assets/css/style_hnf.css">

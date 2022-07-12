@@ -28,7 +28,7 @@ List<MovieDto> movies = movieDao.getMovies();
 <meta name="viewport"
 	content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>롯데시네마 구현하기</title>
+<title>큐트시네마</title>
 
 <!-- css -->
 <link rel="stylesheet" href="assets/css/reset.css">

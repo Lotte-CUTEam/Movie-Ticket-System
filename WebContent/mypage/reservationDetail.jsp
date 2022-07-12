@@ -57,7 +57,7 @@ div#contents::before {
 </style>
 
 
-<title>My Page Detail</title>
+<title>마이페이지 - 큐트시네마</title>
 
 </head>
 <body>
