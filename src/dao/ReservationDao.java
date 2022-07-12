@@ -226,7 +226,7 @@ public class ReservationDao {
      * @param screenId
      * @return
      */
-    public int makeReservation(String memberId, int peopleCount, long screenId) {
+    public int makeReservation(String memberId, Long screenId, int peopleCount) {
 
         Connection conn = null;
         PreparedStatement psmt = null;
@@ -283,5 +283,41 @@ public class ReservationDao {
         }
 
         return count;
+    }
+
+    /***
+     * 예매 완료 후 회원ID,상영ID로 예매 내역 ID 조회 메소드
+     * @param memberId
+     * @param screenId
+     * @return
+     */
+    public Long getReservationId(String memberId, Long screenId) {
+
+        String sql = "select reservation_id "
+            + " from RESERVATION "
+            + " where member_id=? " + "and screen_id=? "
+            + " order by created_at ";
+
+        System.out.println(sql + memberId + screenId);
+
+        Long result = 0L;
+        try {
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement psmt = conn.prepareStatement(sql);
+
+            psmt.setString(1, memberId);
+            psmt.setLong(2, screenId);
+
+            ResultSet rs = psmt.executeQuery();
+
+            if(rs.next()) {
+                result = rs.getLong(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(result + "&&&&&&&&&&&&&&&&&&&");
+        return result;
     }
 }

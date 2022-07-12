@@ -33,12 +33,17 @@
     else
         System.out.println("***id 확인: " + id + "***");
 
-    MovieDao movieDao = MovieDao.getInstance();
-    List<MovieDto> movies = movieDao.getMovies();
+    /*MovieDao movieDao = MovieDao.getInstance();
+    List<MovieDto> movies = movieDao.getMovies();*/
 
 %>
 
 <%
+
+    ReservationDto dto = (ReservationDto) request.getAttribute("reservation");
+    MovieDto movieDto = (MovieDto) request.getAttribute("movie");
+
+
     // 1, 'hyewon', 1, 1, '2022-07-10 19:20:00', 2, '서울/월드타워', '토르-러브 앤 썬더', 119, NOW(), 0
     Long reservationId = 1L;
     String memberName = "hyewon";
@@ -49,7 +54,10 @@
     String screenTime = "2022-07-10 19:20";
     String screenLocation = "서울/월드타워";
     String movieTitle = "토르-러브 앤 썬더";
-    int runtime = 119;
+
+
+    int runtime = dto.getRuntime();
+
     String reserveTime = "2022-07-11 16:30";
     String seats = "I9I10";
 
@@ -144,25 +152,25 @@
 
         <tr>
             <div style="width: 300px; height: 400px; margin: 50px">
-                <img src="<%= imageUrl%>" class="movie-image">
+                <img src="<%= movieDto.getImageUrl()%>" class="movie-image">
             </div>
         </tr>
 
         <tr>
             <div class="tit_info align-center" style="margin-top: -50px;">
-                <span::before class="ic_grade gr_<%= rated%>">만<%= rated%>이상관람가 </span::before>&nbsp;
-                <strong style="font-size: 30px; margin-top: 10px;"><%= movieTitle%></strong>
+                <span::before class="ic_grade gr_<%= movieDto.getRated()%>">만<%= movieDto.getRated()%>이상관람가 </span::before>&nbsp;
+                <strong style="font-size: 30px; margin-top: 10px;"><%= movieDto.getTitle()%></strong>
             </div>
             <div style="height:10px;">&nbsp;</div>
         </tr>
 
         <tr>
             <div class="detail_info1">
-                <span class="movie-detail-span"><%= screenLocation%></span>&nbsp;&nbsp;
+                <span class="movie-detail-span"><%= dto.getCinema()%></span>&nbsp;&nbsp;
                 <strong class="txt_ic_score ty2">
-                    <strong><%= screenTime.split(" ")[1]%> ~ </strong>
-                    <strong><%= endTime%></strong>
-                    <span class="time_info"><strong>(<%= runtime%></strong>분)</span>&nbsp;&nbsp;&nbsp
+                    <strong><%= dto.getScreenAt().toString().split("T")[0]%> ~ </strong>
+                    <strong><%= dto.calcEndTime()%></strong>
+                    <span class="time_info"><strong>(<%= movieDto.getRuntime()%></strong>분)</span>&nbsp;&nbsp;&nbsp
                 </strong>
             </div>
             <div style="height:10px;">&nbsp;</div>
@@ -171,7 +179,7 @@
         <tr>
             <div class="sub_info1">
                 <strong>
-                    <strong><%= seats %></strong>&nbsp;&nbsp;&nbsp;
+                    <strong><%= dto.getPeople_count() %>명</strong>&nbsp;&nbsp;&nbsp;
                 </strong>
             </div>
             <div style="height:10px;">&nbsp;</div>

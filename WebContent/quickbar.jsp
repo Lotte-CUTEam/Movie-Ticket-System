@@ -14,7 +14,7 @@
 	style="position: fixed; z-index: 11; right: 20px; width: 82px; text-align: center; color: #000; display: block; overflow: hidden; top: 150px;">
 	<div class="quick_menu" id="quick_menu"
 		style="padding-top: 15px; background-color: #fff; color: #000; box-shadow: 5px 3px 6px rgba(0, 0, 0, 0.16); border-radius: 5px; overflow: hidden;">
-		<a href="" style="color: black; display: block;"><img
+		<a href="<%=request.getContextPath()%>/reservation?param=reservation" style="color: black; display: block;"><img
 			src="<%=request.getContextPath()%>/assets/img/ticketing_icon.png" /></a>
 		<a href="#" class="qick_top"
 			style="margin-top: 10px; background: #3e3d3d; font-size: 11px; color: #fff; letter-spacing: 5px; padding: 5px 5px 5px 13px; text-decoration: none; display: block;">TOP</a>

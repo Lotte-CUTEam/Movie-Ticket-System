@@ -55,7 +55,7 @@ public class ScreenDao {
         PreparedStatement psmt = null;
         ResultSet rs = null;
 
-        String sql = "select  SUBSTRING_INDEX(cinema, '-', -1) AS LOCATION from screen \n"
+        String sql = "select  SUBSTRING_INDEX(cinema, '-', -1) AS LOCATION from SCREEN \n"
                 + "GROUP BY SUBSTRING_INDEX(cinema, '-', -1)\n"
                 + "ORDER BY SUBSTRING_INDEX(cinema, '-', -1);";
 
@@ -97,10 +97,12 @@ public class ScreenDao {
             location = "서울";
         }
 
-//        String sql = "select  SUBSTRING_INDEX(cinema, '-', -1) AS LOCATION from screen \n"
-//                + "where  SUBSTRING_INDEX(cinema, '-', 1) = '" + location.trim() + "' \n"
-//                + "GROUP BY SUBSTRING_INDEX(cinema, '-', -1)\n"
-//                + "ORDER BY SUBSTRING_INDEX(cinema, '-', -1);";
+        String sql = "select  SUBSTRING_INDEX(cinema, '-', -1) AS LOCATION from SCREEN \n"
+                + "where  SUBSTRING_INDEX(cinema, '-', 1) = '" + location.trim() + "' \n"
+                + "GROUP BY SUBSTRING_INDEX(cinema, '-', -1)\n"
+                + "ORDER BY SUBSTRING_INDEX(cinema, '-', -1);";
+
+
 
         String sql = " SELECT cinema  FROM SCREEN "
                     + " WHERE cinema LIKE '%" + location + "%' GROUP BY cinema ";
@@ -139,6 +141,7 @@ public class ScreenDao {
         Connection conn = null;
         PreparedStatement psmt = null;
         ResultSet rs = null;
+
 
         String sql = " SELECT s.screen_id, s.movie_id, s.screen_at, s.cinema, "
                 + "        m.movie_id, m.title, m.director, m.actor, m.opening_date, m.rating, m.runtime, m.image_url, m.genre, m.rated "
@@ -190,7 +193,7 @@ public class ScreenDao {
         PreparedStatement psmt = null;
         ResultSet rs = null;
 
-        String sql = "select m.title\n" + "  from screen s, movie m \n"
+        String sql = "select m.title\n" + "  from SCREEN s, MOVIE m \n"
                 + " where m.movie_id = s.movie_id \n"
                 + "  and DATE_FORMAT(s.screen_at, '%Y%m%d') = ? \n" + " group by m.title;";
 
@@ -329,7 +332,7 @@ public class ScreenDao {
 
         String sql = " select s.screen_id, s.movie_id, s.screen_at, s.cinema, \n"
                 + "        m.movie_id, m.title, m.director, m.actor, m.opening_date, m.rating, m.runtime, m.image_url, m.genre, m.rated \n"
-                + "  from screen s, movie m \n" + " where m.movie_id = s.movie_id\r\n"
+                + "  from SCREEN s, MOVIE m \n" + " where m.movie_id = s.movie_id\r\n"
                 + "and s.screen_id = ? ";
 
         MovieScreenDto movieScreen = null;

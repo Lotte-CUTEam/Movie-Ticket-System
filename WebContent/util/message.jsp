@@ -82,10 +82,12 @@
         <% }
 } else if (param.equals("reservation")) {
     if (msg.equals("bookingSuccess")) {
+        Long reservationId = Long.parseLong(request.getParameter("reservation_id"));
+        Long movieId = Long.parseLong(request.getParameter("movie_id"));
         %>
         <script type="text/javascript">
             alert("예약 성공했습니다.");
-            location.href = "<%=request.getContextPath()%>/mypage?param=mypage";
+            location.href = "<%=request.getContextPath()%>/reservation?param=reservationDetail&reservation_id=" + <%= reservationId%> + "&movie_id=" + <%= movieId%>;
         </script>
         <% 
     } else if (msg.equals("bookingFail")) {
