@@ -10,9 +10,6 @@
  */
 
 
-/* Application Context Path */
-let contextPath = $('#context_path').val();
-
 /* 사용자가 선택한 목록을 저장하는 전역 변수 */
 let curSearchCategory = ""; // 선택된 검색 카테고리
 let curSearch = ""; // 검색어

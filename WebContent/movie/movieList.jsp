@@ -42,13 +42,13 @@
 <script src="<%=contextPath%>/assets/js/modernizr-custom.js"></script>
 <script src="<%=contextPath%>/assets/js/ie-checker.js"></script>
 <script src="<%=contextPath%>/assets/js/swiper.min.js"></script>
-
+<script>
+	// application context path
+	var contextPath = "<%=contextPath%>";
+</script>
 </head>
-<body>
 
-	<span id="context_path" style="display: none">
-		<%=contextPath%>
-	</span>
+<body>
 
 	<%@include file="../header.jsp"%>
 
