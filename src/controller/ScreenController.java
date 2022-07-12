@@ -208,7 +208,7 @@ public class ScreenController extends HttpServlet {
             MovieScreenDto movieScreen = movieScreenList.get(i);
             obj.put("SCREEN_ID", movieScreen.getScreenDto().getScreenId());
             obj.put("MOVIE_ID", movieScreen.getMovieDto().getMovieId());
-            obj.put("SCREEN_AT", movieScreen.getScreenDto().getScreenAt());
+            obj.put("SCREEN_AT", movieScreen.getScreenDto().getScreenAt().toString());
             obj.put("CINEMA", movieScreen.getScreenDto().getCinema());
 
             obj.put("TITLE", movieScreen.getMovieDto().getTitle());
