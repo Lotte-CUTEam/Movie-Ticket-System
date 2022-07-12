@@ -49,6 +49,15 @@ public class ScreenController extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         String param = req.getParameter("param");
 
+        /*
+         * if (param.equals("cinema")) { // 영화관 리스트 List<String> cinemaList =
+         * screenDao.getCinemaList(); req.setAttribute("cinemaList", cinemaList);
+         * 
+         * forward("reservation/reservation.jsp", req, resp);
+         * 
+         * } else
+         */
+
         if (param.equals("movie")) {
             // 영화 리스트
             List<MovieDto> movies = movieDao.getMovies("", "", 0, "");
@@ -147,3 +156,4 @@ public class ScreenController extends HttpServlet {
         dispatch.forward(req, resp);
     }
 }
+

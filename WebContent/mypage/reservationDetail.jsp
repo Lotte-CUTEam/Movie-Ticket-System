@@ -21,13 +21,13 @@
 
 <!-- 로그인 확인 -->
 <%
-MemberDto mem = (MemberDto) session.getAttribute("login");
-if (mem == null) {
+MemberDto myPageMem = (MemberDto) session.getAttribute("login");
+if (myPageMem == null) {
 %>
 <script type="text/javascript">
 	alert('로그인 해주세요');
-	location.href = "login.jsp";
-	</script>
+	location.href = "<%=request.getContextPath()%>/member?param=login";
+</script>
 <%
 }
 %>
@@ -37,7 +37,11 @@ if (mem == null) {
 <head>
 <meta charset="UTF-8">
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<link rel="stylesheet" href="assets/css/reset_hnf.css">
+<link rel="stylesheet" href="assets/css/style_hnf.css">
+<link
+	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&amp;subset=korean"
+	rel="stylesheet">
 <style type="text/css">
 /* 배경색 지정 */
 div#contents::before {
@@ -51,12 +55,15 @@ div#contents::before {
 	background-color: #FF7787;
 }
 </style>
+
+
 <title>My Page Detail</title>
+
 </head>
 <body>
 
 	<!-- 공통부분 header -->
-	<div class="main_header"></div>
+	<%@include file = "/header.jsp" %>
 
 	<!-- 퀵메뉴 -->
 	<div class="quick_wrap"
@@ -78,8 +85,7 @@ div#contents::before {
 			<div class="mypage_myinfo" align="left"
 				style="margin-top: 35px; border: 1px solid #eee; border-radius: 10px; padding: 25px 30px 25px 30px; box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1); background-color: white;">
 				<p>
-					<%-- <%=mem.getName() %> --%>
-					님 반가워요!
+					<%=mem.getName() %>님 반가워요!
 				</p>
 			</div>
 			<br>
@@ -153,6 +159,7 @@ div#contents::before {
 								<td style="font-size: 13px;"><%=resvDto.getPeople_count() * 14000 %>원</td>
 							</tr>
 							</table>
+							<table>
 							<tr>
 								<th><%=cancelStr %></th>
 								<%
@@ -162,7 +169,7 @@ div#contents::before {
 									    <%
 									} else if(cancelStr.equals("취소가능")) {
 									    %>
-									    <td><button type="button" onclick="btnFunc(<%=resvDto.getReservationId()%>)">취소하기</button></td>
+									    <td><button type="button" onclick="btnFunc('<%=resvDto.getReservationId()%>')">취소하기</button></td>
 									    <%
 									} else {
 									    %><td></td><%
@@ -197,7 +204,7 @@ div#contents::before {
 			</div>
 		</div>
 		<!-- 공통부분 footer -->
-		<div class="main_footer"></div>
+		<%@include file = "../footer.jsp" %>
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -210,9 +217,9 @@ div#contents::before {
 			});
 		});
 		
-		function btnFunc(resvId) {
+		function btnFunc(getResvId) {
 			if(confirm("정말 취소하시겠습니까? 취소 후 되돌릴 수 없습니다.")) {
-				location.href="<%=request.getContextPath() %>/mypage?param=deleteResv&resvId="+resvId+"&memberId="+<%=mem.getId()%>;
+				location.href="<%=request.getContextPath() %>/mypage?param=deleteResv&resvId="+getResvId+"&memberId=<%=mem.getId()%>";
 			} else {
 				return false;
 			}

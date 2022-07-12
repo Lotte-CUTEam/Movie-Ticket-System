@@ -8,6 +8,7 @@
 2022.07.08		정은우		신규생성
 -----------------------------------------------------------
  -->
+<%@page import="dto.MemberDto"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="dto.ReservationDto"%>
@@ -20,19 +21,35 @@
 	//List<ReservationDto> list = null;%>
 
 <!-- 로그인 확인 -->
-<%-- 
+
 <%
-MemberDto mem = (MemberDto) session.getAttribute("login");
-if (mem == null) {
+String memberId = (String) request.getAttribute("memberId");
+MemberDto myPageMem = (MemberDto) session.getAttribute("login");
+
+if (myPageMem == null) {
+    
 %>
 <script type="text/javascript">
 	alert('로그인 해주세요');
-	location.href = "login.jsp";
-	</script>
+	location.href = "<%=request.getContextPath()%>/member?param=login";
+</script>
+<%
+} else if (myPageMem.getId() == null || myPageMem.getId().equals("") ) {
+%>
+<script type="text/javascript">
+	alert('잘못된 접근입니다. 다시 로그인해주세요');
+	location.href = "<%=request.getContextPath()%>/member?param=login";
+</script>
+<%
+} else if(myPageMem.getId() != memberId) {
+%>
+<script type="text/javascript">
+	alert('잘못된 접근입니다. 다시 시도해주세요 mem.getId():'+<%=myPageMem.getId()%>+'memberId'+memberId);
+	location.href = "<%=request.getContextPath()%>";
+</script>
 <%
 }
 %>
---%>
 
 <!DOCTYPE html>
 <html>
@@ -54,25 +71,22 @@ div#contents::before {
 }
 </style>
 <title>My Page</title>
+
+<link rel="stylesheet" href="assets/css/reset_hnf.css">
+<link rel="stylesheet" href="assets/css/style_hnf.css">
+<link
+	href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&amp;subset=korean"
+	rel="stylesheet">
 </head>
 <body>
 
 	<!-- 공통부분 header -->
-	<div class="main_header"></div>
+	<%@include file = "/header.jsp" %>
 
 	<!-- 퀵메뉴 -->
-	<div class="quick_wrap"
-		style="position: fixed; z-index: 11; right: 20px; width: 82px; text-align: center; color: #000; display: block; overflow: hidden; top :150px;">
-		<div class="quick_menu" id="quick_menu"
-			style="padding-top: 15px; background-color: #fff; color: #000; box-shadow: 5px 3px 6px rgba(0, 0, 0, 0.16); border-radius: 5px; overflow: hidden;">
-			<a href="" style="color: black; display: block;"><img
-				src="<%=request.getContextPath() %>/mypage/images/ticketing_icon.png" /></a> <a href="#" class="qick_top"
-				style="margin-top: 10px; background: #3e3d3d; font-size: 11px; color: #fff; letter-spacing: 5px; padding: 5px 5px 5px 13px; text-decoration: none; display: block;">TOP</a>
-		</div>
-	</div>
+	<%@include file = "/quickbar.jsp" %>
 
 	<div align="center">
-
 		<div id="contents" class="contents_mypage" align="center"
 			style="padding-top: 50px; width: 980px;">
 
@@ -80,8 +94,7 @@ div#contents::before {
 			<div class="mypage_myinfo" align="left"
 				style="margin-top: 35px; border: 1px solid #eee; border-radius: 10px; padding: 25px 30px 25px 30px; box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1); background-color: white;">
 				<p>
-					<%-- <%=mem.getName() %> --%>
-					님 반가워요!
+					<%=mem.getName() %>님 반가워요!
 				</p>
 			</div>
 			<br>
@@ -135,7 +148,7 @@ div#contents::before {
 							        cancelStr = resvDto.getDeleteddAt()+"취소완료";
 							    }
 							    else if(resvDto.getScreenAt().isAfter(
-							                    LocalDateTime.now().minusMinutes(20))
+							                    LocalDateTime.now().plusMinutes(20))
 							            ){
 							        cancelStr = "취소가능";
 							    }
@@ -157,7 +170,7 @@ div#contents::before {
 								<td align="center"><%= cancelStr%></td>
 								<td align="center">
 									<button id="btn_<%=resvDto.getReservationId()%>" type="button" value="<%=resvDto.getReservationId()%>" 
-									onclick="location.href='<%=request.getContextPath() %>/mypage?param=detail&resvId=<%=resvDto.getReservationId()%>'">상세정보보기</button>
+									onclick="location.href='<%=request.getContextPath() %>/mypage?param=detail&resvId=<%=resvDto.getReservationId()%>&memberId=<%=mem.getId()%>'">상세정보보기</button>
 								</td>
 							</tr>
 							<%
@@ -191,8 +204,10 @@ div#contents::before {
 				</div>
 			</div>
 		</div>
+		
 		<!-- 공통부분 footer -->
-		<div class="main_footer"></div>
+		<%@include file = "../footer.jsp" %>
+		
 	</div>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -203,8 +218,6 @@ div#contents::before {
 					$('#quick_menu').show();
 				}
 			});
-			
-			
 		});
 	</script>
 </body>

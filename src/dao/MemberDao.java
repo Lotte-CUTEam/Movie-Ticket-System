@@ -53,7 +53,7 @@ public class MemberDao {
      */
     public boolean addMember(MemberDto dto) {
 
-        String sql = " insert into member(member_id,pwd, name, email,  phone_number,created_at) "
+        String sql = " insert into MEMBER(member_id,pwd, name, email,  phone_number,created_at) "
                 + "	   values(?, ?, ?, ?, ?, now() ) ";
 
         Connection conn = null;

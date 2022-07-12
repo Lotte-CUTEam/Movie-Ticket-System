@@ -1,37 +1,33 @@
-
-
 package controller;
 
-import com.google.gson.Gson;
-import dao.MovieDao;
-import dto.AllMovieDto;
-import dto.MovieDto;
+import com.google.gson.GsonBuilder;
 import java.io.IOException;
-import java.util.Arrays;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import com.google.gson.Gson;
+import dao.MovieDao;
+import dto.AllMovieDto;
+import dto.MovieDto;
 
 /**
  * [프로젝트]롯데e커머스_자바전문가과정
  *
  * [시스템명]영화예매시스템
  *
- * [팀   명]CUTEam -----------------------------------------------------------
+ * [팀 명]CUTEam -----------------------------------------------------------
  *
- * 수정일자           수정자         수정내용
+ * 수정일자 수정자 수정내용
  *
- * 2022.07.08       권나연         신규생성
+ * 2022.07.08 권나연 신규생성
  *
- * 2022.07.11       권나연         URL Path 수정 및 요청 처리 방식 변경
+ * 2022.07.11 권나연 URL Path 수정 및 요청 처리 방식 변경
  *
  * -----------------------------------------------------------
  */
@@ -46,24 +42,27 @@ public class MovieController extends HttpServlet {
 
     private final MovieDao movieDao = MovieDao.getInstance();
 
-    private final Gson gson = new Gson();
+    private Gson gson;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
 
         int rIdx = req.getRequestURI().lastIndexOf('/');
         String resource = req.getRequestURI().substring(rIdx + 1);
-        System.out.println(String.format("[MovieController] doGet: rIdx = %s, resource = %s", rIdx, resource));
+        System.out.println(
+                String.format("[MovieController] doGet: rIdx = %s, resource = %s", rIdx, resource));
 
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer());
+        gson = gsonBuilder.setPrettyPrinting().create();
 
         doProcess(resource, req, resp);
-
     }
 
     public void doProcess(String resource, HttpServletRequest req, HttpServletResponse resp)
-        throws IOException {
+            throws IOException {
 
         JSONObject obj = new JSONObject();
 
@@ -113,7 +112,7 @@ public class MovieController extends HttpServlet {
 
                 Integer movieCnt = movieDao.getMovieCount();
                 int pageCnt = movieCnt / MovieDao.PAGE_CONTENT_COUNT;
-                if ((pageCnt%MovieDao.PAGE_CONTENT_COUNT) > 0) {
+                if ((pageCnt % MovieDao.PAGE_CONTENT_COUNT) > 0) {
                     pageCnt = pageCnt + 1;
                 }
 
@@ -134,16 +133,17 @@ public class MovieController extends HttpServlet {
 
                 break;
         }
-//
-//        resp.setContentType("application/json");
-//        resp.setCharacterEncoding("UTF-8");
-//        resp.getWriter().print(obj.toString());
+        //
+        // resp.setContentType("application/json");
+        // resp.setCharacterEncoding("UTF-8");
+        // resp.getWriter().print(obj.toString());
 
 
 
     }
 
-    public void forward(String arg, HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
+    public void forward(String arg, HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         RequestDispatcher dispatch = req.getRequestDispatcher(arg);
         dispatch.forward(req, resp);
     }

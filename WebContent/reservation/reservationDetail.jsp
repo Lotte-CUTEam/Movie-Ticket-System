@@ -1,23 +1,14 @@
-<%--
-
-/**
-[프로젝트]롯데e커머스_자바전문가과정
-[시스템명]영화예매시스템
-[팀   명]CUTEam
-* -----------------------------------------------------------
-수정일자           수정자         수정내용
-2022.07.09       안채영         신규생성
-2022.07.11       안채영         css구현
-* -----------------------------------------------------------
-*/
-
---%>
-
-<%@ page import="dto.MovieDto" %>
+<%@ page import="dto.ReservationDto" %>
 <%@ page import="dto.MemberDto" %>
-
 <%@ page import="dao.MovieDao" %>
-<%@ page import="java.util.List" %>
+<%@ page import="dto.MovieDto" %>
+<%@ page import="java.util.List" %><%--
+  Created by IntelliJ IDEA.
+  User: user
+  Date: 2022-07-11
+  Time: 오후 4:26
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
@@ -36,20 +27,53 @@
 
     MovieDao movieDao = MovieDao.getInstance();
     List<MovieDto> movies = movieDao.getMovies();
+
 %>
 
 <%
-    MovieDto dto = (MovieDto) request.getAttribute("movie");
+    // 1, 'hyewon', 1, 1, '2022-07-10 19:20:00', 2, '서울/월드타워', '토르-러브 앤 썬더', 119, NOW(), 0
+    Long reservationId = 1L;
+    String memberName = "hyewon";
+    Long memberId = 1L;
+    Long screenId = 1L;
+    Long movieId = 1L;
+    int rated = 15;
+    String screenTime = "2022-07-10 19:20";
+    String screenLocation = "서울/월드타워";
+    String movieTitle = "토르-러브 앤 썬더";
+    int runtime = 119;
+    String reserveTime = "2022-07-11 16:30";
+    String seats = "I9I10";
+
+    String imageUrl = "https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202207/18748_103_1.jpg";
+
+    int hour = 19;
+    int minute = 20;
+
+    int pHour = runtime / 60;
+    int pMinute = (runtime / 60) % 60;
+
+    hour += pHour;
+    minute += pMinute;
+
+    if(minute >= 60) {
+        hour++;
+        minute %= 60;
+    }
+
+    String endTime = hour + ":" + minute;
+
 %>
 <html>
 <head>
-    <title>영화 상세 페이지</title>
+    <title>예매 내역 확인</title>
 
     <!-- css -->
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/swiper.css">
     <link rel="stylesheet" href="assets/css/style_moviedetail.css">
+    <link rel="stylesheet" href="assets/css/style_reservationDetail.css">
 
     <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -68,7 +92,6 @@
             <div class="header clearfix">
                 <h1>
                     <a href="main"> <em><img src="assets/img/cute-logo.png" alt="LOTTE"></em> </a>
-
                 </h1>
                 <nav id="mNav">
                     <h2 class="ir_so">전체메뉴</h2>
@@ -98,33 +121,40 @@
         </div>
     </div>
 </header>
-
 <!-- //header -->
 
 
-<div align="center" class="poster_info">
+<div align="center" class="poster_info" style="margin-top: 50px; margin-bottom: 50px;">
 
     <table class="table">
+
         <tr>
-            <div style="width: 300px; height: 400px; margin: 50px">
-                <img src="<%= dto.getImageUrl()%>" style="margin-top:30px; box-shadow: 10px 11px 10px 0 black;" width="300px" height="400px">
+            <div class="reservation-title">
+                <strong>예매가 확정되었습니다!</strong>
             </div>
         </tr>
 
         <tr>
-            <div class="tit_info align-center">
-                <span::before class="ic_grade gr_<%= dto.getRated()%>">만<%= dto.getRated()%>이상관람가 </span::before>&nbsp;
-                <strong style="font-size: 30px; margin-top: 10px;"><%= dto.getTitle()%></strong>
+            <div style="width: 300px; height: 400px; margin: 50px">
+                <img src="<%= imageUrl%>" class="movie-image">
+            </div>
+        </tr>
+
+        <tr>
+            <div class="tit_info align-center" style="margin-top: -50px;">
+                <span::before class="ic_grade gr_<%= rated%>">만<%= rated%>이상관람가 </span::before>&nbsp;
+                <strong style="font-size: 30px; margin-top: 10px;"><%= movieTitle%></strong>
             </div>
             <div style="height:10px;">&nbsp;</div>
         </tr>
 
-
         <tr>
             <div class="detail_info1">
-                <span class="movie-detail-span">관람객 평점</span>
+                <span class="movie-detail-span"><%= screenLocation%></span>&nbsp;&nbsp;
                 <strong class="txt_ic_score ty2">
-                    <strong style="font-size: 25px"><%= dto.getRating()%></strong>점
+                    <strong><%= screenTime.split(" ")[1]%> ~ </strong>
+                    <strong><%= endTime%></strong>
+                    <span class="time_info"><strong>(<%= runtime%></strong>분)</span>&nbsp;&nbsp;&nbsp
                 </strong>
             </div>
             <div style="height:10px;">&nbsp;</div>
@@ -132,93 +162,45 @@
 
         <tr>
             <div class="sub_info1">
-                <span class="movie-detail-span">장르</span>
                 <strong>
-                    <strong><%= dto.getGenre()%></strong>&nbsp;&nbsp;&nbsp;
-                    <span><strong><%= dto.parseOpeningDate()%></strong>&nbsp;개봉</span>&nbsp;&nbsp;&nbsp;
-                    <span class="time_info"><strong><%= dto.getRuntime()%></strong>분</span>&nbsp;&nbsp;&nbsp;
+                    <strong><%= seats %></strong>&nbsp;&nbsp;&nbsp;
                 </strong>
             </div>
             <div style="height:10px;">&nbsp;</div>
         </tr>
 
         <tr>
-            <div class="sub_info2">
-                <span class="movie-detail-span">감독</span>
-                <strong><%= dto.getDirector()%></strong>
+            <div class="sub_info1">
+                <ul>
+                    <li >
+                        극장 이용 시 마스크 착용은 필수 입니다.
+                        <br>( 미착용 시 입장 제한)
+                        <br>
+                        입장 지연에 따른 관람 불편을 최소화 하기 위해 본 영화는 10분 후 상영이 시작됩니다.
+                    </li>
+                    <li>
+                        영화 상영시작시간 15분 전까지 취소가 가능하며 캡쳐화면은 입장이 제한될 수 있습니다.
+                    </li>
+                </ul>
+
+
             </div>
             <div style="height:10px;">&nbsp;</div>
         </tr>
 
-        <tr>
-            <div class="sub_info3">
-                <span class="movie-detail-span">출연</span>
-                <strong><%= dto.getActor()%></strong>
-            </div>
-            <div style="height:10px;">&nbsp;</div>
-        </tr>
     </table>
 
-    <div class="detail_top_wrap">
-        <div class="spacial_hall_info">
-                <span>
-                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/e2a94c82115c46f7b326baee6e10266a.png" alt="샤롯데바로가기">
-                </span>
-            <span>
-                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/61fb906fbd9b4ff1b34d6e0bd78dc655.png" alt="수퍼4D 바로가기">
-                </span>
-            <span>
-                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/c9078226c9ad4085b1b629bee2aba138.png" alt="수퍼플렉스 바로가기">
-                </span>
-            <span>
-                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/3ffca854b1844fdc8b54d8d9db45a03f.png" alt="수퍼플렉스 G 바로가기">
-                </span>
-            <span>
-                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/ff43cb260a2647dbb5f3c62b709103c4.png" alt="수퍼S 바로가기">
-                </span>
-            <span>
-                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/5c23288d3a104f7fa4f7d3e725a2c6a8.PNG" alt="씨네컴포트">
-                </span>
-            <span>
-                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/208a5ede362244fb8ab2e5cc3ab07529.PNG" alt="씨네살롱">
-                </span>
-            <span>
-                    <img src="http://caching.lottecinema.co.kr//Media/WebAdmin/2a366799460a49359bf93250f50852cf.png" alt="컬러리움">
-                </span>
-        </div>
-
-    </div>
-
-    <button type="button" name="reservationBtn" onclick="reserve(<%= dto.getMovieId()%>)" style="padding: 10px; margin-bottom: 50px; border: 1px solid black ">예매하기</button>
+    <button type="button" name="mainButton" onclick="goToMain(<%= memberId%>)">확인</button>
 </div>
 
 
 <script type="text/javascript">
-    function reserve(id) {
-
-      <%
-        Object loginObj = session.getAttribute("login");
-
-        if(loginObj ==null) {
-        %>
-            alert('로그인 해 주십시오');
-            location.href = "<%=request.getContextPath() %>/member?param=login";
-        <%
-        } else {
-            %>
-            // location.href = "/screen?param=screenChoice&movie_id=" + id;
-
-            location.href = "/reservation?param=reservation&movie_id=" + id;
-            <%
-        }
-      %>
-
-    }
+  function goToMain(memberId) {
+    location.href = "<%=request.getContextPath() %>/main?id=" + memberId;
+  }
 </script>
 
-
 <footer id="footer">
-
     <div id="footer_sns">
         <div class="container">
             <div class="footer_sns">

@@ -10,13 +10,8 @@
 <body>
 
 <%
-Object obj = session.getAttribute("login");
-if(obj != null) {
-	response.sendRedirect(request.getContextPath()+"/bbs?param=list");
-}
-else {
-	response.sendRedirect(request.getContextPath()+"/member?param=login");
-}
+response.sendRedirect(request.getContextPath()+"/main");
+
 %>
 
 </body>
