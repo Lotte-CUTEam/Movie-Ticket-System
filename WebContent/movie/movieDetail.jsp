@@ -48,6 +48,7 @@
     MovieDto dto = (MovieDto) request.getAttribute("movie");
 %>
 
+
 <div align="center" class="poster_info">
 
     <table class="table">
@@ -153,6 +154,7 @@
         } else {
             %>
             // location.href = "/screen?param=screenChoice&movie_id=" + id;
+
             location.href = "/reservation?param=reservation&movie_id=" + id;
             <%
         }
@@ -162,6 +164,7 @@
 </script>
 
 <%@include file="../footer.jsp"%>
+
 
 </body>
 </html>

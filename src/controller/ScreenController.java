@@ -8,12 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import dao.MovieDao;
 import dao.ScreenDao;
 import dto.MovieDto;
 import dto.MovieScreenDto;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 
 @WebServlet("/screen")
@@ -60,12 +60,16 @@ public class ScreenController extends HttpServlet {
 
         if (param.equals("movie")) {
             // 영화 리스트
-            List<MovieDto> movies = movieDao.getMovies();
+            List<MovieDto> movies = movieDao.getMovies("", "", 0, "");
             sendMovieList(movies, resp);
 
         } else if (param.equals("timetable")) {
             // 상영 타임 테이블
-            List<MovieScreenDto> movieScreenList = screenDao.getMovieScreenList(null, 0, null);
+            String cinema = req.getParameter("cinema");
+            int movieId = Integer.parseInt(req.getParameter("movieid"));
+            String inputDate = req.getParameter("inputdate");
+            
+            List<MovieScreenDto> movieScreenList = screenDao.getMovieScreenList("서울-월드타워", 0, null);
             sendMovieScreenList(movieScreenList, resp);
         }
     }
@@ -82,7 +86,7 @@ public class ScreenController extends HttpServlet {
     /**
      * 영화 리스트
      * 
-     * @param movieList
+     * @param movieScreenList
      * @param resp
      * @throws ServletException
      * @throws IOException
@@ -96,7 +100,7 @@ public class ScreenController extends HttpServlet {
 
             obj = new JSONObject();
             MovieDto movie = movieList.get(i);
-            obj.put("TITLE", movie.getMovieId());
+            obj.put("MOVIE_ID", movie.getMovieId());
             obj.put("TITLE", movie.getTitle());
             obj.put("RATED", movie.getRated());
 
@@ -135,6 +139,7 @@ public class ScreenController extends HttpServlet {
             obj.put("RATED", movieScreen.getMovieDto().getRated());
 
 
+            System.out.println(movieScreen.getScreenDto().getCinema());
             jsonArr.add(obj);
         }
 
@@ -143,9 +148,12 @@ public class ScreenController extends HttpServlet {
 
     }
 
+
+
     public void forward(String arg, HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         RequestDispatcher dispatch = req.getRequestDispatcher(arg);
         dispatch.forward(req, resp);
     }
 }
+

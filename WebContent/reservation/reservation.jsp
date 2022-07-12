@@ -37,12 +37,19 @@
 
 }
 
+.screen_time {
+	font-size: 14px;
+}
+
 .tmp_btm_area {
   position: fixed; /* 이 부분을 고정 */
   bottom: 0; /* 하단에 여백 없이 */
   width: 100%; /* 가로 사이즈를 브라우저에 가득 채움 */
 }
 
+.bx_tit {
+	width:250px;
+}
 </style>	
 </head>
 
@@ -198,7 +205,7 @@ if (mem == null) {
                   <ul class="tap_wrap outer">
                   
                      <!-- 지역 선택하는 부분 -->
-                     <li class="active" id="location_setting">
+                     <li class="active" id="cinema_setting">
                         
                         <div class="tab_con">
                            <h5 class="hidden">전체</h5>
@@ -214,13 +221,13 @@ if (mem == null) {
                                   if (i==0) {
                                       %>
                                       	<li class="depth1 active">
-                                      		<a href='#' onclick="click_cinema(<%=cinema%>)"><%=cinema%></a>
+                                      		<a href='#' onclick="getCinema(<%=cinema%>)"><%=cinema%></a>
                                       	<li>
                                       <%
                                   } else {
                                       %>
                                     	<li class="depth1">
-                                    		<a href='#' onclick="click_cinema(<%=cinema%>)"><%=cinema%></a>
+                                    		<a href='#' onclick="getCinema(<%=cinema%>)"><%=cinema%></a>
                                     	<li>
                                     <%                                     
                                   }
@@ -262,7 +269,7 @@ if (mem == null) {
          
                 <div class="article article_movie">
                <div class="group_top">
-                  <h4 class="tit" id="h4_cinema">movie</h4>
+                  <h4 class="tit" id="h4_movie">영화</h4>
                </div>
 
                     <div class="inner">
@@ -297,7 +304,7 @@ if (mem == null) {
                            <a href="#">
                               <div class="bx_tit">
                                  <span class="ic_grade gr_15">15세 관람가</span>
-                                 <strong class="tit">헤어질 결심</strong>
+                                 <strongmovieid class="tit">헤어질 결심</strong>
                               </div>
                            </a>
                         </li>
@@ -431,18 +438,41 @@ if (mem == null) {
                         
                         <!-- 영화 정보 (1) -->
                         <div class="group_time_select" id="screen_element">
+                        	<input type='hidden' id="screen_id" value=2> 
                            <div class="time_select_tit" id="movie_name">
                            		<span class="ic_grade gr_12">12</span><strong>탑건: 매버릭</strong>
                            </div>
+                           <div class="time_select_wrap timeSelect">
                            <ul class="list_time" id="screen_list">
                               <li class="temp_left">
-                                 <a role="button" href="#none"><dl><dt>상영시간</dt><dd class="time"><strong>12:05</strong></a>
+                                 <a role="button" href="#none" class="screen_time"onclick="goReservation()">12:05</a>
                               </li>
                               <li class="temp_left">
-                                 <a role="button" href="#none"><dl><dt>상영시간</dt><dd class="time"><strong>12:05</strong></a>
+                                 <a role="button" href="#none" class="screen_time"onclick="goReservation()">16:05</a>
                               </li>
                            </ul>
+                           </div>
+                           
 
+                        </div>
+                        
+                       <div class="group_time_select" id="screen_element">
+                        	<input type='hidden' id="screen_id" value=1> 
+                           <div class="time_select_tit" id="movie_name">
+                           		<span class="ic_grade gr_12">12</span><strong>토르 러브 앤 썬더</strong>
+                           </div>
+                        	<div class="time_select_wrap timeSelect">
+                           
+                           <ul class="list_time" id="screen_list">
+                              <li class="temp_left">
+                                 <a role="button" href="#none" class="screen_time" onclick="goReservation()">12:05
+                                 </a>
+                              </li>
+                              <li class="temp_left">
+                                 <a role="button" href="#none" class="screen_time" onclick="goReservation()">16:05
+                              </li>
+                           </ul>
+							</div>
                         </div>
                      </div>
                   </div>
@@ -458,10 +488,15 @@ if (mem == null) {
 <form method="post">
 	<%-- <input type="hidden" id="member_id" name="member_id" value="<%=mem.getId()%>"> --%>
 	<input type="hidden" id="member_id" name="member_id" value="hyewon">
-	<input type="hidden" id="screen_id" name="screen_id" value="">
-	<input type="hidden" id="screen_id" name="cinema" value="">
+	<input type="hidden" id="screen_id" name="screen_id" value="32">
+	<input type="hidden" id="cinema" 	name="cinema" value="서울-월드타워">
+	<input type="hidden" id="people_count" name="people_count" value="2">
+	<input type="hidden" id="title" 	name="title" value="토르 : 러브앤 썬더">
+	<input type="hidden" id="runtime" 	name="runtime" value="119">
+	<input type="hidden" id="screen_at" name="screen_at" value="2022-07-12 16:20:00">
 	
-	<input type="hidden" id="member_id" name="people_count"  value="">
+	<input type="hidden" id="inputdate" name="inputdate" value="20220711">
+	
 	<input type="hidden" id="REALPATH"><%=request.getContextPath()%>
 </form>
 
