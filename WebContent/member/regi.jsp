@@ -70,7 +70,7 @@
 							</div>
 
 							<div class="col-md-6 mb-3">
-								<label for="password">비밀번호</label> <input type="text"
+								<label for="password">비밀번호</label> <input type="password"
 									class="form-control" name="pwd" id="password"
 									placeholder="비밀번호" value="" required>
 								<div class="invalid-feedback">비밀번호을 입력해주세요.</div>
