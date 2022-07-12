@@ -96,7 +96,7 @@ const setCinema = () => {
          for (var i=0; i< data.length ; i++){
 			console.log(data[i]);
 			console.log(data[i].CINEMA);
-			htmlTxt = "<option value='" + data[i].CINEMA + "'>" + data[i].CINEMA + "</option>";
+			htmlTxt = "<li value=" + data[i].CINEMA + ">" + data[i].CINEMA + "</li>";
 			console.log(htmlTxt);
 			$("#select_cinema").append(htmlTxt);
          }        

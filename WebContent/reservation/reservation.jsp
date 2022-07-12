@@ -220,30 +220,6 @@ if (mem == null) {
                            <h5 class="hidden">전체</h5>
                            <div class="cinema_select_wrap cinemaSelect basicCinema">
                               <ul id="#select_cinema">
-                           
-						<%
-                              ScreenDao dao = ScreenDao.getInstance();
-                              List<String> cinemaList = dao.getCinemaList();
-                              
-                              int i = 0;
-                              for (String cinema : cinemaList) {
-                                  if (i==0) {
-                                      %>
-                                         <li class="depth1 active">
-                                            <a href='#'><%=cinema%></a>
-                                         <li>
-                                      <%
-                                  } else {
-                                      %>
-                                       <li class="depth1">
-                                          <a href='#'"><%=cinema%></a>
-                                       <li>
-                                    <%                                     
-                                  }
-                                 i++;
-                              }
-                              
-                              %>
 
  
                               </ul>
