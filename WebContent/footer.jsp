@@ -1,3 +1,16 @@
+<!--
+/**
+* [프로젝트]롯데e커머스_자바전문가과정
+* [시스템명]영화예매시스템
+* [팀 명]CUTEam
+* [파일명]footer.jsp
+* -----------------------------------------------------------
+* 수정일자          수정자             수정내용
+* 2022.07.09      이성은             신규생성
+* -----------------------------------------------------------
+*/
+-->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -13,7 +26,7 @@
 						<li class="icon s5"><a href="#" class="h_m"><span class="ir_pm">아이폰 앱스토어</span></a></li>
 					</ul>
 					<div class="tel">
-						<a href="#" class="h_m">ARS <em>0101-0101</em></a>
+						<a href="https://github.com/Lotte-CUTEam/Movie-Ticket-System" class="h_m">go to <em>CUTEam Git</em><br></a>
 					</div>
 				</div>
 			</div>

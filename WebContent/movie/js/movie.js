@@ -1,5 +1,14 @@
-/* Application Context Path */
-let contextPath = $('#context_path').val();
+/**
+ * [프로젝트]롯데e커머스_자바전문가과정
+ * [시스템명]영화예매시스템
+ * [팀 명]CUTEam
+ * [파일명]movie.js
+ * -----------------------------------------------------------
+ * 수정일자           수정자         수정내용
+ * 2022.07.11       권나연         신규생성
+ * -----------------------------------------------------------
+ */
+
 
 /* 사용자가 선택한 목록을 저장하는 전역 변수 */
 let curSearchCategory = ""; // 선택된 검색 카테고리
@@ -32,6 +41,9 @@ movBtn.click(function(e) {
 // 버튼을 클릭하면 이전 내용을 지우고,
 // 요청을 보내서 새로운 내용으로 출력
 function movieMenuBtnToggle(index) {
+  curSearchCategory = "";
+  curSearch = "";
+  curFilter = "";
 
   let moviesCtrl = $('.movies_ctrl');
   if (index == 0) {
@@ -78,8 +90,12 @@ function searchMovie() {
   let vSearchCategory = $('#searchCategory').val();
   let vSearch = $('#search').val();
 
-  if (vSearchCategory == "" || vSearch == "") {
+  if (vSearchCategory == "") {
     alert("검색 조건을 다시 확인해주세요 :(");
+
+    $('#searchCategory').val("");
+    $('#search').val("");
+
     return;
   }
 

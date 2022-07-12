@@ -1,16 +1,15 @@
 <%--
-
 /**
-[프로젝트]롯데e커머스_자바전문가과정
-[시스템명]영화예매시스템
-[팀   명]CUTEam
+* [프로젝트]롯데e커머스_자바전문가과정
+* [시스템명]영화예매시스템
+* [팀 명]CUTEam
+* [파일명]movieDetail.jsp
 * -----------------------------------------------------------
-수정일자           수정자         수정내용
-2022.07.09       안채영         신규생성
-2022.07.11       안채영         css구현
+* 수정일자           수정자         수정내용
+* 2022.07.09       안채영         신규생성
+* 2022.07.11       안채영         css구현
 * -----------------------------------------------------------
 */
-
 --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -24,16 +23,16 @@
     <title>영화 상세 - 큐트시네마</title>
 
     <!-- css -->
-    <link rel="stylesheet" href="assets/css/reset.css">
-    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/swiper.css">
     <link rel="stylesheet" href="assets/css/style_moviedetail.css">
-
+    
     <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
     <!-- 부가적인 테마 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>

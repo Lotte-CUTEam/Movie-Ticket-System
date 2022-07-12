@@ -15,19 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * [프로젝트]롯데e커머스_자바전문가과정
- *
  * [시스템명]영화예매시스템
- *
- * [팀 명]CUTEam -----------------------------------------------------------
- *
- * 수정일자 수정자 수정내용
- *
- * 2022.07.08 권나연 신규생성
- *
- * 2022.07.11 권나연 URL Path 수정 및 요청 처리 방식 변경
- *
- * 2022.07.11 권나연 Gson 생성 방식 변경
- *
+ * [팀 명]CUTEam
+ * [파일명]MovieController.java
+ * -----------------------------------------------------------
+ * 수정일자             수정자             수정내용
+ * 2022.07.08         권나연             신규생성
+ * 2022.07.11         권나연             URL Path 수정 및 요청 처리 방식 변경
+ * 2022.07.11         권나연             Gson 생성 방식 변경
  * -----------------------------------------------------------
  */
 
@@ -102,7 +97,7 @@ public class MovieController extends HttpServlet {
 
                 List<MovieDto> movies = movieDao.getMovies(searchCategory, search, pageNo, filter);
 
-                Integer movieCnt = movieDao.getMovieCount();
+                Integer movieCnt = movieDao.getMovieCount(searchCategory, search, filter);
                 int pageCnt = movieCnt / MovieDao.PAGE_CONTENT_COUNT;
                 if ((pageCnt % MovieDao.PAGE_CONTENT_COUNT) > 0) {
                     pageCnt = pageCnt + 1;
