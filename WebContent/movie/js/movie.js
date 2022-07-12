@@ -32,6 +32,9 @@ movBtn.click(function(e) {
 // 버튼을 클릭하면 이전 내용을 지우고,
 // 요청을 보내서 새로운 내용으로 출력
 function movieMenuBtnToggle(index) {
+  curSearchCategory = "";
+  curSearch = "";
+  curFilter = "";
 
   let moviesCtrl = $('.movies_ctrl');
   if (index == 0) {
@@ -78,8 +81,12 @@ function searchMovie() {
   let vSearchCategory = $('#searchCategory').val();
   let vSearch = $('#search').val();
 
-  if (vSearchCategory == "" || vSearch == "") {
+  if (vSearchCategory == "") {
     alert("검색 조건을 다시 확인해주세요 :(");
+
+    $('#searchCategory').val("");
+    $('#search').val("");
+
     return;
   }
 
