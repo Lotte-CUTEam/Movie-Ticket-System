@@ -320,7 +320,7 @@ const goReservation = () => {
              "screen_id":$("#screen_id").val(),
              "people_count":$("#sub_info_people_cnt").val(),       
       },
-      url: "../reservation?param=reservation",
+      url: "../reservation?param=booking",
       success:function( data ){
             //location.href = "../mypage/myPage.jsp"
       },      
