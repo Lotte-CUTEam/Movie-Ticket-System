@@ -15,6 +15,7 @@
 
 <%@ page import="dto.MovieDto" %>
 <%@ page import="dto.MemberDto" %>
+
 <%@ page import="dao.MovieDao" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -67,6 +68,7 @@
             <div class="header clearfix">
                 <h1>
                     <a href="main"> <em><img src="assets/img/cute-logo.png" alt="LOTTE"></em> </a>
+
                 </h1>
                 <nav id="mNav">
                     <h2 class="ir_so">전체메뉴</h2>
@@ -96,7 +98,9 @@
         </div>
     </div>
 </header>
+
 <!-- //header -->
+
 
 <div align="center" class="poster_info">
 
@@ -203,6 +207,7 @@
         } else {
             %>
             // location.href = "/screen?param=screenChoice&movie_id=" + id;
+
             location.href = "/reservation?param=reservation&movie_id=" + id;
             <%
         }
@@ -211,7 +216,9 @@
     }
 </script>
 
+
 <footer id="footer">
+
     <div id="footer_sns">
         <div class="container">
             <div class="footer_sns">
