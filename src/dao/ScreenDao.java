@@ -50,8 +50,9 @@ public class ScreenDao {
         PreparedStatement psmt = null;
         ResultSet rs = null;
 
-        String sql =
-                "select SUBSTRING_INDEX(cinema, '-', 1) AS LOCATION from screen GROUP BY SUBSTRING_INDEX(cinema, '-', 1)";
+        String sql = "select  SUBSTRING_INDEX(cinema, '-', -1) AS LOCATION from screen \n"
+                + "GROUP BY SUBSTRING_INDEX(cinema, '-', -1)\n"
+                + "ORDER BY SUBSTRING_INDEX(cinema, '-', -1);";
 
         List<String> CinemaList = new ArrayList<String>();
 
@@ -63,6 +64,50 @@ public class ScreenDao {
 
             while (rs.next()) {
                 CinemaList.add(rs.getString(1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DBClose.close(conn, psmt, rs);
+        }
+
+        return CinemaList;
+    }
+
+
+
+    public List<String> getCinemaList(String location) {
+
+        Connection conn = null;
+        PreparedStatement psmt = null;
+        ResultSet rs = null;
+
+        if (location == null || location.equals("")) {
+            location = "서울";
+        }
+
+        String sql = "select  SUBSTRING_INDEX(cinema, '-', -1) AS LOCATION from screen \n"
+                + "where  SUBSTRING_INDEX(cinema, '-', 1) = '" + location.trim() + "' \n"
+                + "GROUP BY SUBSTRING_INDEX(cinema, '-', -1)\n"
+                + "ORDER BY SUBSTRING_INDEX(cinema, '-', -1);";
+
+
+        System.out.println("location:" + location);
+        System.out.println("query:" + sql);
+        List<String> CinemaList = new ArrayList<String>();
+        String cinema = "";
+        try {
+            conn = DBConnection.getConnection();
+            psmt = conn.prepareStatement(sql);
+            // psmt.setString(1, location);
+
+            rs = psmt.executeQuery();
+
+
+            while (rs.next()) {
+                cinema = rs.getString(1);
+                CinemaList.add(cinema);
+                System.out.println(cinema);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -138,10 +183,12 @@ public class ScreenDao {
 
 
         // 선택날짜 (없는 경우 오늘을 기준으로 조회)
-        if (inputDate == null || inputDate.equals("") || inputDate.length() != 8) {
+        if (inputDate == null || inputDate.equals("")) {
             inputDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         }
-
+        if (inputDate.length() != 8) {
+            inputDate = inputDate.replace("-", "");
+        }
         List<String> getScreenMovieNameList = new ArrayList<String>();
 
         MovieDto movieDto = null;
@@ -203,7 +250,6 @@ public class ScreenDao {
             inputDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         }
 
-        System.out.println(inputDate);
         // whereConditionWord += " and DATE_FORMAT(screen_at, '%Y%m%d') = " + inputDate + "\n";
 
         String sql = " select s.screen_id, s.movie_id, s.screen_at, s.cinema, \n"
@@ -212,7 +258,6 @@ public class ScreenDao {
                 + whereConditionWord + "; ";
 
 
-        System.out.println(sql);
         List<MovieScreenDto> getMovieScreenList = new ArrayList<MovieScreenDto>();
 
         MovieDto movieDto = null;

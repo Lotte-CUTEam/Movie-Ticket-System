@@ -54,6 +54,17 @@ public class ScreenController extends HttpServlet {
             List<MovieDto> movies = movieDao.getMovies("", "", 0, "");
             sendMovieList(movies, resp);
 
+        } else if (param.equals("cinema")) {
+            // 극장 리스트
+            String location = req.getParameter("location");
+            List<String> cinemaList = null;
+            if (location == null || location.equals("")) {
+                cinemaList = screenDao.getCinemaList();
+            } else {
+                cinemaList = screenDao.getCinemaList(location);
+            }
+            sendCinemaList(cinemaList, resp);
+
         } else if (param.equals("timetable")) {
             // 상영 타임 테이블
             String cinema = req.getParameter("cinema");
@@ -66,13 +77,6 @@ public class ScreenController extends HttpServlet {
     }
 
 
-    protected void sendCinemaList(List<String> cinemaList, HttpServletResponse resp)
-            throws ServletException, IOException {
-
-        resp.setContentType("application/x-json; charset=utf-8");
-        resp.getWriter().print(cinemaList);
-
-    }
 
     /**
      * 영화 리스트
@@ -96,6 +100,25 @@ public class ScreenController extends HttpServlet {
             obj.put("RATED", movie.getRated());
 
 
+            jsonArr.add(obj);
+        }
+
+        resp.setContentType("application/x-json; charset=utf-8");
+        resp.getWriter().print(jsonArr);
+
+    }
+
+    protected void sendCinemaList(List<String> cinemaList, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        JSONArray jsonArr = new JSONArray();
+        JSONObject obj = null;
+        for (int i = 0; i < cinemaList.size(); i++) {
+
+            obj = new JSONObject();
+            obj.put("CINEMA", cinemaList.get(i));
+            System.out.println(cinemaList.get(i));
+            System.out.println("극장불러오기");
             jsonArr.add(obj);
         }
 
@@ -130,7 +153,7 @@ public class ScreenController extends HttpServlet {
             obj.put("RATED", movieScreen.getMovieDto().getRated());
 
 
-            System.out.println(movieScreen.getScreenDto().getCinema());
+            // System.out.println(movieScreen.getScreenDto().getCinema());
             jsonArr.add(obj);
         }
 
