@@ -32,7 +32,7 @@
 
 
 <meta charset="UTF-8">
-<title>롯데ON 로그인 : 롯데ON</title>
+<title>로그인 - 큐트시네마</title>
 </head>
 <body>
 	<main>

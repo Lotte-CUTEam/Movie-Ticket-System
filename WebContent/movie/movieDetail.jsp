@@ -21,7 +21,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>영화 상세 페이지</title>
+    <title>영화 상세 - 큐트시네마</title>
 
     <!-- css -->
     <link rel="stylesheet" href="assets/css/reset.css">
@@ -41,6 +41,9 @@
 <body>
 
 <%@include file="../header.jsp"%>
+
+<%@include file = "/quickbar.jsp" %>
+
 <%
     if (id != null)
         System.out.println("***id 확인: " + id + "***");
