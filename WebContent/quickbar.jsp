@@ -20,3 +20,15 @@
 			style="margin-top: 10px; background: #3e3d3d; font-size: 11px; color: #fff; letter-spacing: 5px; padding: 5px 5px 5px 13px; text-decoration: none; display: block;">TOP</a>
 	</div>
 </div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(window).resize(function() {
+			if ($(window).width() < 980) {
+				$('#quick_menu').hide();
+			} else {
+				$('#quick_menu').show();
+			}
+		});
+	});
+</script>

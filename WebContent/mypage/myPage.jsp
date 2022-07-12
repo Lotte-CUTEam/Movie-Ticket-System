@@ -209,16 +209,5 @@ div#contents::before {
 		<%@include file = "../footer.jsp" %>
 		
 	</div>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$(window).resize(function() {
-				if ($(window).width() < 980) {
-					$('#quick_menu').hide();
-				} else {
-					$('#quick_menu').show();
-				}
-			});
-		});
-	</script>
 </body>
 </html>
