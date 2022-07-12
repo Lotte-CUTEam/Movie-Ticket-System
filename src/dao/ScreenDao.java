@@ -140,11 +140,12 @@ public class ScreenDao {
         PreparedStatement psmt = null;
         ResultSet rs = null;
 
-        String sql = " select s.screen_id, s.movie_id, s.screen_at, s.cinema, "
+        String sql = " SELECT s.screen_id, s.movie_id, s.screen_at, s.cinema, "
                 + "        m.movie_id, m.title, m.director, m.actor, m.opening_date, m.rating, m.runtime, m.image_url, m.genre, m.rated "
-                + "  from SCREEN s, MOVIE m " + " where m.movie_id = s.movie_id "
-                + "   and s.screen_at > now() and s.screen_at < DATE_ADD(NOW(), INTERVAL 7 DAY) "
-                + " ";
+                + "  FROM SCREEN s, MOVIE m "
+                + " WHERE m.movie_id = s.movie_id AND s.cinema = ? "
+                + "   AND s.screen_at > now() AND s.screen_at < DATE_ADD(NOW(), INTERVAL 7 DAY) "
+                + " GROUP BY m.movie_id ";
 
         List<MovieScreenDto> getMovieScreenList = new ArrayList<MovieScreenDto>();
 
@@ -154,7 +155,10 @@ public class ScreenDao {
         try {
 
             conn = DBConnection.getConnection();
+
             psmt = conn.prepareStatement(sql);
+            psmt.setString(1, cinema);
+
             rs = psmt.executeQuery();
 
 

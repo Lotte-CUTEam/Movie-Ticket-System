@@ -85,7 +85,7 @@ const domready = () => {
 
 // 극장 이름 세팅
 // 왜인지 안먹음 .. 왜지
-const setCinema = (location) => {
+function setCinema(location) {
 	
       $.ajax({
       type:"get",
@@ -171,7 +171,7 @@ function setMovie(cinema) {
       //url: $("#REALPATH").val() + "/movie?param=list",
       url: "../screen?param=movie&cinema=" + cinema,
       success:function( data ){
-         
+         alert(data);
          $("#select_movie").empty();
          
          for (var i=0; i< data.length ; i++){
