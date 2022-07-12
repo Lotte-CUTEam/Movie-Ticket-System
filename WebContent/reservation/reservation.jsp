@@ -189,10 +189,11 @@ if (mem == null) {
                                <%    int idx = 0;
                                   for(Location loc : Location.values()) { 
                                      idx++;
+                                     String locName = loc.getLocationName();
                                      if (idx==1) {%>
-                                 <li class="depth1 active" value="<%=loc%>" onclick="setCinema()"><a href="#"><%=loc.getLocationName()%></a></li>
+                                 <li class="depth1 active" value="<%=loc%>" onclick="setCinema('<%=locName%>')"><a href="#"><%=locName%></a></li>
                                      <% } else {%>
-                                 <li class="depth1" value="<%=loc%>" onclick="setCinema()"><a href="#"><%=loc.getLocationName()%></a></li>
+                                 <li class="depth1" value="<%=loc%>" onclick="setCinema('<%=locName%>')"><a href="#"><%=locName%></a></li>
                                  <% }
                                      } %>
                               </ul>
@@ -219,7 +220,7 @@ if (mem == null) {
                            <h5 class="hidden">전체</h5>
                            <div class="cinema_select_wrap cinemaSelect basicCinema">
                               <!-- 영화관 선택 -->
-                              <ul id="#select_cinema">
+                              <ul id="select_cinema">
  
                               </ul>
                            </div>

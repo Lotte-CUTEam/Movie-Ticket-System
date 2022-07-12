@@ -61,7 +61,7 @@ window.addEventListener('DOMContentLoaded', function () {
 	
 }); 
 
-function activeDepth1(el) {
+function activeElement(el) {
     $(el).addClass("active");
     $(el).siblings("li").removeClass("active");
 }
@@ -71,7 +71,7 @@ function activeDepth1(el) {
 const domready = () => {
    
    // 초기 조회
-   setCinema();	//극장
+   setCinema("서울");	//극장
    setMovie();	//영화
    setScreen();	//타임테이블
    
@@ -85,12 +85,11 @@ const domready = () => {
 
 // 극장 이름 세팅
 // 왜인지 안먹음 .. 왜지
-const setCinema = () => {
+const setCinema = (location) => {
 	
       $.ajax({
       type:"get",
-      data : {location:$("#location_setting > div > div > ul > li.depth1.active").text()},
-      url: "../screen?param=cinema",
+      url: "../screen?param=cinema&location=" + location,
       success:function( data ){
          console.log(data);
          $("#select_cinema").empty();
@@ -98,9 +97,14 @@ const setCinema = () => {
          for (var i=0; i< data.length ; i++){
             console.log(data[i]);
             console.log(data[i].CINEMA);
-            let cinema = data[i].CINEMA.split('/')[1];
+            let cinema = data[i].CINEMA;
+            let onlyCinema = cinema.split('-')[1];
 
-            htmlTxt = "<li class='depth1' onclick='' value='" + data[i].CINEMA + "'>" + data[i].CINEMA + "</li>";
+            // html += `<li><a onclick="goPage(`+ i + `)">` + (i + 1) + `</a></li>`;
+            let htmlTxt = `<li class="depth1" value="${cinema}">
+                                <a href="#" onclick="setMovie('` + cinema + `')">${onlyCinema}</a>
+                           </li>`;
+
             console.log(htmlTxt);
             $("#select_cinema").append(htmlTxt);
          }        
@@ -112,7 +116,6 @@ const setCinema = () => {
       }
    });
 };
-
 
 // movie id 값 세팅
 
@@ -162,20 +165,19 @@ const goNextStep = () => {
 };
 
 // 영화 이름 세팅
-const setMovie = () => {
+function setMovie(cinema) {
    $.ajax({
       type:"get",
       //url: $("#REALPATH").val() + "/movie?param=list",
-      data : {cinema : $("#cinema").val()},
-      url: "../screen?param=movie",
+      url: "../screen?param=movie&cinema=" + cinema,
       success:function( data ){
          
          $("#select_movie").empty();
          
          for (var i=0; i< data.length ; i++){
-			htmlTxt = "<option value=" + data[i].MOVIE_ID + ">" + data[i].TITLE + "</option>";
-			$("#select_movie").append(htmlTxt);
-         }         
+            htmlTxt = "<option value=" + data[i].MOVIE_ID + ">" + data[i].TITLE + "</option>";
+            $("#select_movie").append(htmlTxt);
+         }
       },
 
       error:function(){
