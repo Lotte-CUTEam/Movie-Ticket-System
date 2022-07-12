@@ -242,7 +242,7 @@ public class ReservationDao {
                         + "from SCREEN s, MOVIE m "
                         + "where s.movie_id = m.movie_id and screen_id = " + screenId + ") a; ";
 
-        System.out.println(sql);
+        // System.out.println(sql);
         int count = 0;
         try {
 
