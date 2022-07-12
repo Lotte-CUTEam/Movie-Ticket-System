@@ -33,9 +33,9 @@ public class MovieHomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
-//        req.setCharacterEncoding("utf-8");
 
         forward("/movie/movieList.jsp", req, resp);
+
     }
 
     public void forward(String arg, HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
