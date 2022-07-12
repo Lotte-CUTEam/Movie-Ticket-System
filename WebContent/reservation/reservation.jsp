@@ -23,6 +23,7 @@
 <head>
 <meta charset="UTF-8">
 <title>예매 - 큐트시네마</title>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <link rel="stylesheet" href="../assets/css/res_default.css">
@@ -194,7 +195,7 @@ if (mem == null) {
                                      if (idx==1) {%>
                                  <li class="depth1 active" value="<%=loc%>" onclick="setCinema('<%=locName%>')"><a href="#"><%=locName%></a></li>
                                      <% } else {%>
-                                 <li class="depth1" value="<%=loc%>" onclick="setCinema('<%=locName%>')"><a href="#"><%=locName%></a></li>
+                                 <li class="depth1" value="<%=loc%>" onclick="active(this); setCinema('<%=locName%>')"><a href="#"><%=locName%></a></li>
                                  <% }
                                      } %>
                               </ul>
@@ -242,7 +243,7 @@ if (mem == null) {
 
                     <div class="inner">
                         <div class="list_filter">
-                            <select id = "select_movie" title="영화선택">                           
+                            <select id = "select_movie" title="영화선택" onchange="setScreen()">
                             </select>
                         </div>
             		</div>
@@ -437,8 +438,8 @@ if (mem == null) {
    <input type="hidden" id="REALPATH"><%=request.getContextPath()%>
 </form>
 
-
-<script src="reservation.js"></script>
+<!-- 예약 페이지 자바스크립트 -->
+<script src="reservation.js" type="text/javascript"></script>
 
 </body>
 </html>
