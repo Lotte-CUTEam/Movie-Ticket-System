@@ -103,7 +103,7 @@ public class ScreenDao {
 //                + "ORDER BY SUBSTRING_INDEX(cinema, '-', -1);";
 
         String sql = " SELECT cinema  FROM SCREEN "
-                    + " WHERE cinema LIKE '서울/%' GROUP BY cinema ";
+                    + " WHERE cinema LIKE '%" + location + "%' GROUP BY cinema ";
 
         List<String> CinemaList = new ArrayList<String>();
         String cinema = "";
@@ -134,16 +134,16 @@ public class ScreenDao {
      * 
      * @return getMovieScreenList
      */
-    public List<MovieScreenDto> getMovieScreenList() {
+    public List<MovieScreenDto> getMovieScreenList(String cinema) {
 
         Connection conn = null;
         PreparedStatement psmt = null;
         ResultSet rs = null;
 
-        String sql = " select s.screen_id, s.movie_id, s.screen_at, s.cinema, \n"
-                + "        m.movie_id, m.title, m.director, m.actor, m.opening_date, m.rating, m.runtime, m.image_url, m.genre, m.rated \n"
-                + "  from screen s, movie m \n" + " where m.movie_id = s.movie_id\r\n"
-                + "   and s.screen_at > now() and s.screen_at < DATE_ADD(NOW(), INTERVAL 7 DAY); \n"
+        String sql = " select s.screen_id, s.movie_id, s.screen_at, s.cinema, "
+                + "        m.movie_id, m.title, m.director, m.actor, m.opening_date, m.rating, m.runtime, m.image_url, m.genre, m.rated "
+                + "  from SCREEN s, MOVIE m " + " where m.movie_id = s.movie_id "
+                + "   and s.screen_at > now() and s.screen_at < DATE_ADD(NOW(), INTERVAL 7 DAY) "
                 + " ";
 
         List<MovieScreenDto> getMovieScreenList = new ArrayList<MovieScreenDto>();

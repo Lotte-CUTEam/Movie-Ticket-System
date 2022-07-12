@@ -68,9 +68,12 @@ public class ScreenController extends HttpServlet {
          */
 
         if (param.equals("movie")) {
+            String cinema = req.getParameter("cinema");
+            List<MovieScreenDto> dto = screenDao.getMovieScreenList(cinema);
+
             // 영화 리스트
-            List<MovieDto> movies = movieDao.getMovies("", "", 0, "");
-            sendMovieList(movies, resp);
+//            List<MovieDto> movies = movieDao.getMovies("", "", 0, "");
+            sendMovieScreenList(dto, resp);
 
         } else if (param.equals("movieDetail")) {
             // send movie
