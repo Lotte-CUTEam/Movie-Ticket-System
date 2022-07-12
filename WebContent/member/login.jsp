@@ -22,8 +22,14 @@
 	crossorigin="anonymous">
 <!-- css -->
 <link rel="stylesheet" href="./css/login.css?ver=3.0">
+<!-- Jquery -->
+ <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>  
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
 <!-- JavaScript -->
 <script src="js/login.js"></script>
+
+
 
 <meta charset="UTF-8">
 <title>롯데ON 로그인 : 롯데ON</title>
