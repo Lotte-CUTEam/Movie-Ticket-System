@@ -1,14 +1,22 @@
+<%--
+/**
+* [프로젝트]롯데e커머스_자바전문가과정
+* [시스템명]영화예매시스템
+* [팀 명]CUTEam
+* [파일명]reservationDetail.jsp
+* -----------------------------------------------------------
+* 수정일자           수정자         수정내용
+* 2022.07.11       안채영         신규생성
+* -----------------------------------------------------------
+*/
+--%>
+
+
 <%@ page import="dto.ReservationDto" %>
 <%@ page import="dto.MemberDto" %>
 <%@ page import="dao.MovieDao" %>
 <%@ page import="dto.MovieDto" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 2022-07-11
-  Time: 오후 4:26
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
