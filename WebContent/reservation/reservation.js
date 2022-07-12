@@ -328,11 +328,18 @@ const setWeekly = () => {
 const goReservation = () => {
       $.ajax({
       type:"get",
-      data:{ "member_id":$("#member_id").val(), 
+      data:{ /*"member_id":$("#member_id").val(),
              "screen_id":$("#screen_id").val(),
-             "people_count":$("#sub_info_people_cnt").val(),       
+             "people_count":$("#sub_info_people_cnt").val(),
+             "movie_id": $("#select_movie").val()*/
+              "member_id":"hyewon",
+              "screen_id": 1n,
+              "people_count": "2",
+              "movie_id": 17n
       },
-      url: "../reservation?param=booking",
+
+      url: "../reservation?param=success",
+
       success:function( data ){
             //location.href = "../mypage/myPage.jsp"
       },      
