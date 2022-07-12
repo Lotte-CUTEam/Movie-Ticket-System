@@ -47,8 +47,6 @@
 <%@include file = "/quickbar.jsp" %>
 
 <%
-    if (id != null)
-        System.out.println("***id 확인: " + id + "***");
 
     MovieDto dto = (MovieDto) request.getAttribute("movie");
 %>
