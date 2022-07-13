@@ -55,7 +55,7 @@ public class ReservationDao {
                     + " from RESERVATION "
                     + " where member_id = ? "
                             + " and now() > DATE_SUB(created_at, INTERVAL " + daysAgo + " DAY) "
-                    + " order by screen_at ";
+                    + " order by screen_at desc, created_at desc";
 
 
         List<ReservationDto> reservationList = new ArrayList<ReservationDto>();
@@ -116,14 +116,13 @@ public class ReservationDao {
 
         // 70일 이내 정보만 조회 가능
         int daysAgo = 70;
-        int delStatus = status;
 
         String sql =
                 "select reservation_id, member_id, screen_id, movie_id, screen_at, people_count, cinema, title, runtime, created_at, deleted_at, status "
                 + " from RESERVATION "
                 + " where member_id = ? "
                     + " and now() > DATE_SUB(created_at, INTERVAL " + daysAgo + " DAY) "
-                    + " and status = " + delStatus + " ";
+                    + " and status = " + status + " ";
 
         List<ReservationDto> reservationList = new ArrayList<ReservationDto>();
         System.out.println(sql);

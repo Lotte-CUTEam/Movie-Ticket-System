@@ -60,13 +60,12 @@ public class MypageController extends HttpServlet {
 
                 resp.sendRedirect("util/message.jsp?param=mypage&msg=url");
                 return;
-                //memberId = "hyewon"; //TODO
             }
 
             ReservationDao resvDao = ReservationDao.getInstance();
             List<ReservationDto> resvList = resvDao.getReservations(memberId);
             req.setAttribute("resvList", resvList);
-
+            req.setAttribute("memberId", memberId);
             forward("mypage/myPage.jsp", req, resp);
         } else if (param.equals("detail")) {
             // parameter
@@ -76,7 +75,6 @@ public class MypageController extends HttpServlet {
 
                 resp.sendRedirect("util/message.jsp?param=mypage&msg=url");
                 return;
-                //memberId = "hyewon"; //TODO
             }
             // get resvId
             String sSeq = req.getParameter("resvId");
@@ -101,7 +99,6 @@ public class MypageController extends HttpServlet {
                 resp.sendRedirect(req.getContextPath()
                         + "/util/message.jsp?param=mypage&msg=url");
                 return;
-                //memberId = "hyewon"; //TODO
             }
             // get resvId
             String sSeq = req.getParameter("resvId");
