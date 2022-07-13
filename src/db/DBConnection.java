@@ -30,7 +30,7 @@ public class DBConnection {
 	}
 	
 	public static Connection getConnection() {
-		Properties prop = PropertyParser.getInstance().readProperties("../config/db.properties");
+		Properties prop = PropertyParser.getInstance().readProperties();
 
 		String url = prop.getProperty("db.url");
 		String user = prop.getProperty("db.username");
