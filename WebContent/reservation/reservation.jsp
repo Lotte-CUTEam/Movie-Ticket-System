@@ -376,7 +376,7 @@ if (mem == null) {
 
                      </div>
                      <div class="group_rgt">
-                        <a href="<%= request.getContextPath()%>/reservation?param=success" class="btn_col1" id="link_rpay">결제하기</a>
+                        <a href="" class="btn_col1" id="link_rpay">결제하기</a>
 
                         <form method="post">
                            <%--
