@@ -1,24 +1,19 @@
 package controller;
 
-import dao.MovieDao;
-import dto.MovieDto;
-import dto.ReservationDto;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import dao.MovieDao;
 import dao.ReservationDao;
+import dto.MovieDto;
+import dto.ReservationDto;
 
 /**
- * [프로젝트]롯데e커머스_자바전문가과정
- * [시스템명]영화예매시스템
- * [팀 명]CUTEam
- * [파일명]ReservationController.java
- * -----------------------------------------------------------
- * 수정일자           수정자       수정내용
- * 2022.07.11       장혜원       신규생성
+ * [프로젝트]롯데e커머스_자바전문가과정 [시스템명]영화예매시스템 [팀 명]CUTEam [파일명]ReservationController.java
+ * ----------------------------------------------------------- 수정일자 수정자 수정내용 2022.07.11 장혜원 신규생성
  * -----------------------------------------------------------
  */
 @WebServlet("/reservation")
@@ -47,34 +42,39 @@ public class ReservationController extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         String param = req.getParameter("param");
 
-        if (param.equals("booking")) {
+        if (param.equals("reservation")) {
             // 영화 리스트
-            /*String member_id = req.getParameter("member_id");
-            int people_count = Integer.parseInt(req.getParameter("people_count"));
-            Long screenId = Long.parseLong(req.getParameter("screen_id"));
-
-            System.out.println("");
-            int count = reservationDao.makeReservation(member_id, screenId, people_count);
-
-            if (count > 0) {
-                resp.sendRedirect("util/message.jsp?param=reservation&msg=bookingSuccess");
-            } else {
-                resp.sendRedirect("util/message.jsp?param=reservation&msg=bookingFail");
-
-            }*/
+            /*
+             * String member_id = req.getParameter("member_id"); int people_count =
+             * Integer.parseInt(req.getParameter("people_count")); Long screenId =
+             * Long.parseLong(req.getParameter("screen_id"));
+             * 
+             * System.out.println(""); int count = reservationDao.makeReservation(member_id,
+             * screenId, people_count);
+             * 
+             * if (count > 0) {
+             * resp.sendRedirect("util/message.jsp?param=reservation&msg=bookingSuccess"); } else {
+             * resp.sendRedirect("util/message.jsp?param=reservation&msg=bookingFail");
+             * 
+             * }
+             */
 
             resp.sendRedirect(req.getContextPath() + "/reservation/reservation.jsp");
 
         }
         // 결제하기 버튼을 누르면 예매 완료, reservation 데이터 DB insert
-        else if(param.equals("success")) {
+        else if (param.equals("success")) {
 
+
+            System.out.println("[memberId] : " + req.getParameter("member_id"));
+            System.out.println("[screenId] : " + req.getParameter("screen_id"));
+            System.out.println("[movieId] : " + req.getParameter("movie_id"));
             String memberId = req.getParameter("member_id");
             Long screenId = Long.parseLong(req.getParameter("screen_id"));
             Long movieId = Long.parseLong(req.getParameter("movie_id"));
 
             int personCount = Integer.parseInt(req.getParameter("people_count"));
-            //int price = Integer.parseInt(req.getParameter("price"));
+            // int price = Integer.parseInt(req.getParameter("price"));
 
             // 예매 데이터 insert
             int count = reservationDao.makeReservation(memberId, screenId, personCount);
@@ -86,13 +86,15 @@ public class ReservationController extends HttpServlet {
             System.out.println(insertDataId + " #########################");
 
             if (count > 0) {
-                resp.sendRedirect("util/message.jsp?param=reservation&msg=bookingSuccess&reservation_id=" + insertDataId + "&movie_id=" + movieId);
+                resp.sendRedirect(
+                        "util/message.jsp?param=reservation&msg=bookingSuccess&reservation_id="
+                                + insertDataId + "&movie_id=" + movieId);
             } else {
                 resp.sendRedirect("util/message.jsp?param=reservation&msg=bookingFail");
             }
         }
 
-        else if(param.equals("reservationDetail")) {
+        else if (param.equals("reservationDetail")) {
 
             Long reservationId = Long.parseLong(req.getParameter("reservation_id"));
             Long movieId = Long.parseLong(req.getParameter("movie_id"));
@@ -100,7 +102,7 @@ public class ReservationController extends HttpServlet {
             ReservationDto dto = reservationDao.getReservation(reservationId);
             MovieDto movieDto = movieDao.getMovie(movieId);
 
-            if(dto == null) {
+            if (dto == null) {
                 String msg = "reservationDetail FAIL";
                 resp.sendRedirect("message.jsp?msg=" + msg);
             }
@@ -110,7 +112,8 @@ public class ReservationController extends HttpServlet {
 
             req.setAttribute("reservation", dto);
             req.setAttribute("movie", movieDto);
-            req.getRequestDispatcher(req.getContextPath() + "/reservation/reservationDetail.jsp").forward(req, resp);
+            req.getRequestDispatcher(req.getContextPath() + "/reservation/reservationDetail.jsp")
+                    .forward(req, resp);
 
         }
 

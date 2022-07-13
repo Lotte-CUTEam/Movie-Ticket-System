@@ -16,13 +16,8 @@ import dto.MovieDto;
 import dto.MovieScreenDto;
 
 /**
- * [프로젝트]롯데e커머스_자바전문가과정
- * [시스템명]영화예매시스템
- * [팀 명]CUTEam
- * [파일명]ScreenController.java
- * -----------------------------------------------------------
- * 수정일자           수정자       수정내용
- * 2022.07.11       장혜원       신규생성
+ * [프로젝트]롯데e커머스_자바전문가과정 [시스템명]영화예매시스템 [팀 명]CUTEam [파일명]ScreenController.java
+ * ----------------------------------------------------------- 수정일자 수정자 수정내용 2022.07.11 장혜원 신규생성
  * -----------------------------------------------------------
  */
 @WebServlet("/screen")
@@ -72,7 +67,7 @@ public class ScreenController extends HttpServlet {
             List<MovieScreenDto> dto = screenDao.getMovieScreenList(cinema);
 
             // 영화 리스트
-//            List<MovieDto> movies = movieDao.getMovies("", "", 0, "");
+            // List<MovieDto> movies = movieDao.getMovies("", "", 0, "");
             sendMovieScreenList(dto, resp);
 
         } else if (param.equals("movieDetail")) {
@@ -102,7 +97,7 @@ public class ScreenController extends HttpServlet {
         } else if (param.equals("timetable")) {
             // 상영 타임 테이블
             String cinema = req.getParameter("cinema");
-            int movieId = 1;
+            int movieId = Integer.parseInt(req.getParameter("movieid"));
             String inputDate = req.getParameter("inputdate");
 
             List<MovieScreenDto> movieScreenList =
@@ -125,10 +120,9 @@ public class ScreenController extends HttpServlet {
     protected void sendMovieScreen(MovieScreenDto movieScreen, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        JSONArray jsonArr = new JSONArray();
+        // JSONArray jsonArr = new JSONArray();
         JSONObject obj = new JSONObject();
 
-        obj = new JSONObject();
         obj.put("MOVIE_ID", movieScreen.getMovieDto().getMovieId());
         obj.put("GENRE", movieScreen.getMovieDto().getGenre());
         obj.put("IMAGE_URL", movieScreen.getMovieDto().getImageUrl());
@@ -141,8 +135,9 @@ public class ScreenController extends HttpServlet {
         obj.put("SCREEN_AT", movieScreen.getScreenDto().getScreenAt());
 
 
+        System.out.println("moviedetail :" + movieScreen.getMovieDto().getTitle());
         resp.setContentType("application/x-json; charset=utf-8");
-        resp.getWriter().print(jsonArr);
+        resp.getWriter().print(obj);
 
     }
 
