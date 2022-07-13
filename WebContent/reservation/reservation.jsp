@@ -254,7 +254,7 @@ if (mem == null) {
 			<!-- 1.3 시간 선택 -->
             <div class="article article_time">
                <div class="group_top" >
-                  <h4 class="tit" id="h4_date">2022-07-11(오늘)</h4>
+                  <h4 class="tit" id="h4_date">2022-07-11 (오늘)</h4>
                </div>
                <div class="inner">
                   <div class="date_select_wrap dateReserveWrap">

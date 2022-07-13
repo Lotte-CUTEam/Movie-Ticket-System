@@ -14,9 +14,7 @@
 
 <%@ page import="dto.ReservationDto" %>
 <%@ page import="dto.MemberDto" %>
-<%@ page import="dao.MovieDao" %>
 <%@ page import="dto.MovieDto" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
