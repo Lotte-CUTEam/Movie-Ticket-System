@@ -9,113 +9,81 @@
 * -----------------------------------------------------------
 */
 
-// window.addEventListener('DOMContentLoaded', function () {
-//
-//    // 화면 초기 진입 시 세팅하는부분
-//    //  domready();
-//
-//    // 클릭시
-//
-//
-//    // 지역 클릭시 재조회
-// 	// $("#select_location > li").click(function(){
-// 	// 	setCinema();
-// 	// });
-//
-//
-//    // 영화 클릭시 재조회
-//    $("#select_movie > li ").click(function(){
-// 		alert("click");
-// 		setScreen();
-// 	});
-//
-// 	//영화시간 클릭 >
-//    $("#screen_list > li").click(function(){
-//
-// 		$("#reserveStep02").click();
-// 	});
-//
-//    // 화면 이동
-//    goNextStep();
-//
-//    // 극장 버튼 선택시
-//    $(".depth1").click(function() {
-//       $(this).addClass("active");
-//       $(this).siblings("li").removeClass("active");
-//    });
-//
-// 	// 결제하기 버튼 > 예약
-// 	$("#link_rpay").click(function(){
-// 	  	if (!confirm("예매하시겠습니까?")) {
-// 	       alert("예매 취소하셨습니다");
-// 		   return;
-// 	    } else {
-// 			$("#reserveStep04").click();
-// 			goReservation();
-// 			//reservationDetail.jsp 로 이동
-//
-// 	    }
-//
-// 	});
-// });
+$(document).ready(function() {
+	
+	domready();
+	addEventListener();
+	setWeekly();
 
-domready();
-addEventListener();
+});
 
+
+
+
+/* 
+ * 화면 초기 진입 세팅 영역
+ * 
+ */
 // 화면 초기 진입 세팅
 function domready() {
   // 초기 조회
   setCinema("서울");	//극장
-  // setMovie();	//영화
-  // setScreen();	//타임테이블
 
-  // 달력 세팅
-  // setWeekly();
 }
 
+
+
+
+/* 
+ * 이벤트 리스너 
+ * 
+ */
 function addEventListener() {
-  $("#select_movie > li ").click(function(){
-    alert("click");
-    setScreen();
-  });
+	
+	
+	// 지역 / 극장 리스트 선택 
+	$(".depth1").click(function() {
+		$(this).addClass("active");
+		$(this).siblings("li").removeClass("active");
+	});
 
-//영화시간 클릭 >
-  $("#screen_list > li").click(function(){
+		
+	// 영화 선택
+	$("#select_movie").change(function(){
+		//alert("click");
+		setScreen();
+	});
+	
+	// 영화시간 클릭 
+	$("#screen_list > li").click(function(){
+		$("#reserveStep02").click();
+	});
 
-    $("#reserveStep02").click();
-  });
+	// 화면 이동 (예매 Step)
+  	goNextStep();
 
-// 화면 이동
-  goNextStep();
-
-// 극장 버튼 선택시
-  $(".depth1").click(function() {
-    $(this).addClass("active");
-    $(this).siblings("li").removeClass("active");
-  });
-
-// 결제하기 버튼 > 예약
-  $("#link_rpay").click(function(){
-    if (!confirm("예매하시겠습니까?")) {
-      alert("예매 취소하셨습니다");
-      return;
-    } else {
-      $("#reserveStep04").click();
-      goReservation();
-      //reservationDetail.jsp 로 이동
-    }
-  });
+	// 결제하기 버튼 > 예약
+	$("#link_rpay").click(function(){
+		if (!confirm("예매하시겠습니까?")) {
+				alert("예매 취소하셨습니다");
+				return;
+		} else {
+			//$("#reserveStep04").click();
+			goReservation();
+	      	//reservationDetail.jsp 로 이동
+			}
+	});
 }
 
-function active(obj) {
-  $(obj).addClass("active");
-  $(obj).siblings("li").removeClass("active");
-}
 
-/** 화면 초기 진입 세팅 **/
 
-// 극장 이름 세팅
-// 왜인지 안먹음 .. 왜지
+
+
+/*
+*	극장, 영화, 타임테이블 조회 영역
+*/
+
+// 지역 > 극장
 function setCinema(location) {
 	
       $.ajax({
@@ -125,28 +93,30 @@ function setCinema(location) {
          console.log(data);
          $("#select_cinema").empty();
          
-         for (var i=0; i< data.length ; i++){
-            console.log(data[i]);
-            console.log(data[i].CINEMA);
-            let cinema = data[i].CINEMA;
-            let onlyCinema = cinema.split('-')[1];
 
-            let htmlTxt = `<li class="depth1 cinema_li" value="${cinema}">
-                                <a href="#">${onlyCinema}</a>
-                           </li>`;
-
-            console.log(htmlTxt);
-            $("#select_cinema").append(htmlTxt);
-         }
-         $('.cinema_li').first().addClass("active");
-
-         // active deactive 처리를 위한 리스너
-         $('.cinema_li').click(function (){
-           $(this).addClass("active");
-           $(this).siblings().removeClass("active");
-         });
-
-         setMovie(data[0].CINEMA);
+		if(data?.length) {
+	         for (var i=0; i< data.length ; i++){
+	            let cinema = data[i].CINEMA;
+	            let onlyCinema = cinema.split('-')[1];
+	
+	            let htmlTxt = `<li class="depth1 cinema_li" value="${cinema}">
+	                                <a href="#">${onlyCinema}</a>
+	                           </li>`;
+	
+	            $("#select_cinema").append(htmlTxt);
+	         }
+	         $('.cinema_li').first().addClass("active");
+	
+	         // active deactive 처리를 위한 리스너
+	         $('.cinema_li').click(function (){
+	           $(this).addClass("active");
+	           $(this).siblings().removeClass("active");
+	         });
+	
+	         setMovie(data[0].CINEMA);
+		} else {
+			console.log("영화관 없음");
+		}
       },
 
       error:function(){
@@ -156,11 +126,165 @@ function setCinema(location) {
 };
 
 // movie id 값 세팅
-
-function getMovieId(e) {
-	$("#movie_id").val(e.val());
+function getMovieId(v) {
+	$("#movie_id").val(v);
 	alert("func");
 }
+
+
+// 영화관 > 영화 목록
+function setMovie(cinema) {
+   $.ajax({
+      type:"get",
+      //url: $("#REALPATH").val() + "/movie?param=list",
+      url: "../screen?param=movie&cinema=" + cinema,
+      success:function( data ){
+         $("#select_movie").empty();
+         
+         for (var i=0; i< data.length ; i++){
+			htmlTxt = "<option class='movie_select' value=''>영화를 선택해주세요</option>";
+            htmlTxt = "<option class='movie_select' onclick='setScreen()' value=" + data[i].MOVIE_ID + ">" + data[i].TITLE + "</option>";
+            $("#select_movie").append(htmlTxt);
+         }
+
+         setScreen();
+      },
+
+      error:function(){
+         console.log("error");
+      }
+   });
+};
+
+
+// 타임 테이블 세팅
+function setScreen() {
+	let location = document.querySelector("#select_location > li.depth1.active > a").text;
+	let cinema	 = document.querySelector("#select_cinema > li.depth1.active > a").text;
+	
+	let cinema_param = cinema;
+	let movieid 	 = $("#select_movie option:selected").val();
+	$("#movie_id").val(movieid);
+	let inputdate	 = $("#input_date").val();
+	inputdate = typeof inputdate == "undefined"?getTodayDate():inputdate;
+	
+	//console.log(cinema_param, movieid, inputdate);
+		
+   $.ajax({
+      type:"get",
+      data:{ "cinema":cinema_param, 
+            "movieid":movieid,
+            "inputdate": ""}, // inputdate
+      url: "../screen?param=timetable",
+      success:function( data ){
+		console.log(data);
+         
+		$("#time_container").empty();
+		
+		if(data?.length) {
+			document.getElementById("notice").style.display = 'none';
+			console.log("Not Empty");
+			
+			let title = data[0].TITLE;
+			let rated = data[0].RATED;		
+			
+			let liTxt = "";
+			let li = "";
+			let screen_id = "";
+			let time = "";
+			data.forEach((e) => {
+				console.log(e);
+				screen_id = e.SCREEN_ID;
+				time = e.SCREEN_AT.slice(-5);
+				li = getTimeHtml(screen_id, time);		
+				liTxt += li;
+			});
+			
+			let htmlTxt = "<div class='group_time_select' name='screen_element'>";
+				htmlTxt += getTitleHtml(movieid, title, rated);
+				htmlTxt += "<div class='time_select_wrap timeSelect'>";
+				htmlTxt += "<ul class='list_time' id='screen_list'>";
+				htmlTxt += liTxt;
+				htmlTxt += "</ul>";
+				htmlTxt += "</div>";
+				htmlTxt += "</div>";
+			
+		// var li  =$(htmlTxt);
+        	 $("#time_container").append($(htmlTxt));
+  
+		} else {
+			console.log("Empty");
+			//$("#notice").css("display", "block");
+			document.getElementById("notice").style.display = 'block';
+		}
+
+	 },
+
+      error:function(){
+         console.log("error");
+      }
+   });
+};
+
+
+// 영화정보
+const getTitleHtml = (movieid, title, rated) => {
+	let titleHtml = "<div class='time_select_tit' name='movie_name'>";
+		titleHtml += "<input type='hidden' name='movie_id' value='" + movieid + "'>";
+		titleHtml += "<span class='ic_grade gr_" + rated + "'>" + rated + "</span><strong>" + title + "</strong>";
+		titleHtml += "</div>";
+		titleHtml += "</div>";
+	return titleHtml;
+}
+
+
+// 시간정보 
+const getTimeHtml = (screen_id, time) => {
+	let timeHtml = "<li class='temp_left'>";
+		timeHtml += "<a role='button' href='#none' class='screen_time' value='" + screen_id + "' onclick='goStepTwo("+screen_id+")'>" + time;
+		timeHtml += "</a>";
+		timeHtml += "</li>";
+	return timeHtml;
+}
+
+
+// 인원 선택 화면 세팅
+const selectPeople = () => {
+	
+	console.log("select:"+ $("#select_movie").val());
+	  $.ajax({
+      type:"get",
+      data : {movie_id : $("#select_movie").val()},
+      url: "../screen?param=movieDetail",
+      success:function( data ){
+		alert(data);
+		
+		// 관람가 + 제목 #movie_info_people
+		$("#movie_info_people").empty();
+		var title = "<span class='ic_grade gr_'"+ data.RATED +">관람가</span><strong>";
+		title += "<strong>"+data.TITLE+"</strong>";	
+		$("#movie_info_people").append(title);
+		
+		// 상영정보 #sub_info_screen
+        $("#sub_info_screen").empty();
+		var screen = data.SCREEN_AT + " / " + data.RUNTIME + "분";
+		title += "<strong>"+data.TITLE+"</strong>";	
+		$("#sub_info_screen").append(screen);
+		
+		// 포스터 이미지 #step02_movie_img
+		$("#step02_movie_img").attr("src", data.IMAGE_URL);
+
+		// 영화관 #sub_info_cinema
+		$("#sub_info_cinema").text(data.CINEMA);
+		
+      },
+
+      error:function(){
+         console.log("error");
+      }
+   });
+}
+
 
 // 다음 예매 스텝
 const goNextStep = () => {
@@ -170,7 +294,7 @@ const goNextStep = () => {
 		$("#contentStep02").css("display", "none");
 		$("#reserveStep01").parent().addClass("active").addClass("step02").removeClass("disabled");
 		$("#reserveStep02").parent().removeClass("active").removeClass("step01").addClass("disabled");
-		selectPeople();
+		//selectPeople();
 	});
 	
 	$("#reserveStep02").click(function(){
@@ -198,129 +322,48 @@ const goNextStep = () => {
 		return;
 	});
 	
-	
-	
+
 };
 
-// 영화 이름 세팅
-function setMovie(cinema) {
-   $.ajax({
-      type:"get",
-      //url: $("#REALPATH").val() + "/movie?param=list",
-      url: "../screen?param=movie&cinema=" + cinema,
-      success:function( data ){
-         $("#select_movie").empty();
-         
-         for (var i=0; i< data.length ; i++){
-            htmlTxt = "<option class='movie_select' onclick='setScreen()' value=" + data[i].MOVIE_ID + ">" + data[i].TITLE + "</option>";
-            $("#select_movie").append(htmlTxt);
-         }
 
-         setScreen();
-      },
 
-      error:function(){
-         console.log("error");
-      }
-   });
-};
-
-// 타임 테이블 세팅
-function setScreen() {
-	let location = document.querySelector("#select_location > li.depth1.active > a").text;
-	let cinema	 = document.querySelector("#select_cinema > li.depth1.active > a").text;
+// insert to reservation
+const goReservation = () => {
 	
-	let cinema_param = cinema;
-	let movieid 	 = $("#select_movie option:selected").val();
+	  let people_count = $("#sub_info_people_cnt").val();
+	  if (people_count < 1) {
+			alert("1명 이상부터 예매가능합니다.");
+			$("#people_count").focus();
+			return;
+	  }
 	
-	let inputdate	 = $("#input_date").val();
-	inputdate = typeof inputdate == "undefined"?getTodayDate():inputdate;
-	
-	console.log(cinema_param, movieid, inputdate);
-	
-		
-   $.ajax({
-      type:"get",
-      data:{ "cinema":cinema_param, 
-            "movieid":movieid,
-            "inputdate": ""}, // inputdate
-      url: "../screen?param=timetable",
-      success:function( data ){
-         
-         $("#time_container").empty();
-         // alert(data);
-         
-		
-        // FIXME 레이아웃 와르르 아마 이부분 ... ?
-         var title = data[0].title;
-         for (var i=0; i< data.length ; i++){ // title 필터한 수
-            var htmlTxt = "<div class='group_time_select dynamic' id='screen_element'>";
-            htmlTxt += "<input type='hidden' id='screen_id' value='"+data[i].SCREEN_ID+"'>";
-            htmlTxt += "<div class='time_select_tit' id='movie_name'>";
-            htmlTxt += "<span class='ic_grade gr_'"+ data[i].RATED +">"+ data[i].RATED +"</span>&nbsp;<strong>"+ data[i].TITLE +"</strong>";
-            htmlTxt += "</div>";
-            
-            
-            htmlTxt += "<ul class='ist_time' id=''screen_list'>"
-            for (var j=0;j<3;j++) {
-              htmlTxt += "<li class='temp_left'>";
-              htmlTxt += "<a role='button' href='#none'><dl><dt>상영시간</dt><dd class='time'><strong>"+ data[i].SCREEN_AT +"</strong></a>";
-              htmlTxt += "</li>";
-              htmlTxt += "</ul>";
-
-              htmlTxt += "</div>";
-            }
-
-            var li  =$(htmlTxt);
-            $("#time_container").append(li);
-         }
-
-         setWeekly();
-      },
-
-      error:function(){
-         console.log("error");
-      }
-   });
-};
-
-// 인원 선택 화면 세팅
-const selectPeople = () => {
-	
-	
-	console.log( $("#screen_id").val());
 	  $.ajax({
       type:"get",
-      data : {movie_id : $("#screen_id").val()},
-      url: "../screen?param=movieDetail",
-      success:function( data ){
-		console.log(data);
-		
-		// 관람가 + 제목 #movie_info_people
-		$("#movie_info_people").empty();
-		var title = "<span class='ic_grade gr_'"+ data.RATED +">관람가</span><strong>";
-		title += "<strong>"+data.TITLE+"</strong>";	
-		$("#movie_info_people").append(title);
-		
-		// 상영정보 #sub_info_screen
-        $("#sub_info_screen").empty();
-		var screen = data.SCREEN_AT + " / " + data.RUNTIME + "분";
-		title += "<strong>"+data.TITLE+"</strong>";	
-		$("#sub_info_screen").append(screen);
-		
-		// 포스터 이미지 #step02_movie_img
-		$("#step02_movie_img").attr("src", data.IMAGE_URL);
-
-		// 영화관 #sub_info_cinema
-		$("#sub_info_cinema").text(data.CINEMA);
-		
+      data:{ "member_id":$("#member_id").val(),
+             "screen_id":$("#screen_id").val(),
+             "people_count":people_count,
+             "movie_id": $("#select_movie").val()
+			/*
+              "member_id":"hyewon",
+              "screen_id": 1n,
+              "people_count": "2",
+              "movie_id": 17*/
       },
+
+      url: "../reservation?param=success",
+
+      success:function( data ){
+            //location.href = "../mypage/myPage.jsp"
+      },      
 
       error:function(){
          console.log("error");
       }
    });
-}
+   
+};
+
+
 
 // 날짜 세팅
 function setWeekly() {
@@ -352,7 +395,7 @@ function setWeekly() {
       htmlTxt += "<label>";
 	  htmlTxt += "<input type='radio' name='radioDate1' value='"+ inputdate + "'  onclick='setDate(this.value)'>";
       htmlTxt += "<strong>"+ date + "</strong>";
-      htmlTxt += "<em>" + week[i] + "</em>";
+      htmlTxt += "<em>" + week[(day+i)%7] + "</em>";
       htmlTxt += "</label>";
       htmlTxt += "</span";
       htmlTxt += "</div>";
@@ -366,41 +409,20 @@ function setWeekly() {
 };
 
 
-
-// insert to reservation
-const goReservation = () => {
-      $.ajax({
-      type:"get",
-      data:{ /*"member_id":$("#member_id").val(),
-             "screen_id":$("#screen_id").val(),
-             "people_count":$("#sub_info_people_cnt").val(),
-             "movie_id": $("#select_movie").val()*/
-              "member_id":"hyewon",
-              "screen_id": 1n,
-              "people_count": "2",
-              "movie_id": 17n
-      },
-
-      url: "../reservation?param=success",
-
-      success:function( data ){
-            //location.href = "../mypage/myPage.jsp"
-      },      
-
-      error:function(){
-         console.log("error");
-      }
-   });
-   
-};
+function goStepTwo(v) {
+	
+	console.log(v);
+	$("#screen_id").val(v);
+	
+	$("#reserveStep02").click();
+	
+	
+}
 
 function setDate(inputdate) {
 	$("#input_date").val(inputdate);
+	setScreen();
 }
-
-/*const setDate = (inputdate) => {
-	$("#input_date").val(inputdate);
-};*/
 
 const getTodayDate = () => {
 	let today = new Date();

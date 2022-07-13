@@ -68,8 +68,8 @@
 </head>
 
 <!-- 로그인 확인 -->
-
-<%-- <%
+<%-- 
+<%
 MemberDto mem = (MemberDto) session.getAttribute("login");
 
 if (mem == null) {
@@ -79,8 +79,8 @@ if (mem == null) {
    location.href = "login.jsp";
    </script>
 <%
-}
-%> --%>
+} --%>
+%>
 
 <body>
 <%-- <%@include file = "/header.jsp" %> --%>
@@ -259,7 +259,7 @@ if (mem == null) {
                   <div class="date_select_wrap dateReserveWrap">
                      <div class="slide_wrap slide_reserve_date">
                         <ul id="select_weekly" class="owl-carousel owl-loaded owl-drag">
-                                 <!-- 위클리 -->                      
+                                <!-- 위클리 -->                      
                         </ul>
                      </div>
                   </div>
@@ -267,6 +267,8 @@ if (mem == null) {
                   
                   
                   <div class="tab_con ty5">
+                     <div id="notice" style="font-size:16px; padding: 50px; margin:10px; display: block; text-align:center;"><span>해당하는 날짜에 상영하는 영화가 없습니다.<br>다른 날짜를 선택해주세요.</span></div>
+                  
                      <div id="time_container" class="mCSB_container" style="position:relative; top:0; left:30px;">
                         
                         <!-- 영화 정보 (1) -->
@@ -392,24 +394,7 @@ if (mem == null) {
             </div>
          </div>
 
-         <!-- <div class="inner">
-         여기
-         </div>
 
-          
-          
-          
-          </div>
-          
-       <div id="contents" class="contents_full contents_reserve">
-
-
-         <!-- 콘텐츠 -->
-
-         <!-- <div class="inner">
-         여기
-         </div>
-          -->
       </div>
    </div>
           
@@ -426,9 +411,10 @@ if (mem == null) {
 </div>
 
 <form method="post">
-   <%-- <input type="hidden" id="member_id" name="member_id" value="<%=mem.getId()%>"> --%>
    <input type="hidden" id="member_id" name="member_id" value="hyewon">
-   <input type="hidden" id="screen_id" name="screen_id" value="">
+
+<%--    <input type="hidden" id="member_id" name="member_id" value="<%=mem.getId()%>">
+ --%>   <input type="hidden" id="screen_id" name="screen_id" value="">
    <input type="hidden" id="movie_id" name="movie_id" value="">
    <input type="hidden" id="input_date" name="input_date" value="">
    
@@ -440,6 +426,20 @@ if (mem == null) {
 
 <!-- 예약 페이지 자바스크립트 -->
 <script src="reservation.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+function active(obj) {
+  $(obj).addClass("active");
+  $(obj).siblings("li").removeClass("active");
+}
+
+function cnt_price(c) {
+   document.getElementById('res').value = c * 14000;
+   
+}
+
+</script>
 
 </body>
 </html>
