@@ -147,7 +147,7 @@ function setMovie(cinema) {
             $("#select_movie").append(htmlTxt);
          }
 
-         setScreen();
+         //setScreen();
       },
 
       error:function(){
@@ -168,13 +168,13 @@ function setScreen() {
 	let inputdate	 = $("#input_date").val();
 	inputdate = typeof inputdate == "undefined"?getTodayDate():inputdate;
 	
-	//console.log(cinema_param, movieid, inputdate);
+	console.log(cinema_param +"/"+ movieid +"/"+ inputdate);
 		
    $.ajax({
       type:"get",
       data:{ "cinema":cinema_param, 
             "movieid":movieid,
-            "inputdate": ""}, // inputdate
+            "inputdate": inputdate}, // inputdate
       url: "../screen?param=timetable",
       success:function( data ){
 		console.log(data);
@@ -251,13 +251,12 @@ const getTimeHtml = (screen_id, time) => {
 // 인원 선택 화면 세팅
 const selectPeople = () => {
 	
-	console.log("select:"+ $("#select_movie").val());
-	  $.ajax({
+	$.ajax({
       type:"get",
-      data : {movie_id : $("#select_movie").val()},
+      data : {screen_id : $("#screen_id").val()},
       url: "../screen?param=movieDetail",
       success:function( data ){
-		alert(data);
+		console.log(data);
 		
 		// 관람가 + 제목 #movie_info_people
 		$("#movie_info_people").empty();
@@ -382,7 +381,7 @@ function setWeekly() {
    
    //초기화
    $("#select_weekly").empty();
-   $("#h4_date").text(inputdate +"오늘");
+   $("#h4_date").text(inputdate);
    
    for (var i=0; i< 7 ; i++){
       let strMonth = month<10 ? '0'+ month : month ;
@@ -393,7 +392,7 @@ function setWeekly() {
       htmlTxt += "<div class='owl-item' style='width:52.5px; float:left;'>";
       htmlTxt += "<span class = 'date'>";
       htmlTxt += "<label>";
-	  htmlTxt += "<input type='radio' name='radioDate1' value='"+ inputdate + "'  onclick='setDate(this.value)'>";
+	  htmlTxt += "<input type='radio' name='radioDate1' value='"+ inputdate + "'  onclick='setDate(this)'>";
       htmlTxt += "<strong>"+ date + "</strong>";
       htmlTxt += "<em>" + week[(day+i)%7] + "</em>";
       htmlTxt += "</label>";
@@ -419,8 +418,9 @@ function goStepTwo(v) {
 	
 }
 
-function setDate(inputdate) {
-	$("#input_date").val(inputdate);
+function setDate(e) {
+	$(this).attr( "checked", "checked" );
+	$("#input_date").val(e.value);
 	setScreen();
 }
 

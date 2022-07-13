@@ -337,7 +337,7 @@ if (mem == null) {
                         style="width:300px;"
                           id = "step02_movie_img" src="https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202006/14702_103_1.jpg"></span>
                         <div class="group_infor">
-                           <div id="movie_info_people" class="bx_tit">
+                           <div id="movie_info_people">
                               <span class="ic_grade gr_12">관람가</span><strong>
                               탑건: 매버릭
                               </strong>
