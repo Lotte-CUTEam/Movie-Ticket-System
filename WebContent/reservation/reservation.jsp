@@ -76,7 +76,7 @@
 </head>
 
 <!-- 로그인 확인 -->
-<%-- 
+<%--
 <%
 MemberDto mem = (MemberDto) session.getAttribute("login");
 
@@ -367,18 +367,7 @@ if (mem == null) {
 
                      </div>
                      <div class="group_rgt">
-                        <a href="" class="btn_col1" id="link_rpay">결제하기</a>
-
-                        <form method="post">
-                           <%--
-                              send 영화관, 영화이름, 상영시간, 인원, 총합계
-                              Screen(영화관, 상영시간 갖고있음)
-                           --%>
-
-                        </form>
-
-
-
+                        <button type="button" class="btn_col1" id="link_rpay">결제하기</button>
                      </div>
                   </div>
                </div>

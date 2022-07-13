@@ -138,6 +138,8 @@
         </div>
 
     </div>
+
+    <button type="button" name="reservationBtn" onclick="reserve(<%= dto.getMovieId()%>)" style="padding: 10px; margin-bottom: 50px; border: 1px solid black ">예매하기</button>
 </div>
 
 

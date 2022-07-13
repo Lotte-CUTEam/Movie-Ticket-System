@@ -24,15 +24,15 @@
     if (obj != null) {
         mem = (MemberDto) obj;
         id = mem.getId();
+    }else {
+        %>
+        <script type="text/javascript">
+            alert("로그인 해주세요");
+            location.href = "<%=request.getContextPath()%>/member?param=login";
+        </script>
+        <%
     }
 
-    if (id == null)
-        id = "";
-    else
-        System.out.println("***id 확인: " + id + "***");
-
-    /*MovieDao movieDao = MovieDao.getInstance();
-    List<MovieDto> movies = movieDao.getMovies();*/
 
 %>
 
@@ -40,42 +40,6 @@
 
     ReservationDto dto = (ReservationDto) request.getAttribute("reservation");
     MovieDto movieDto = (MovieDto) request.getAttribute("movie");
-
-
-    // 1, 'hyewon', 1, 1, '2022-07-10 19:20:00', 2, '서울/월드타워', '토르-러브 앤 썬더', 119, NOW(), 0
-    Long reservationId = 1L;
-    String memberName = "hyewon";
-    Long memberId = 1L;
-    Long screenId = 1L;
-    Long movieId = 1L;
-    int rated = 15;
-    String screenTime = "2022-07-10 19:20";
-    String screenLocation = "서울/월드타워";
-    String movieTitle = "토르-러브 앤 썬더";
-
-
-    int runtime = dto.getRuntime();
-
-    String reserveTime = "2022-07-11 16:30";
-    String seats = "I9I10";
-
-    String imageUrl = "https://caching.lottecinema.co.kr//Media/MovieFile/MovieImg/202207/18748_103_1.jpg";
-
-    int hour = 19;
-    int minute = 20;
-
-    int pHour = runtime / 60;
-    int pMinute = (runtime / 60) % 60;
-
-    hour += pHour;
-    minute += pMinute;
-
-    if(minute >= 60) {
-        hour++;
-        minute %= 60;
-    }
-
-    String endTime = hour + ":" + minute;
 
 %>
 <html>
@@ -97,10 +61,12 @@
 
     <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
 <header id="header">
+
     <div class="container">
         <div class="row">
             <div class="header clearfix">
@@ -204,13 +170,13 @@
 
     </table>
 
-    <button type="button" name="mainButton" onclick="goToMain(<%= memberId%>)">확인</button>
-</div>
+    <button type="button" name="mainButton" onclick="goToMain()">확인</button>
+</div>s
 
 
 <script type="text/javascript">
-  function goToMain(memberId) {
-    location.href = "<%=request.getContextPath() %>/main?id=" + memberId;
+  function goToMain() {
+    location.href = "<%=request.getContextPath() %>/main";
   }
 </script>
 

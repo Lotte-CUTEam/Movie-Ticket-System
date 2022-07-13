@@ -10,6 +10,7 @@ import dao.MovieDao;
 import dao.ReservationDao;
 import dto.MovieDto;
 import dto.ReservationDto;
+import org.json.simple.JSONObject;
 
 /**
  * [프로젝트]롯데e커머스_자바전문가과정
@@ -17,8 +18,9 @@ import dto.ReservationDto;
  * [팀 명]CUTEam
  * [파일명]ReservationController.java
  * -----------------------------------------------------------
- * 수정일자             수정자             수정내용
- * 2022.07.11         장혜원             신규생성
+ * 수정일자             수정자                 수정내용
+ * 2022.07.11         장혜원                  신규생성
+ * 2022.07.12         안채영                  기능추가
  * -----------------------------------------------------------
  */
 @WebServlet("/reservation")
@@ -48,54 +50,35 @@ public class ReservationController extends HttpServlet {
         String param = req.getParameter("param");
 
         if (param.equals("reservation")) {
-            // 영화 리스트
-            /*
-             * String member_id = req.getParameter("member_id"); int people_count =
-             * Integer.parseInt(req.getParameter("people_count")); Long screenId =
-             * Long.parseLong(req.getParameter("screen_id"));
-             * 
-             * System.out.println(""); int count = reservationDao.makeReservation(member_id,
-             * screenId, people_count);
-             * 
-             * if (count > 0) {
-             * resp.sendRedirect("util/message.jsp?param=reservation&msg=bookingSuccess"); } else {
-             * resp.sendRedirect("util/message.jsp?param=reservation&msg=bookingFail");
-             * 
-             * }
-             */
-
             resp.sendRedirect(req.getContextPath() + "/reservation/reservation.jsp");
 
         }
         // 결제하기 버튼을 누르면 예매 완료, reservation 데이터 DB insert
         else if (param.equals("success")) {
 
-
             System.out.println("[memberId] : " + req.getParameter("member_id"));
             System.out.println("[screenId] : " + req.getParameter("screen_id"));
             System.out.println("[movieId] : " + req.getParameter("movie_id"));
+
             String memberId = req.getParameter("member_id");
             Long screenId = Long.parseLong(req.getParameter("screen_id"));
             Long movieId = Long.parseLong(req.getParameter("movie_id"));
 
             int personCount = Integer.parseInt(req.getParameter("people_count"));
-            // int price = Integer.parseInt(req.getParameter("price"));
 
             // 예매 데이터 insert
             int count = reservationDao.makeReservation(memberId, screenId, personCount);
 
-            System.out.println(count + "!!!!!!!!!!!!!!!!!!!!!!1");
             // 아이디 값 전달을 위한 예매ID 조회
-            Long insertDataId = reservationDao.getReservationId(memberId, screenId);
-
-            System.out.println(insertDataId + " #########################");
+            Long reservationId = reservationDao.getReservationId(memberId, screenId);
 
             if (count > 0) {
                 resp.sendRedirect(
-                        "util/message.jsp?param=reservation&msg=bookingSuccess&reservation_id="
-                                + insertDataId + "&movie_id=" + movieId);
+                        "/util/message.jsp?param=reservation&msg=bookingSuccess&reservation_id="
+                                + reservationId + "&movie_id=" + movieId);
+
             } else {
-                resp.sendRedirect("util/message.jsp?param=reservation&msg=bookingFail");
+                resp.sendRedirect("/util/message.jsp?param=reservation&msg=bookingFail");
             }
         }
 
@@ -117,7 +100,7 @@ public class ReservationController extends HttpServlet {
 
             req.setAttribute("reservation", dto);
             req.setAttribute("movie", movieDto);
-            req.getRequestDispatcher(req.getContextPath() + "/reservation/reservationDetail.jsp")
+            req.getRequestDispatcher("/reservation/reservationDetail.jsp")
                     .forward(req, resp);
 
         }

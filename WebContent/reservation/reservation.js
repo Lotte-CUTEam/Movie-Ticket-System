@@ -72,9 +72,7 @@ function addEventListener() {
 			alert("예매 취소하셨습니다");
 			return;
 		} else {
-			//$("#reserveStep04").click();
-			goReservation();
-			//reservationDetail.jsp 로 이동
+				goReservation();
 		}
 	});
 }
@@ -318,34 +316,20 @@ const goNextStep = () => {
 
 
 // insert to reservation
-function goReservation() {
+const goReservation = () => {
+	  let people_count = $("#sub_info_people_cnt").val();
+	  if (people_count < 1) {
+			alert("1명 이상부터 예매가능합니다.");
+			$("#people_count").focus();
+			return;
+	  }
 
-	let people_count = $("#sub_info_people_cnt").val();
-	if (people_count < 1) {
-		alert("1명 이상부터 예매가능합니다.");
-		$("#people_count").focus();
-		return;
-	}
+		let member_id = $("#member_id").val();
+		let screen_id = $("#screen_id").val();
+		let movie_id = $("#select_movie").val();
 
-	$.ajax({
-		type:"get",
-		data:{ "member_id":$("#member_id").val(),
-			"screen_id":$("#screen_id").val(),
-			"people_count":people_count,
-			"movie_id": $("#select_movie").val()
-		},
-
-		url: "../reservation?param=success",
-
-		success:function( data ){
-			//location.href = "../mypage/myPage.jsp"
-		},
-
-		error:function(){
-			console.log("error");
-		}
-	});
-
+		location.href = "../reservation?param=success&member_id=" + member_id + "&screen_id="
+										+ screen_id + "&people_count=" + people_count + "&movie_id=" + movie_id;
 };
 
 
