@@ -1,6 +1,5 @@
 package util;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -12,7 +11,7 @@ import java.util.Properties;
  * [파일명]PropertyParser.java
  * -----------------------------------------------------------
  * 수정일자           수정자         수정내용
- * 2022.07.09       장혜원         신규생성
+ * 2022.07.09       권나연         신규생성
  * -----------------------------------------------------------
  */
 public class PropertyParser {
@@ -25,7 +24,7 @@ public class PropertyParser {
         return propertyParser;
     }
 
-    public Properties readProperties(String filename) {
+    public Properties readProperties() {
         try (
             InputStream is = PropertyParser.class.getResourceAsStream("/config/db.properties");
         )
