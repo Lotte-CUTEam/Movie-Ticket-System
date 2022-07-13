@@ -249,7 +249,6 @@ public class ScreenDao {
         whereConditionWord = " and s.cinema LIKE '%" + cinema + "%' ";
 
         // 영화 (없는 경우 디폴트 영화 조회)
-        // FIXME
         if (movieId < 1) {
             movieId = 1;
         }
@@ -259,10 +258,6 @@ public class ScreenDao {
         if (inputDate == null || inputDate.equals("")) {
             inputDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         }
-
-//        if (inputDate.length() != 8) {
-//            inputDate = inputDate.replace("-", "");
-//        }
 
          whereConditionWord += " and screen_at LIKE '" + inputDate + "%' ";
 
