@@ -7,6 +7,7 @@
 * -----------------------------------------------------------
 * 수정일자           수정자         수정내용
 * 2022.07.11       장혜원         신규생성
+* 2022.07.12       권나연         상영관, 영화정보 가져오도록 수정
 * -----------------------------------------------------------
 */
 --%>
@@ -260,7 +261,7 @@ if (mem == null) {
 			<!-- 1.3 시간 선택 -->
             <div class="article article_time">
                <div class="group_top" >
-                  <h4 class="tit" id="h4_date">2022-07-11(오늘)</h4>
+                  <h4 class="tit" id="h4_date">2022-07-11 (오늘)</h4>
                </div>
                <div class="inner">
                   <div class="date_select_wrap dateReserveWrap">
@@ -366,7 +367,7 @@ if (mem == null) {
 
                      </div>
                      <div class="group_rgt">
-                        <a href="<%= request.getContextPath()%>/reservation?param=success" class="btn_col1" id="link_rpay">결제하기</a>
+                        <a href="" class="btn_col1" id="link_rpay">결제하기</a>
 
                         <form method="post">
                            <%--

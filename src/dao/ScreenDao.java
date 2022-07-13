@@ -97,13 +97,6 @@ public class ScreenDao {
             location = "서울";
         }
 
-        String sql = "select  SUBSTRING_INDEX(cinema, '-', -1) AS LOCATION from SCREEN \n"
-                + "where  SUBSTRING_INDEX(cinema, '-', 1) = '" + location.trim() + "' \n"
-                + "GROUP BY SUBSTRING_INDEX(cinema, '-', -1)\n"
-                + "ORDER BY SUBSTRING_INDEX(cinema, '-', -1);";
-
-
-
         String sql = " SELECT cinema  FROM SCREEN "
                     + " WHERE cinema LIKE '%" + location + "%' GROUP BY cinema ";
 
@@ -256,7 +249,6 @@ public class ScreenDao {
         whereConditionWord = " and s.cinema LIKE '%" + cinema + "%' ";
 
         // 영화 (없는 경우 디폴트 영화 조회)
-        // FIXME
         if (movieId < 1) {
             movieId = 1;
         }
@@ -267,11 +259,7 @@ public class ScreenDao {
             inputDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         }
 
-        if (inputDate.length() != 8) {
-            inputDate = inputDate.replace("-", "");
-        }
-
-        // whereConditionWord += " and DATE_FORMAT(screen_at, '%Y%m%d') = " + inputDate + "\n";
+         whereConditionWord += " and screen_at LIKE '" + inputDate + "%' ";
 
         String sql = " SELECT s.screen_id, s.movie_id, s.screen_at, s.cinema, "
                 + "        m.movie_id, m.title, m.director, m.actor, m.opening_date, m.rating, m.runtime, m.image_url, m.genre, m.rated  "

@@ -1,8 +1,10 @@
 package controller;
 
+import dao.ScreenDao;
+import dto.MovieDto;
+import dto.MovieScreenDto;
 import java.io.IOException;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,21 +12,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import dao.MovieDao;
-import dao.ScreenDao;
-import dto.MovieDto;
-import dto.MovieScreenDto;
 
 /**
- * [프로젝트]롯데e커머스_자바전문가과정 [시스템명]영화예매시스템 [팀 명]CUTEam [파일명]ScreenController.java
- * ----------------------------------------------------------- 수정일자 수정자 수정내용 2022.07.11 장혜원 신규생성
+
+ * [프로젝트]롯데e커머스_자바전문가과정
+ * [시스템명]영화예매시스템
+ * [팀 명]CUTEam
+ * [파일명]ScreenController.java
+ * -----------------------------------------------------------
+ * 수정일자           수정자       수정내용
+ * 2022.07.11       장혜원       신규생성
+ * 2022.07.12       권나연       상영관, 영화정보 가져오도록 수정
  * -----------------------------------------------------------
  */
 @WebServlet("/screen")
 public class ScreenController extends HttpServlet {
 
     private ScreenDao screenDao = ScreenDao.getInstance();
-    private MovieDao movieDao = MovieDao.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -57,6 +61,7 @@ public class ScreenController extends HttpServlet {
         if (param.equals("movie")) {
             String cinema = req.getParameter("cinema");
             List<MovieScreenDto> dto = screenDao.getMovieScreenList(cinema);
+
 
             sendMovieScreenList(dto, resp);
 
@@ -91,7 +96,6 @@ public class ScreenController extends HttpServlet {
             String inputDate = req.getParameter("inputdate");
 
             List<MovieScreenDto> movieScreenList =
-                    // screenDao.getMovieScreenList("서울-월드타워", 0, inputDate);
                     screenDao.getMovieScreenList(cinema, movieId, inputDate);
             sendMovieScreenList(movieScreenList, resp);
         }
@@ -102,6 +106,7 @@ public class ScreenController extends HttpServlet {
     /**
      * 영화 상영 디테일 정보
      * 
+
      * @param MovieScreenDto
      * @param resp
      * @throws ServletException
@@ -221,14 +226,6 @@ public class ScreenController extends HttpServlet {
         resp.setContentType("application/x-json; charset=utf-8");
         resp.getWriter().print(jsonArr);
 
-    }
-
-    //
-
-    public void forward(String arg, HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-        RequestDispatcher dispatch = req.getRequestDispatcher(arg);
-        dispatch.forward(req, resp);
     }
 }
 
