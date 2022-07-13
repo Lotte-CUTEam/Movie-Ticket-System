@@ -327,7 +327,7 @@ const goNextStep = () => {
 
 
 // insert to reservation
-const goReservation = () => {
+function goReservation() {
 	
 	  let people_count = $("#sub_info_people_cnt").val();
 	  if (people_count < 1) {
