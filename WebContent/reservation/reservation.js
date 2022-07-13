@@ -98,10 +98,9 @@ function setCinema(location) {
 	         for (var i=0; i< data.length ; i++){
 	            let cinema = data[i].CINEMA;
 	            let onlyCinema = cinema.split('-')[1];
-	
-	            let htmlTxt = `<li class="depth1 cinema_li" value="${cinema}">
-	                                <a href="#">${onlyCinema}</a>
-	                           </li>`;
+
+	            let htmlTxt = "<li class='depth1 cinema_li' value='${cinema}' onclick='setMovie(\"" + cinema + "\")'>"
+									+ "<a href='#'>" + onlyCinema +"</a></li>";
 	
 	            $("#select_cinema").append(htmlTxt);
 	         }
@@ -113,7 +112,7 @@ function setCinema(location) {
 	           $(this).siblings().removeClass("active");
 	         });
 	
-	         setMovie(data[0].CINEMA);
+	         setMovie(data[0].CINEMA); // 첫 번째 영롸관의 영화로 세팅
 		} else {
 			console.log("영화관 없음");
 		}
@@ -140,14 +139,14 @@ function setMovie(cinema) {
       url: "../screen?param=movie&cinema=" + cinema,
       success:function( data ){
          $("#select_movie").empty();
-         
-         for (var i=0; i< data.length ; i++){
-			htmlTxt = "<option class='movie_select' value=''>영화를 선택해주세요</option>";
-            htmlTxt = "<option class='movie_select' onclick='setScreen()' value=" + data[i].MOVIE_ID + ">" + data[i].TITLE + "</option>";
-            $("#select_movie").append(htmlTxt);
-         }
 
-         //setScreen();
+				htmlTxt = "<option class='movie_select' value=''>영화를 선택해주세요</option>";
+				for (var i=0; i< data.length ; i++){
+            htmlTxt += "<option class='movie_select' onclick='setScreen()' value=" + data[i].MOVIE_ID + ">" + data[i].TITLE + "</option>";
+         }
+				$("#select_movie").append(htmlTxt);
+
+				//setScreen();
       },
 
       error:function(){
@@ -406,8 +405,9 @@ function setWeekly() {
       date++;
    }
 
-	 let firstDate = $(".inputdate_input").val();
-		$("#input_date").val(firstDate);
+	 // TODO
+	 	let firstDate = $(".inputdate_input").val(); // 첫 번째 날짜 (오늘 날짜) 가져오기
+		$("#input_date").val(firstDate); // setScreen() 에서 참조하는 input의 값 설정
 
 };
 
