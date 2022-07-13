@@ -15,6 +15,9 @@ $(document).ready(function() {
 	domready();
 	addEventListener();
 	setWeekly();
+	
+	//$("#time_container").empty();
+	
 
 });
 
@@ -237,38 +240,43 @@ const getTimeHtml = (screen_id, time) => {
 
 
 // 인원 선택 화면 세팅
-const selectPeople = () => {
-
+function selectPeople(){
+	
 	$.ajax({
-		type:"get",
-		data : {screen_id : $("#screen_id").val()},
-		url: "../screen?param=movieDetail",
-		success:function( data ){
+      type:"get",
+      data : {screen_id : $("#screen_id").val()},
+      url: "../screen?param=movieDetail",
+      success:function( data ){
+		console.log("selectpeople");
+		console.log(data);
+		
+		// 관람가 + 제목 #movie_info_people
+		$("#movie_info_people").empty();
+		var title = "<span class='ic_grade gr_"+ data.RATED +"'>관람가</span><strong>";
+		title += "&nbsp;<strong>"+data.TITLE+"</strong><br>";	
+		$("#movie_info_people").append(title);
+		
+		// 상영정보 #sub_info_screen
+        $("#sub_info_screen").empty();
+		var screen = data.SCREEN_AT.substr(0,10) ;
+		screen += "&nbsp;"+ data.SCREEN_AT.substr(11);
+		screen += "&nbsp;(" + data.RUNTIME + "분)";
+		title += "<strong>"+data.TITLE+"</strong><br>";	
+		$("#sub_info_screen").append(screen);
+		
+		// 포스터 이미지 #step02_movie_img
+		$("#step02_movie_img").attr("src", data.IMAGE_URL);
 
-			// 관람가 + 제목 #movie_info_people
-			$("#movie_info_people").empty();
-			var title = "<span class='ic_grade gr_'"+ data.RATED +">관람가</span><strong>";
-			title += "<strong>"+data.TITLE+"</strong>";
-			$("#movie_info_people").append(title);
+		// 영화관 #sub_info_cinema
+		$("#sub_info_cinema").text(data.CINEMA.split('-')[1]);
+		
+      },
 
-			// 상영정보 #sub_info_screen
-			$("#sub_info_screen").empty();
-			var screen = data.SCREEN_AT + " / " + data.RUNTIME + "분";
-			title += "<strong>"+data.TITLE+"</strong>";
-			$("#sub_info_screen").append(screen);
+      error:function(){
+         console.log("error");
+      }
+   });
 
-			// 포스터 이미지 #step02_movie_img
-			$("#step02_movie_img").attr("src", data.IMAGE_URL);
-
-			// 영화관 #sub_info_cinema
-			$("#sub_info_cinema").text(data.CINEMA);
-
-		},
-
-		error:function(){
-			console.log("error");
-		}
-	});
 }
 
 
@@ -344,6 +352,7 @@ function goReservation() {
 
 // 날짜 세팅
 function setWeekly() {
+
 	let week = ['일', '월', '화', '수', '목', '금', '토'];
 
 	let today = new Date();
