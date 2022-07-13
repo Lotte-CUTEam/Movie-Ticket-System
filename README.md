@@ -4,7 +4,7 @@
 
 # 0. CUTE CINEMA
 
-![01_logo.png](/images/01_logo.png)
+![01_logo.png](/readme_img/01_logo.png)
 
 롯데 시네마 클론코딩 - JSP를 이용한 영화 예매 기능 프론트엔드&백엔드 클론코딩
 
@@ -25,29 +25,29 @@ Git을 사용해 프로젝트의 형상을 관리를 하고 Github을 통해 팀
     - [https://github.com/Lotte-CUTEam/Movie-Ticket-System](https://github.com/Lotte-CUTEam/Movie-Ticket-System)
 - Default 브랜치인 dev 브랜치로부터 각자 브랜치를 생성해 맡은 기능 구현을 진행했습니다.
 
-![02_branch01.png](/images/02_branch01.png)
+![02_branch01.png](/readme_img/02_branch01.png)
 
-![03_branch02.png](/images/03_branch02.png)
+![03_branch02.png](/readme_img/03_branch02.png)
 
 - Github의 Issue와 Milestone, Project 기능을 사용해 작업 현황을 공유했습니다.
 
-![04_commit.png](/images/04_commit.png)
+![04_commit.png](/readme_img/04_commit.png)
 
-![05_issue.png](/images/05_issue.png)
+![05_issue.png](/readme_img/05_issue.png)
 
-![06_git_project.png](/images/06_git_project.png)
+![06_git_project.png](/readme_img/06_git_project.png)
 
 ## Slack
 
 Slack과 Github을 연동해 원격 브랜치에 업데이트가 발생하면 Slack에서 확인 가능하도록 설정했습니다.
 
-![07_slack_git.png](/images/07_slack_git.png)
+![07_slack_git.png](/readme_img/07_slack_git.png)
 
 ## Notion
 
 Notion을 이용해 협업에 필요한 문서들을 공유했습니다.
 
-![07_notion.png](/images/07_notion.png)
+![07_notion.png](/readme_img/07_notion.png)
 
 # 3. 주요 기능 소개
 
@@ -64,110 +64,110 @@ Notion을 이용해 협업에 필요한 문서들을 공유했습니다.
 
 ### 3.2.1. 메인화면
 
-![08_main01.gif](/images/08_main01.gif)
+![08_main01.gif](/readme_img/08_main01.gif)
 
-![09_main02.png](/images/09_main02.png)
+![09_main02.png](/readme_img/09_main02.png)
 
 ### 3.2.2. 회원가입 및 로그인
 
 - 로그인 전 메뉴
     - `회원가입` `로그인` 메뉴 활성화
 
-    ![10_main_menu01.png](/images/10_main_menu01.png)
+    ![10_main_menu01.png](/readme_img/10_main_menu01.png)
 
 
 - 로그인 후 메뉴
     - `마이페이지` `로그아웃` 메뉴 활성화
 
-    ![11_main_menu02.png](/images/11_main_menu02.png)
+    ![11_main_menu02.png](/readme_img/11_main_menu02.png)
 
 
 - 회원가입 화면
 각 항목별로 유효성 검사 진행
 
-    ![12_regi01.gif](/images/12_regi01.gif)
+    ![12_regi01.gif](/readme_img/12_regi01.gif)
 
     아이디 중복체크
 
     전체 항목 미기입시 회원가입 불가
 
-    ![13_regi02.png](/images/13_regi02.png)
+    ![13_regi02.png](/readme_img/13_regi02.png)
 
 - 로그인 화면
  쿠키에 아이디 저장
 
-    ![14_login.png](/images/14_login.png)
+    ![14_login.png](/readme_img/14_login.png)
 
 
 ### 3.2.3. 영화 목록
 
 - 영화 목록 메뉴
 
-    ![15_main_menu03.png](/images/15_main_menu03.png)
+    ![15_main_menu03.png](/readme_img/15_main_menu03.png)
 
 
 - 영화 목록 화면
     - `모든 영화` `평점 TOP5` `최신순 TOP5` 영화 목록
 
-![16_movie_list01.png](/images/16_movie_list01.png)
+![16_movie_list01.png](/readme_img/16_movie_list01.png)
 
-![17_movie_list02.png](/images/17_movie_list02.png)
+![17_movie_list02.png](/readme_img/17_movie_list02.png)
 
 - 영화 포스터 하단 `페이지 번호` 로 영화 목록 확인
 
-![18_movie_list03.png](/images/18_movie_list03.png)
+![18_movie_list03.png](/readme_img/18_movie_list03.png)
 
-![19_movie_list04.png](/images/19_movie_list04.png)
+![19_movie_list04.png](/readme_img/19_movie_list04.png)
 
 - 영화 검색 화면
     - `제목` `감독` `배우` 로 영화 검색
 
-    ![20_movie_list05.png](/images/20_movie_list05.png)
+    ![20_movie_list05.png](/readme_img/20_movie_list05.png)
 
 
 - 영화 목록 조회 필터
     - `평점순` `최신순` 으로 영화 목록 조회
 
-![21_movie_list06.png](/images/21_movie_list06.png)
+![21_movie_list06.png](/readme_img/21_movie_list06.png)
 
 ### 3.2.4. 영화 소개
 
 - 영화 포스터에서 `상세정보` 클릭 시 영화 소개 페이지로 이동
 
-    ![22_movie_list07.png](/images/22_movie_list07.png)
+    ![22_movie_list07.png](/readme_img/22_movie_list07.png)
 
 
 - 영화 소개 페이지에서 `예매하기` 클릭 시 예매 페이지로 이동
 
-![23_movie_detail.png](/images/23_movie_detail.png)
+![23_movie_detail.png](/readme_img/23_movie_detail.png)
 
 ### 3.2.5. 영화 예매
 
 - `예매` 클릭시 영화 예매 페이지로 이동
 
-![24_reservation01.png](/images/24_reservation01.png)
+![24_reservation01.png](/readme_img/24_reservation01.png)
 
 - `지역`, `영화관`, `영화`, `상영시간` 선택시 인원 선택 화면으로 이동
     - 비동기 통신으로 지역&영화관, 영화 선택에 따른 상영 타임 테이블 정보 조회
 
-![25_reservation02.png](/images/25_reservation02.png)
+![25_reservation02.png](/readme_img/25_reservation02.png)
 
 - 인원 선택 후 결제
     - 인원에 따른 가격 확인 가능
 
-    ![26_reservation03.png](/images/26_reservation03.png)
+    ![26_reservation03.png](/readme_img/26_reservation03.png)
 
 - 결제 후 예약 완료 페이지 이동
     - 예약된 정보 (영화 , 상영, 인원 수 정보) 확인
 
-    ![27_reservation04.png](/images/27_reservation04.png)
+    ![27_reservation04.png](/readme_img/27_reservation04.png)
 
 
 ### 3.2.6. 마이페이지
 
 - 마이 페이지 메뉴
 
-    ![28_mypage01.png](/images/28_mypage01.png)
+    ![28_mypage01.png](/readme_img/28_mypage01.png)
 
 
 - 마이페이지
@@ -175,18 +175,18 @@ Notion을 이용해 협업에 필요한 문서들을 공유했습니다.
     - `상세정보보기` 클릭 시 예매, 취소한 상세 내역 확인
     - `예매하기 Quick Bar` 클릭 시 예매 페이지로 이동
 
-        ![29_mypage02.png](/images/29_mypage02.png)
+        ![29_mypage02.png](/readme_img/29_mypage02.png)
 
 - 예매 상세 내역 페이지
     - `결제내역` 클릭 시 마이페이지로 이동해 모든 예매정보 확인
     - 예매 내역
 
-        ![30_mypage_detail01.png](/images/30_mypage_detail01.png)
+        ![30_mypage_detail01.png](/readme_img/30_mypage_detail01.png)
 
 
     - 취소 내역
 
-        ![31_mypage_detail02.png](/images/31_mypage_detail02.png)
+        ![31_mypage_detail02.png](/readme_img/31_mypage_detail02.png)
 
 
 # 4. 제작과정
@@ -253,11 +253,11 @@ Notion을 이용해 협업에 필요한 문서들을 공유했습니다.
     - 주소 : [https://github.com/Lotte-CUTEam/Movie-Ticket-System](https://github.com/Lotte-CUTEam/Movie-Ticket-System)
 - 팀 회의를 통해 Github 사용방법을 정의
 
-![32_github.png](/images/32_github.png)
+![32_github.png](/readme_img/32_github.png)
 
 Github Organization의 Repository를 활용한 모습
 
-![33_notion.png](/images/33_notion.png)
+![33_notion.png](/readme_img/33_notion.png)
 
 협의를 통해 git convention 정의
 
@@ -265,11 +265,11 @@ Github Organization의 Repository를 활용한 모습
 
 파일 제작 시 수정사항을 위하여 파일명, 주석, 코드스타일을 정의하고 사용했다.
 
-![34_convention.png](/images/34_convention.png)
+![34_convention.png](/readme_img/34_convention.png)
 
 ### 4.2.3. ****Entity Relationship Diagram****
 
-![35_erd.png](/images/35_erd.png)
+![35_erd.png](/readme_img/35_erd.png)
 
 ## 4.3.디렉토리 구조
 
@@ -279,4 +279,4 @@ Github Organization의 Repository를 활용한 모습
 
 백엔드 파트의 경우 기능별로 디렉토리를 구분했다.
 
-![36_directory.png](/images/36_directory.png)
+![36_directory.png](/readme_img/36_directory.png)
