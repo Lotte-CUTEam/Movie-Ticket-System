@@ -267,31 +267,14 @@ if (mem == null) {
                   
                   
                   <div class="tab_con ty5">
-                     <div id="notice" style="font-size:16px; padding: 50px; margin:10px; display: block; text-align:center;"><span>해당하는 날짜에 상영하는 영화가 없습니다.<br>다른 날짜를 선택해주세요.</span></div>
+                     <div id="notice" style="font-size:16px; padding: 50px; margin:10px; display: block; text-align:center; display:none;">
+                     	<span>해당하는 날짜에 상영하는 영화가 없습니다.<br>다른 날짜를 선택해주세요.</span>
+                     </div>
                   
                      <div id="time_container" class="mCSB_container" style="position:relative; top:0; left:30px;">
                         
-                        <!-- 영화 정보 (1) -->
-                        <div class="group_time_select" id="screen_element">
-                           <input type='hidden' value=2>
-                           <div class="time_select_tit" id="movie_name">
-                                 <span class="ic_grade gr_12">12</span><strong>탑건: 매버릭</strong>
-                           </div>
-                           <div class="time_select_wrap timeSelect">
-                           <ul class="list_time" id="screen_list">
-                              <li class="temp_left">
-                                 <a role="button" href="#none" class="screen_time"onclick="goReservation()">12:05</a>
-                              </li>
-                              <li class="temp_left">
-                                 <a role="button" href="#none" class="screen_time"onclick="goReservation()">16:05</a>
-                              </li>
-                           </ul>
-                           </div>
-                           
-
-                        </div>
-                        
-                       <div class="group_time_select">
+                        <!-- 영화 정보 (1) -->                     
+<!--                        <div class="group_time_select">
                            <input type='hidden' value=1>
                            <div class="time_select_tit">
                                  <span class="ic_grade gr_12">12</span><strong>토르 러브 앤 썬더</strong>
@@ -308,8 +291,8 @@ if (mem == null) {
                                  </a>
                               </li>
                            </ul>
-                     </div>
-                        </div>
+                   		  </div>
+                        </div> -->
                      </div>
                   </div>
                   
