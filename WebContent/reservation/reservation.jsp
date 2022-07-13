@@ -88,7 +88,6 @@ if (mem == null) {
    </script>
 <%
 } --%>
-%>
 
 <body>
 <%-- <%@include file = "/header.jsp" %> --%>
