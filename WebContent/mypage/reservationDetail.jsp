@@ -119,7 +119,7 @@ div#contents::before {
 							<%
 							    String cancelStr = "";
 							    if(resvDto.getStatus() == 1) {
-							        cancelStr = resvDto.getDeleteddAt()+"취소완료";
+							        cancelStr = "취소완료";
 							    } else if(resvDto.getScreenAt().minusMinutes(20).isAfter(
 					                    LocalDateTime.now())
 							            ){
@@ -161,18 +161,23 @@ div#contents::before {
 							</table>
 							<table>
 							<tr>
-								<th><%=cancelStr %></th>
+								
 								<%
 									if(cancelStr.equals("취소완료")) {
 									    %>
-									    <td style="color: red;"><%=resvDto.getDeleteddAt() %></td>
+									    <th>취소일시 :</th>
+									    <td style="color: red;"><%=resvDto.getDeleteddAt().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH:SS")) %></td>
 									    <%
 									} else if(cancelStr.equals("취소가능")) {
 									    %>
+									    <th><%=cancelStr %></th>
 									    <td><button type="button" onclick="btnFunc('<%=resvDto.getReservationId()%>')">취소하기</button></td>
 									    <%
 									} else {
-									    %><td></td><%
+									    %>
+									    <th><%=cancelStr %></th>
+									    <td></td>
+									    <%
 									}
 								%>
 							</tr>
