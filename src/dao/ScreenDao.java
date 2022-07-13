@@ -260,11 +260,11 @@ public class ScreenDao {
             inputDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         }
 
-        if (inputDate.length() != 8) {
-            inputDate = inputDate.replace("-", "");
-        }
+//        if (inputDate.length() != 8) {
+//            inputDate = inputDate.replace("-", "");
+//        }
 
-        // whereConditionWord += " and DATE_FORMAT(screen_at, '%Y%m%d') = " + inputDate + "\n";
+         whereConditionWord += " and screen_at LIKE '" + inputDate + "%' ";
 
         String sql = " SELECT s.screen_id, s.movie_id, s.screen_at, s.cinema, "
                 + "        m.movie_id, m.title, m.director, m.actor, m.opening_date, m.rating, m.runtime, m.image_url, m.genre, m.rated  "

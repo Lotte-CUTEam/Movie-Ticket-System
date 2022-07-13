@@ -392,7 +392,7 @@ function setWeekly() {
       htmlTxt += "<div class='owl-item' style='width:52.5px; float:left;'>";
       htmlTxt += "<span class = 'date'>";
       htmlTxt += "<label>";
-	  htmlTxt += "<input type='radio' name='radioDate1' value='"+ inputdate + "'  onclick='setDate(this)'>";
+	  htmlTxt += "<input class='inputdate_input' type='radio' name='radioDate1' value='"+ inputdate + "'  onclick='setDate(this)'>";
       htmlTxt += "<strong>"+ date + "</strong>";
       htmlTxt += "<em>" + week[(day+i)%7] + "</em>";
       htmlTxt += "</label>";
@@ -405,6 +405,10 @@ function setWeekly() {
       
       date++;
    }
+
+	 let firstDate = $(".inputdate_input").val();
+		$("#input_date").val(firstDate);
+
 };
 
 
