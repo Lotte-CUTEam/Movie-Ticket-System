@@ -64,6 +64,13 @@
 .bx_tit {
    width:250px;
 }
+
+.radio_checked {
+	font-weight: bold;
+    color: #fff;
+    background: #000;
+}
+
 </style>   
 </head>
 
@@ -270,6 +277,7 @@ if (mem == null) {
                      <div id="notice" style="font-size:16px; padding: 50px; margin:10px; display: block; text-align:center; display:none;">
                      	<span>해당하는 날짜에 상영하는 영화가 없습니다.<br>다른 날짜를 선택해주세요.</span>
                      </div>
+                     <div class="bx_notice"><p>조회 가능한 상영시간이 없습니다.</p><p>조건을 변경해주세요.</p></div>
                   
                      <div id="time_container" class="mCSB_container" style="position:relative; top:0; left:30px;">
                         
@@ -325,11 +333,11 @@ if (mem == null) {
                               </strong>
                            </div>
                            <dl>
-                              <dt>일시</dt>
+                              <dt style='font-size:14px;'>일시</dt>
                               <dd class="sub_info1" id="sub_info_screen">
                                  22.07.11<em>(월)</em><span class="time">14:00 ~ 16:20</span>
                               </dd>
-                              <dt>영화관</dt>
+                              <dt style='font-size:14px;'>영화관</dt>
                               <dd class="sub_info1" id="sub_info_cinema">가산디지털</dd>
                            </dl>
                         </div>
@@ -388,7 +396,43 @@ if (mem == null) {
          <!-- STEP 04. 극장, 영화, 상영 시간 선택 --> 
           <div id="reserveStep04" class="section_step_con step04"></div>
           
-        <%@include file = "/footer.jsp" %> 
+        <footer id="footer">
+		<div id="footer_sns">
+			<div class="container">
+				<div class="footer_sns">
+					<ul class="clearfix">
+						<li class="icon s1"><a href="#" class="h_m"><span class="ir_pm">트위터</span></a></li>
+						<li class="icon s2"><a href="#" class="h_m"><span class="ir_pm">페이스북</span></a></li>
+						<li class="icon s3"><a href="#" class="h_m"><span class="ir_pm">인스타그램</span></a></li>
+						<li class="icon s4"><a href="#" class="h_m"><span class="ir_pm">구글 플레이</span></a></li>
+						<li class="icon s5"><a href="#" class="h_m"><span class="ir_pm">아이폰 앱스토어</span></a></li>
+					</ul>
+					<div class="tel">
+						<a href="https://github.com/Lotte-CUTEam/Movie-Ticket-System" class="h_m">go to <em>CUTEam Git</em><br></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer_infor">
+			<div class="container">
+				<div class="row">
+					<div class="footer_infor">
+						<h2 style="margin-bottom: 20px;">
+							<img src="../assets/img/logo-footer.png" alt="lotte" class="logo">
+						</h2>
+						<address>
+							<p class="desc">
+								서울 서초구 서초대로74길 33, 비트교육센터 3층<br> <span class="bar2">정은우</span>
+								이충현 안채영 권나연 장혜원 이성은<br> <span class="bar2">롯데e커머스</span>
+								CUTEam
+							</p>
+							<p class="desc">Copyright 2022 by Lotte CUTEam All right reserved</p>
+						</address>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
    </div> 
    
 </div>

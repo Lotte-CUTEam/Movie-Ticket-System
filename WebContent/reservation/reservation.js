@@ -14,6 +14,9 @@ $(document).ready(function() {
 	domready();
 	addEventListener();
 	setWeekly();
+	
+	//$("#time_container").empty();
+	
 
 });
 
@@ -214,7 +217,6 @@ function setScreen() {
   
 		} else {
 			console.log("Empty");
-			//$("#notice").css("display", "block");
 			document.getElementById("notice").style.display = 'block';
 		}
 
@@ -249,32 +251,35 @@ const getTimeHtml = (screen_id, time) => {
 
 
 // 인원 선택 화면 세팅
-const selectPeople = () => {
+function selectPeople(){
 	
 	$.ajax({
       type:"get",
       data : {screen_id : $("#screen_id").val()},
       url: "../screen?param=movieDetail",
       success:function( data ){
+		console.log("selectpeople");
 		console.log(data);
 		
 		// 관람가 + 제목 #movie_info_people
 		$("#movie_info_people").empty();
-		var title = "<span class='ic_grade gr_'"+ data.RATED +">관람가</span><strong>";
-		title += "<strong>"+data.TITLE+"</strong>";	
+		var title = "<span class='ic_grade gr_"+ data.RATED +"'>관람가</span><strong>";
+		title += "&nbsp;<strong>"+data.TITLE+"</strong><br>";	
 		$("#movie_info_people").append(title);
 		
 		// 상영정보 #sub_info_screen
         $("#sub_info_screen").empty();
-		var screen = data.SCREEN_AT + " / " + data.RUNTIME + "분";
-		title += "<strong>"+data.TITLE+"</strong>";	
+		var screen = data.SCREEN_AT.substr(0,10) ;
+		screen += "&nbsp;"+ data.SCREEN_AT.substr(11);
+		screen += "&nbsp;(" + data.RUNTIME + "분)";
+		title += "<strong>"+data.TITLE+"</strong><br>";	
 		$("#sub_info_screen").append(screen);
 		
 		// 포스터 이미지 #step02_movie_img
 		$("#step02_movie_img").attr("src", data.IMAGE_URL);
 
 		// 영화관 #sub_info_cinema
-		$("#sub_info_cinema").text(data.CINEMA);
+		$("#sub_info_cinema").text(data.CINEMA.split('-')[1]);
 		
       },
 
@@ -392,7 +397,7 @@ function setWeekly() {
       htmlTxt += "<div class='owl-item' style='width:52.5px; float:left;'>";
       htmlTxt += "<span class = 'date'>";
       htmlTxt += "<label>";
-	  htmlTxt += "<input type='radio' name='radioDate1' value='"+ inputdate + "'  onclick='setDate(this)'>";
+	  htmlTxt += "<input type='radio' class= 'radio_checked' name='radioDate1' value='"+ inputdate + "'  onclick='setDate(this)'>";
       htmlTxt += "<strong>"+ date + "</strong>";
       htmlTxt += "<em>" + week[(day+i)%7] + "</em>";
       htmlTxt += "</label>";

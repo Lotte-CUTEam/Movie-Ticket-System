@@ -53,32 +53,22 @@ public class ScreenController extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         String param = req.getParameter("param");
 
-        /*
-         * if (param.equals("cinema")) { // 영화관 리스트 List<String> cinemaList =
-         * screenDao.getCinemaList(); req.setAttribute("cinemaList", cinemaList);
-         * 
-         * forward("reservation/reservation.jsp", req, resp);
-         * 
-         * } else
-         */
 
         if (param.equals("movie")) {
             String cinema = req.getParameter("cinema");
             List<MovieScreenDto> dto = screenDao.getMovieScreenList(cinema);
 
-            // 영화 리스트
-            // List<MovieDto> movies = movieDao.getMovies("", "", 0, "");
             sendMovieScreenList(dto, resp);
 
         } else if (param.equals("movieDetail")) {
             // send movie
             String screenId = req.getParameter("screen_id");
-            long screen_id = 1;
-            if (!(screenId == null || screenId.equals(""))) {
-                screen_id = Long.parseLong(screenId);
+            long id = 0;
+            if (screenId != null && !(screenId.equals(""))) {
+                id = Long.parseLong(screenId);
             }
 
-            MovieScreenDto movieScreen = screenDao.getMovieScreenDto(screen_id);
+            MovieScreenDto movieScreen = screenDao.getMovieScreenDto(id);
             sendMovieScreen(movieScreen, resp);
 
         } else if (param.equals("cinema")) {
@@ -110,9 +100,9 @@ public class ScreenController extends HttpServlet {
 
 
     /**
-     * 영화 리스트
+     * 영화 상영 디테일 정보
      * 
-     * @param movieScreenList
+     * @param MovieScreenDto
      * @param resp
      * @throws ServletException
      * @throws IOException
@@ -120,7 +110,6 @@ public class ScreenController extends HttpServlet {
     protected void sendMovieScreen(MovieScreenDto movieScreen, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        // JSONArray jsonArr = new JSONArray();
         JSONObject obj = new JSONObject();
 
         obj.put("MOVIE_ID", movieScreen.getMovieDto().getMovieId());
@@ -132,16 +121,24 @@ public class ScreenController extends HttpServlet {
 
         obj.put("SCREEN_ID", movieScreen.getScreenDto().getScreenId());
         obj.put("CINEMA", movieScreen.getScreenDto().getCinema());
-        obj.put("SCREEN_AT", movieScreen.getScreenDto().getScreenAt());
-
+        obj.put("SCREEN_AT", movieScreen.getScreenDto().getScreenAt().toString());
 
         System.out.println("moviedetail :" + movieScreen.getMovieDto().getTitle());
+        System.out.println(obj.toString());
         resp.setContentType("application/x-json; charset=utf-8");
         resp.getWriter().print(obj);
 
     }
 
 
+    /**
+     * 영화 정보 리스트 (제목+관람가)
+     * 
+     * @param movieList
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void sendMovieList(List<MovieDto> movieList, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -164,6 +161,14 @@ public class ScreenController extends HttpServlet {
 
     }
 
+    /**
+     * 영화관 리스트
+     * 
+     * @param cinemaList
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void sendCinemaList(List<String> cinemaList, HttpServletResponse resp)
             throws ServletException, IOException {
 
