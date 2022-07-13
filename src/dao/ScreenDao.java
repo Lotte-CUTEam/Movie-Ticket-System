@@ -97,13 +97,6 @@ public class ScreenDao {
             location = "서울";
         }
 
-        String sql = "select  SUBSTRING_INDEX(cinema, '-', -1) AS LOCATION from SCREEN \n"
-                + "where  SUBSTRING_INDEX(cinema, '-', 1) = '" + location.trim() + "' \n"
-                + "GROUP BY SUBSTRING_INDEX(cinema, '-', -1)\n"
-                + "ORDER BY SUBSTRING_INDEX(cinema, '-', -1);";
-
-
-
         String sql = " SELECT cinema  FROM SCREEN "
                     + " WHERE cinema LIKE '%" + location + "%' GROUP BY cinema ";
 
