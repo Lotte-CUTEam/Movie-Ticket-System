@@ -13,7 +13,7 @@
 | 팀원 | 권나연 | 안채영 | 이성은 | 이충현 | 장혜원 | 정은우 |
 | --- | --- | --- | --- | --- | --- | --- |
 | 맡은 작업 | 영화 목록페이지 기능 구현, RDS 연동 | 영화 상세페이지 기능 구현, 예약완료 페이지 기능 구현, ERD 제작 | 메인페이지, 공통 화면 소스(header, footer, etc), 로고 | 로그인, 회원가입 기능 구현, Slack과 Github 연동, DB관리 | 예약기능 및 페이지 구현및 DB 데이터 관리 | 마이페이지(예약목록, 예약확인, 예약취소)기능 구현 |
-| 깃 주소 | https://github.com/hellonayeon/movie-ticket | https://github.com/hellochaeyoung | https://github.com/lse99 | https://github.com/chungchung234 | https://github.com/IMHYEWON | https://github.com/juneu1509 |
+| 깃 주소 | [hellonayeon](https://github.com/hellonayeon/movie-ticket) | [hellochaeyoung](https://github.com/hellochaeyoung) | [lse99](https://github.com/lse99) | [chungchung234](https://github.com/chungchung234) | [IMHYEWON](https://github.com/IMHYEWON) | [juneu1509](https://github.com/juneu1509) |
 
 # 2. 팀 협업 방식
 
