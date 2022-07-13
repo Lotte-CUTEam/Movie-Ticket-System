@@ -277,8 +277,7 @@ if (mem == null) {
                      <div id="notice" style="font-size:16px; padding: 50px; margin:10px; display: block; text-align:center; display:none;">
                      	<span>해당하는 날짜에 상영하는 영화가 없습니다.<br>다른 날짜를 선택해주세요.</span>
                      </div>
-                     <div class="bx_notice"><p>조회 가능한 상영시간이 없습니다.</p><p>조건을 변경해주세요.</p></div>
-                  
+
                      <div id="time_container" class="mCSB_container" style="position:relative; top:0; left:30px;">
                         
                         <!-- 영화 정보 (1) -->                     
